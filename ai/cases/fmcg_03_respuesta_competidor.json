@@ -1,0 +1,26 @@
+{
+  "id": "fmcg_03",
+  "industry": "FMCG",
+  "company": "Backus — Cerveza Cristal",
+  "case_type": "Respuesta competitiva",
+  "title": "Entrada de una marca importada premium en Lima",
+  "duration_minutes": 20,
+  "context": "Eres practicante del equipo de marca Cristal en Backus (AB InBev). Una cerveza premium colombiana, **Águila Light**, acaba de entrar al mercado peruano con una inversión publicitaria de **S/ 8 millones** en los primeros 6 meses y un precio 15% por debajo del segmento premium (Cusqueña, Corona). En las primeras 8 semanas ha capturado 2.3% del volumen del canal moderno (supermercados) en Lima. El brand manager de Cristal está preocupado porque Águila podría 'bajar' a competir con Cristal en el canal tradicional.",
+  "prompt": "En 3 minutos: ¿qué le recomiendas al brand manager de Cristal? Dale la respuesta con un principio claro, dos tácticas y una línea de qué NO hacer.",
+  "exhibits": [
+    {
+      "title": "Share de mercado cervezas Lima (volumen, oct 2026)",
+      "content": "| Marca | Segmento | Share total | Share canal tradicional |\n|---|---|---|---|\n| Cristal | Mainstream | 42% | 54% |\n| Pilsen Callao | Mainstream | 18% | 22% |\n| Cusqueña | Premium | 11% | 6% |\n| Corona | Premium | 6% | 3% |\n| Pilsen Trujillo | Regional | 8% | 8% |\n| Águila Light | Premium | 2.3% | 0.1% |\n| Resto | — | 12.7% | 6.9% |"
+    },
+    {
+      "title": "Precios al consumidor (botella 330 ml)",
+      "content": "| Marca | Supermercado | Bodega |\n|---|---|---|\n| Cristal | S/ 4.50 | S/ 4.80 |\n| Pilsen Callao | S/ 4.30 | S/ 4.60 |\n| Cusqueña Dorada | S/ 6.50 | S/ 7.00 |\n| Corona | S/ 7.00 | S/ 7.80 |\n| Águila Light | S/ 5.50 | — (no presente) |"
+    },
+    {
+      "title": "Insights",
+      "content": "- Cristal es el líder absoluto del canal tradicional (bodegas, bodegones, licorerías de barrio) con 54% de share.\n- Águila invirtió fuerte en influencers de nicho (fitness, 'premium accesible').\n- Consumidores en NSE B+ comentan 'Águila se siente moderna'.\n- Costo de producción Cristal: S/ 1.80/botella. Precio mayorista a bodega: S/ 3.80. Margen: S/ 2.00."
+    }
+  ],
+  "temas_evaluados": ["Respuesta competitiva", "Defensa de core business", "Segmentación canal", "Pricing competitivo", "Disciplina de marketing"],
+  "pista_respuesta_modelo": "Principio: NO defender Cristal desde Cristal; defenderla desde Cusqueña. Águila amenaza al premium, no al mainstream; si Cristal baja precio o se vuelve 'moderna', deja un hueco al mainstream. Tácticas: (1) activar Cusqueña Dorada con campaña 'premium peruana' con mayor inversión en moderno; (2) fortalecer distribución de Cristal en canal tradicional con combos y visibilidad — bloquear la bajada de Águila a bodega. Qué NO hacer: NO bajar precio de Cristal — erosiona S/ 2.00 de margen sobre 42% del mercado."
+}

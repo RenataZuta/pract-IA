@@ -1,0 +1,48 @@
+{
+  "industry": "FMCG",
+  "descripcion": "Rúbrica para group cases de Alicorp, Belcorp, Backus, P&G, Unilever, Nestlé, Kimberly. Basada en entrevistas, reportes públicos de Glassdoor sobre sus assessment centers y literatura de marketing (4Ps, Kotler, segmentación).",
+  "criterios": [
+    {
+      "nombre": "Framework de marketing",
+      "peso": 0.20,
+      "descripcion": "¿Usa 4Ps, 3Cs, STP (segmentation-targeting-positioning), o árbol de drivers? ¿Elige el framework que se ajusta al problema, no el genérico?",
+      "ejemplos_alto": "Antes de responder si lanzamos el nuevo SKU, voy a estructurar por: (1) demanda del segmento objetivo, (2) canibalización del portafolio actual, (3) capacidad de la fuerza de ventas en canal tradicional.",
+      "ejemplos_bajo": "Aplicaría las 4Ps: producto, precio, plaza, promoción."
+    },
+    {
+      "nombre": "Consumer insight",
+      "peso": 0.20,
+      "descripcion": "¿Muestra que entiende al consumidor peruano? ¿Habla de amas de casa de NSE C/D, bodegueros, canal tradicional vs moderno, ocasiones de consumo?",
+      "ejemplos_alto": "El consumidor NSE C/D compra en bodega con ticket promedio de S/ 8–12; una presentación de S/ 2 funciona mejor que una de S/ 5 aunque el precio por gramo sea peor.",
+      "ejemplos_bajo": "El consumidor quiere calidad a buen precio."
+    },
+    {
+      "nombre": "Uso de números",
+      "peso": 0.20,
+      "descripcion": "¿Estima market size? ¿Calcula share, penetración, frecuencia de compra, margen? ¿Usa anexos de Nielsen / Kantar si están?",
+      "ejemplos_alto": "Si el mercado de detergentes en Lima es ~50M soles/mes, y asumimos un share realista de 5% en año 1, son 2.5M/mes — cubre el BEP de S/ 1.8M según el Anexo 3.",
+      "ejemplos_bajo": "El mercado es grande, hay oportunidad."
+    },
+    {
+      "nombre": "Estrategia de canal",
+      "peso": 0.15,
+      "descripcion": "¿Distingue canal moderno (supermercados) vs tradicional (bodegas, mercados) vs cash&carry (Makro, Mayorsa)? ¿Propone priorización?",
+      "ejemplos_alto": "Entraría primero por tradicional (80% del volumen en esa categoría), con empaque SKU bajo, y después escalaría a moderno con SKU premium.",
+      "ejemplos_bajo": "Habría que vender en todos los canales."
+    },
+    {
+      "nombre": "Recomendación accionable",
+      "peso": 0.15,
+      "descripcion": "¿Cierra con qué hacer, cuándo, cuánto invertir, cómo medir éxito?",
+      "ejemplos_alto": "Lanzar en abril, con inversión ATL de S/ 500K Q1-Q2, medir con share nielsen mes 3 y 6; umbral de 3% para escalar.",
+      "ejemplos_bajo": "Lanzar el producto."
+    },
+    {
+      "nombre": "Comunicación y tiempo",
+      "peso": 0.10,
+      "descripcion": "Energía, estructura, no más de 1-2 muletillas por minuto, cierra en tiempo.",
+      "ejemplos_alto": "Headline arriba, tres bullets abajo, next steps al final. 3 min netos.",
+      "ejemplos_bajo": "No cerró."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "fmcg_04",
+  "industry": "FMCG",
+  "company": "Nestlé Perú — Chocolates",
+  "case_type": "Decisión de precio",
+  "title": "Subir o no el precio de Sublime 32g",
+  "duration_minutes": 20,
+  "context": "Eres practicante en el equipo comercial de Nestlé Perú. El costo de cacao subió 38% en 2026 por una mala cosecha en África Occidental. El brand de **Sublime 32g** (precio al consumidor S/ 1.50 en bodega) tiene un margen que cayó de 28% a 18% en el año. El brand manager propone subir el precio a **S/ 1.70** (+13%) para recuperar margen. Marketing dice que la elasticidad precio es -1.2 (por cada 1% de subida, se pierde 1.2% de volumen). Trade dice que las bodegas 'van a sacar la marca' si pasa de S/ 1.70.",
+  "prompt": "En 3 minutos: ¿subir o no? Si subes, ¿a cuánto y cómo defiendes el volumen? Si no, ¿cómo recuperas margen por otro lado?",
+  "exhibits": [
+    {
+      "title": "Economics por unidad Sublime 32g",
+      "content": "| Concepto | Antes | Hoy | Post-subida (S/ 1.70) |\n|---|---|---|---|\n| Precio al consumidor | S/ 1.50 | S/ 1.50 | S/ 1.70 |\n| Precio mayorista a bodega | S/ 1.00 | S/ 1.00 | S/ 1.15 |\n| Costo variable | S/ 0.72 | S/ 0.82 | S/ 0.82 |\n| Margen bruto por unidad | S/ 0.28 | S/ 0.18 | S/ 0.33 |\n| % margen | 28% | 18% | 29% |\n| Volumen mensual (M unidades) | 9.0 | 9.0 | 7.6 (elasticidad) |\n| **Margen total mensual (S/ M)** | **2.52** | **1.62** | **2.51** |"
+    },
+    {
+      "title": "Competencia",
+      "content": "| Marca | Precio bodega (32g aprox) | Share segmento |\n|---|---|---|\n| Sublime (Nestlé) | S/ 1.50 | 38% |\n| Triángulo (Nestlé) | S/ 1.50 | 12% |\n| Princesa (Field) | S/ 1.40 | 18% |\n| Costa (D'Onofrio) | S/ 1.60 | 16% |\n| Importados (Mars, Hershey) | S/ 2.50+ | 10% |\n| Resto | — | 6% |"
+    },
+    {
+      "title": "Insights",
+      "content": "- Sublime es la barra de chocolate #1 del Perú por volumen y por brand equity.\n- Precio psicológico en bodega: S/ 1.50 es moneda; S/ 1.70 requiere vuelto.\n- Riesgo canal: bodegueros ponen el chocolate caro al fondo del mostrador.\n- Alternativa: reducir gramaje a 28g manteniendo S/ 1.50 ('shrinkflation')."
+    }
+  ],
+  "temas_evaluados": ["Elasticidad precio", "Pricing estratégico", "Brand equity", "Trade de canal", "Shrinkflation"],
+  "pista_respuesta_modelo": "No subir a S/ 1.70. Mejor opción: reducir gramaje a 28g manteniendo S/ 1.50 (−12% gramaje = +6pp margen sin tocar precio; históricamente la elasticidad al gramaje es menor que al precio). Contraparte: comunicar con responsabilidad en empaque. Métrica: % de volumen retenido al mes 3 vs baseline (target >95%). Riesgo: criticismo en redes; mitigante: no hacerlo con la marca premium (Costa)."
+}

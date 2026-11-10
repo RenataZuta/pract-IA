@@ -1,0 +1,53 @@
+# Secretos
+.env
+.env.local
+*.key
+*.pem
+secrets.json
+credentials.json
+
+# Audio y data cruda (entrevistas privadas)
+data/audios/
+data/raw/
+*.wav
+*.mp3
+*.m4a
+*.ogg
+*.webm
+
+# Entorno
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/
+*.egg-info/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Logs
+*.log
+logs/
+
+# ChromaDB
+chroma_db/
+.chroma/

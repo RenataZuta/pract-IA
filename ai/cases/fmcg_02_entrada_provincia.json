@@ -1,0 +1,26 @@
+{
+  "id": "fmcg_02",
+  "industry": "FMCG",
+  "company": "Belcorp — División Esika",
+  "case_type": "Expansión geográfica",
+  "title": "Aumentar la penetración en Arequipa y Trujillo",
+  "duration_minutes": 20,
+  "context": "Eres practicante de Trade Marketing en Belcorp. La línea **Esika** tiene una red de 35,000 consultoras activas en Perú; Lima representa el 55% del volumen. El VP comercial quiere **duplicar la base de consultoras en Arequipa (de 2,800 a 5,600) y Trujillo (de 2,200 a 4,400) en 12 meses**, con una inversión incremental de **S/ 1.8 millones** entre captación, entrenamiento y herramientas digitales.",
+  "prompt": "En 3 minutos, dale al VP: (1) una recomendación sí/no, (2) los dos cuellos de botella más riesgosos y cómo los atacarías, (3) un KPI para medir el progreso trimestral.",
+  "exhibits": [
+    {
+      "title": "Economics por consultora",
+      "content": "| Métrica | Lima | Arequipa | Trujillo |\n|---|---|---|---|\n| Pedido promedio por campaña | S/ 240 | S/ 190 | S/ 180 |\n| Campañas activas/año | 14 | 11 | 10 |\n| Ingreso/consultora/año | S/ 3,360 | S/ 2,090 | S/ 1,800 |\n| Margen comercial Belcorp | 42% | 42% | 42% |\n| Costo de adquisición por consultora | S/ 85 | S/ 140 | S/ 160 |\n| Churn anual | 32% | 48% | 51% |"
+    },
+    {
+      "title": "Diagnóstico de la fuerza de ventas",
+      "content": "- El 60% de las consultoras en provincia abandonan antes del 6to mes.\n- Las top-10% de consultoras hacen el 48% del volumen (Pareto).\n- La competencia Natura y Yanbal tiene 40% más consultoras en Arequipa.\n- Programa de incentivos actual: viaje a Cusco para el top 1% — poco relevante para arequipeñas y trujillanas."
+    },
+    {
+      "title": "Dinámica digital",
+      "content": "- Belcorp App: 78% de pedidos entran por app en Lima, 34% en Arequipa, 28% en Trujillo.\n- WhatsApp Business: canal #1 de captación en provincia según piloto Q2 (CAC S/ 60 vs S/ 140 tradicional).\n- Capacitación digital: solo 18% de consultoras en provincia completó el onboarding virtual."
+    }
+  ],
+  "temas_evaluados": ["Economics de canal de venta directa", "Churn", "Trade marketing regional", "Digital adoption", "Competencia local"],
+  "pista_respuesta_modelo": "Sí, con pivote. Duplicar sin atacar el churn del 50% es tirar S/ 900K. Dos cuellos: (1) churn, atacarlo con mentoras locales y rediseño del programa de incentivos (dinero o producto, no viajes); (2) adopción digital, migrar captación a WhatsApp Business (CAC 60 vs 140). KPI trimestral: consultoras activas al mes 6 vs reclutadas en el trimestre (target >55%)."
+}

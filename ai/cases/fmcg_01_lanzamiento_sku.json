@@ -1,0 +1,26 @@
+{
+  "id": "fmcg_01",
+  "industry": "FMCG",
+  "company": "Alicorp — División Consumo Masivo",
+  "case_type": "Lanzamiento de SKU",
+  "title": "Nuevo tamaño para aceite Primor",
+  "duration_minutes": 25,
+  "context": "Eres practicante en el equipo de Brand de la categoría Aceites de Alicorp. El brand manager de **Primor** evalúa lanzar un **formato pequeño de 250 ml** (hoy los formatos son 1L y 450 ml) para competir en el canal bodega con marcas B-brand que ganan share entre consumidores de NSE C/D con ticket chico. La inversión en línea de llenado y moldes es de **S/ 2.5 millones** y el break-even requiere vender **4 millones de unidades/año**.",
+  "prompt": "En 3 minutos: ¿lanzarías el 250 ml? Dale al brand manager tu recomendación con tres argumentos y una métrica para decidir si sigue o se mata el producto al mes 6.",
+  "exhibits": [
+    {
+      "title": "Dinámica de la categoría aceites (Nielsen YTD 2026)",
+      "content": "| Formato | Share volumen | Share valor | Crecimiento vs 2025 |\n|---|---|---|---|\n| 1L y superior | 55% | 62% | -2% |\n| 450 ml | 28% | 25% | +1% |\n| 250 ml y menor | 17% | 13% | +22% |\n\n- Precio promedio 250 ml en bodega: S/ 3.80\n- Costo variable Primor 250 ml estimado: S/ 2.40\n- Margen contribución: S/ 1.40/unidad (37%)"
+    },
+    {
+      "title": "Competencia en 250 ml",
+      "content": "- **Cocinero** (B-brand local): precio S/ 3.50, share del segmento 42%.\n- **Sao** (Alicorp, marca económica): precio S/ 3.60, share 28%.\n- **Primor 250 ml** (propuesta): precio S/ 3.90, calidad premium.\n- Marcas regionales: share 30%, altamente fragmentado."
+    },
+    {
+      "title": "Insights del research",
+      "content": "- 68% de amas de casa NSE C/D compra formato chico 'cuando no alcanza para el grande'.\n- 54% dice que Primor es 'mejor que las marcas baratas pero no vale pagar tanto más'.\n- Riesgo de canibalización: estimado 25% del volumen del 250 ml vendría de ventas que hoy son del 450 ml de Primor."
+    }
+  ],
+  "temas_evaluados": ["Segmentación por formato", "Canibalización", "Pricing", "Break-even", "Competencia en canal tradicional"],
+  "pista_respuesta_modelo": "Lanzar, condicionado. Tres argumentos: (1) el segmento crece +22% y el 55% ya es Primor+Sao, entrar al 250 ml defiende la categoría; (2) margen de S/ 1.40 × 4M = S/ 5.6M vs BEP S/ 2.5M, buena holgura; (3) sin lanzamiento, Cocinero seguirá capturando el crecimiento. Riesgo: canibalización 25% del 450 ml. Métrica mes 6: share de volumen en 250 ml ≥ 15%, con canibalización real medida ≤ 30%."
+}

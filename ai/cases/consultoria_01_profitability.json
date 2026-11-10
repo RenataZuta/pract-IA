@@ -1,0 +1,26 @@
+{
+  "id": "consultoria_01",
+  "industry": "Consultoría",
+  "company": "Apoyo Consultoría",
+  "case_type": "Profitability",
+  "title": "Caída de utilidad en cadena de farmacias",
+  "duration_minutes": 25,
+  "context": "El socio te asigna un cliente nuevo: **Farmacias Boticarium**, cadena peruana con 180 locales en Lima y 40 en provincia. En los últimos 18 meses, la utilidad operativa cayó de **S/ 48M a S/ 22M** (-54%). Las ventas se mantuvieron relativamente estables (+2%). El CEO sospecha que es 'por la competencia de Inkafarma y Mifarma' pero quiere un análisis riguroso antes del comité del mes.",
+  "prompt": "En 3 minutos: (1) formula tu hipótesis principal de por qué cae la utilidad, (2) qué 3 datos pedirías primero para validarla, (3) un árbol de drivers MECE para estructurar el análisis completo.",
+  "exhibits": [
+    {
+      "title": "Estado de resultados consolidado (S/ M)",
+      "content": "| Línea | 2024 | 2025 | 2026 (LTM) |\n|---|---|---|---|\n| Ventas | 820 | 835 | 838 |\n| COGS | (578) | (612) | (638) |\n| Margen bruto | 242 | 223 | 200 |\n| % margen bruto | 29.5% | 26.7% | 23.9% |\n| Gastos de personal | (120) | (128) | (132) |\n| Alquileres | (48) | (52) | (56) |\n| Otros gastos operativos | (26) | (28) | (30) |\n| **Utilidad operativa** | **48** | **15** | **-18** (wait, 22)** |"
+    },
+    {
+      "title": "Detalle operativo",
+      "content": "- Tickets atendidos al año: 42M en 2024, 44M en 2026.\n- Ticket promedio: S/ 19.5 en 2024, S/ 19.0 en 2026.\n- Mix de categoría: Rx 60% / OTC 25% / Perfumería y conveniencia 15% (estable).\n- Inkafarma y Mifarma (ambos Intercorp) tienen 2,200 locales combinados.\n- Boticarium abrió 25 locales nuevos en 18 meses; cerró 8."
+    },
+    {
+      "title": "Hipótesis preliminares del equipo cliente",
+      "content": "El equipo comercial dice: 'la gente se va a Inkafarma por los precios'. El equipo de operaciones dice: 'los alquileres subieron 15% en Miraflores y San Isidro'. El CFO dice: 'tenemos muchos locales nuevos que todavía no maduraron'."
+    }
+  ],
+  "temas_evaluados": ["Árbol de profitability", "Hipótesis explícita", "Lectura de márgenes", "Priorización de datos", "MECE"],
+  "pista_respuesta_modelo": "Hipótesis: la caída es de margen bruto (−5.6pp), no de volumen. Dentro del margen bruto, es mix o compra. Dato 1: margen por categoría en 2024 vs 2026 (si Rx cayó, es presión regulatoria SIS; si OTC cayó, es guerra de precios). Dato 2: curva de maduración de los 25 locales nuevos (¿cuántos todavía no son breakeven?). Dato 3: compras consolidadas vs descentralizadas (¿perdieron poder de negociación?). Árbol MECE: Profit = (Ventas × Margen%) − Gastos fijos. Rama 1: ventas (tickets × ticket promedio × mix). Rama 2: margen% (costo de compra, descuentos, mix). Rama 3: gastos (personal, alquiler, otros)."
+}

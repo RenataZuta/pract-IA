@@ -1,0 +1,41 @@
+{
+  "industry": "Banca",
+  "descripcion": "Rúbrica para group cases de programas trainee de BCP, Interbank, Credicorp Capital, BBVA, Scotiabank. Basada en entrevistas con analistas junior de estas firmas y revisión de procesos públicos (Glassdoor, Indeed, blog BCP).",
+  "criterios": [
+    {
+      "nombre": "Estructura del análisis",
+      "peso": 0.25,
+      "descripcion": "¿El candidato organiza la respuesta con un framework claro? (profitability, risk-return, 5Cs del crédito, árbol de causas). ¿Es MECE?",
+      "ejemplos_alto": "Antes de decidir si aprobamos el crédito, voy a revisar tres cosas: capacidad de pago (flujo), carácter (historial), y colateral. Dentro de capacidad veré ratios de cobertura.",
+      "ejemplos_bajo": "Habría que ver si la empresa es rentable y si puede pagar."
+    },
+    {
+      "nombre": "Uso de números y anexos",
+      "peso": 0.25,
+      "descripcion": "¿Cita cifras de los anexos? ¿Calcula ratios (EBITDA/deuda, ROE, cobertura)? ¿Hace sensibilidad?",
+      "ejemplos_alto": "El EBITDA del Anexo 2 es S/ 1.2M, con deuda financiera de S/ 4M, el ratio deuda/EBITDA es 3.3x — por encima del umbral de 3.0x que normalmente marcaría riesgo.",
+      "ejemplos_bajo": "Los números se ven bien."
+    },
+    {
+      "nombre": "Gestión de riesgo",
+      "peso": 0.20,
+      "descripcion": "¿Identifica riesgos específicos del sector o cliente? ¿Propone mitigantes concretos?",
+      "ejemplos_alto": "El cliente concentra 60% de ventas en un solo supermercado — riesgo de concentración; mitigante: covenant de diversificación en 18 meses.",
+      "ejemplos_bajo": "Hay riesgo de que no paguen."
+    },
+    {
+      "nombre": "Recomendación final",
+      "peso": 0.15,
+      "descripcion": "¿Cierra con un sí/no/condicional claro, con monto, plazo y condiciones? ¿O queda en el aire?",
+      "ejemplos_alto": "Recomiendo aprobar el crédito por S/ 3M a 36 meses con covenants de EBITDA mínimo de S/ 1M anual y reporte trimestral.",
+      "ejemplos_bajo": "Habría que estudiarlo más."
+    },
+    {
+      "nombre": "Comunicación y tiempo",
+      "peso": 0.15,
+      "descripcion": "¿Usa el tiempo bien? ¿Muletillas bajo control? ¿Lenguaje claro para un ejecutivo?",
+      "ejemplos_alto": "Introducción de 20s, análisis de 2 min, recomendación de 30s. Pausas intencionales.",
+      "ejemplos_bajo": "Diez 'o sea' y 'este' por minuto; no terminó la recomendación."
+    }
+  ]
+}

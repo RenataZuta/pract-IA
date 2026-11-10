@@ -1,0 +1,48 @@
+{
+  "industry": "Consultoría",
+  "descripcion": "Rúbrica para group cases de Apoyo Consultoría, Lima Consulting, Deloitte, PwC, EY Advisory, KPMG, Arthur D. Little, McKinsey, BCG, Bain. Basada en frameworks estándar (Wharton 2025 case book, Management Consulted) y literatura clásica (Case in Point).",
+  "criterios": [
+    {
+      "nombre": "Clarificación inicial",
+      "peso": 0.10,
+      "descripcion": "¿El candidato pide aclarar 2-3 preguntas clave antes de estructurar? (horizonte temporal, definición de éxito, alcance geográfico)",
+      "ejemplos_alto": "Antes de estructurar, me gustaría confirmar: (1) horizonte, ¿tres años?, (2) ¿el cliente busca entrar a Perú o LATAM?, (3) ¿hay restricción de capital?",
+      "ejemplos_bajo": "Empieza directo a resolver sin aclarar nada."
+    },
+    {
+      "nombre": "Estructura MECE",
+      "peso": 0.25,
+      "descripcion": "¿El framework es Mutually Exclusive y Collectively Exhaustive? ¿Elige el tipo de framework (profitability, market entry, M&A) correcto para el caso?",
+      "ejemplos_alto": "Para evaluar market entry voy a mirar: (1) atractivo del mercado (tamaño, crecimiento, competencia), (2) capacidad de ganar (ventaja del cliente), (3) economics (profitability, inversión, payback).",
+      "ejemplos_bajo": "Framework con overlapping (revenue, costs, margin, profit — los últimos tres son dependientes)."
+    },
+    {
+      "nombre": "Market sizing / Fermi",
+      "peso": 0.15,
+      "descripcion": "Si el caso lo requiere: ¿segmenta bien (top-down o bottom-up)? ¿Supuestos razonables y explícitos? ¿Hace la aritmética limpia?",
+      "ejemplos_alto": "Población Lima 10M → asumo 70% adultos → 7M → de esos 40% compra la categoría → 2.8M consumidores → frecuencia 2 veces/mes a S/ 15 → mercado ~S/ 1B anual.",
+      "ejemplos_bajo": "El mercado es grande, estimaría unos 100 millones."
+    },
+    {
+      "nombre": "Profundidad analítica",
+      "peso": 0.20,
+      "descripcion": "¿Formula hipótesis explícitas? ¿Usa los anexos para validarlas o rechazarlas? ¿Hace árbol de drivers hasta el nivel accionable?",
+      "ejemplos_alto": "Mi hipótesis es que la caída de profit viene de costos, no de precio. Lo valido en Anexo 2: precio flat vs COGS +12% → sí, es costos. Dentro de COGS, el 60% es materia prima.",
+      "ejemplos_bajo": "No formula hipótesis, solo describe lo que ve."
+    },
+    {
+      "nombre": "Recomendación y riesgos",
+      "peso": 0.20,
+      "descripcion": "¿Cierra con 2-3 acciones priorizadas, con impacto estimado y top 2-3 riesgos + mitigantes?",
+      "ejemplos_alto": "Recomiendo: (1) renegociar contratos de materia prima, impacto +3pp margen, (2) rightsizing SG&A, +1pp. Riesgos: huelga de proveedor; mitigar con segunda fuente.",
+      "ejemplos_bajo": "Habría que reducir costos."
+    },
+    {
+      "nombre": "Comunicación top-down",
+      "peso": 0.10,
+      "descripcion": "¿Responde el 'so what' primero y después desarrolla? ¿Sintetiza con 'headline + 3 soportes'? ¿Mantiene la pizarra mental ordenada?",
+      "ejemplos_alto": "Mi respuesta es sí, deberían entrar, por tres razones: (1)..., (2)..., (3)...",
+      "ejemplos_bajo": "Empieza por los detalles y nunca llega al mensaje principal."
+    }
+  ]
+}

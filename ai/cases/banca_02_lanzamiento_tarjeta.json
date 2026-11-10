@@ -1,0 +1,26 @@
+{
+  "id": "banca_02",
+  "industry": "Banca",
+  "company": "Interbank — Banca de Consumo",
+  "case_type": "Lanzamiento de producto",
+  "title": "Nueva tarjeta de crédito para clientes digitales",
+  "duration_minutes": 20,
+  "context": "Eres practicante en el equipo de productos de Banca de Consumo de Interbank. El área quiere lanzar una **tarjeta de crédito 100% digital** (onboarding por app, sin plástico opcional) dirigida a usuarios jóvenes de 23-35 años, NSE B/C+, con experiencia bancaria limitada. El objetivo del año 1 es **colocar 50,000 tarjetas activas** con ticket promedio de S/ 1,200/mes. La competencia directa es la Rappi Pay Card, la Platanitos Card de Banco Falabella, y la nueva propuesta de Yape (con línea de crédito revolvente).",
+  "prompt": "En 3 minutos, define: (1) la propuesta de valor diferencial vs la competencia, (2) tres riesgos clave del lanzamiento y cómo los mitigarías, (3) una métrica de éxito trimestral.",
+  "exhibits": [
+    {
+      "title": "Comparativo competitivo",
+      "content": "| Producto | Tarjeta | Fee anual | Programa de recompensas | Línea prom. |\n|---|---|---|---|---|\n| Rappi Pay Card | Visa | S/ 0 | 2% cashback en Rappi | S/ 2,500 |\n| Falabella Platanitos | Visa | S/ 45 | 5% dscto tiendas CMR | S/ 3,200 |\n| Yape Crédito | — | S/ 0 | — | S/ 600 |\n| **Interbank (propuesta)** | Mastercard | S/ 0 | A definir | A definir |"
+    },
+    {
+      "title": "Unit economics proyectados por tarjeta activa",
+      "content": "| Concepto | Monto mensual |\n|---|---|\n| Intercambio (interchange) | S/ 24 |\n| Intereses revolventes (30% de la base) | S/ 18 |\n| Comisiones por mora (10% de la base) | S/ 3 |\n| **Ingreso promedio por tarjeta activa** | **S/ 45** |\n| Costo de fondeo | (S/ 8) |\n| Provisión de pérdida esperada (4%) | (S/ 15) |\n| Costo de servicio y app | (S/ 6) |\n| **Margen por tarjeta activa** | **S/ 16** |"
+    },
+    {
+      "title": "Insights del research cualitativo (foco grupos n=24)",
+      "content": "- 70% dice que decidirá por la **velocidad del onboarding** (<3 min).\n- 55% desconfía de tarjetas sin plástico; quiere la opción de pedirlo.\n- 40% ya usa Yape para todo y la pregunta es '¿por qué cambiaría?'.\n- Mencionan que los programas de puntos de bancos tradicionales son 'una estafa'."
+    }
+  ],
+  "temas_evaluados": ["Propuesta de valor", "Análisis competitivo", "Unit economics", "Riesgo crediticio en segmento nuevo", "Métricas"],
+  "pista_respuesta_modelo": "Propuesta diferencial: onboarding en 90 segundos + cashback dinámico por categoría del mes (comida, streaming, transporte). Riesgos: (1) riesgo crediticio en segmento con poco score — mitigar con límite inicial de S/ 500 y aumentos por buen comportamiento; (2) canibalización con Yape — mitigar posicionando como complemento, no sustituto; (3) churn — métrica: % de activas al mes 3 (target: >60%)."
+}

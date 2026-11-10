@@ -1,0 +1,26 @@
+{
+  "id": "banca_03",
+  "industry": "Banca",
+  "company": "Credicorp Capital — Wealth Management",
+  "case_type": "Asignación de portafolio",
+  "title": "Rebalanceo para un cliente private banking",
+  "duration_minutes": 20,
+  "context": "Eres analista junior en Wealth Management de Credicorp Capital. El cliente **Sr. M.V.**, 58 años, empresario del sector pesca, tiene USD 2.5M bajo nuestra gestión. Desde 2023 su portafolio está 70% en bonos soberanos peruanos y 30% en un fondo balanceado global, con una rentabilidad en USD de +6.2% anualizado. El cliente nos llamó esta mañana preocupado por: (1) la volatilidad política local, (2) una potencial baja de calificación soberana del Perú, (3) la fortaleza del dólar frente al sol. Nos pide 'revisar la estrategia'. El relationship manager te pide una recomendación concreta para la reunión de las 5pm.",
+  "prompt": "En 3 minutos, propón un rebalanceo con: (1) el racional en una frase, (2) la nueva asignación por clase de activo con % concretos, (3) dos acciones de corto plazo para la reunión.",
+  "exhibits": [
+    {
+      "title": "Portafolio actual (USD)",
+      "content": "| Activo | Monto | % |\n|---|---|---|\n| Bonos soberanos PEN (BTPs) | 1,000,000 | 40 |\n| Bonos soberanos PEN (BTPs) en USD | 750,000 | 30 |\n| Fondo balanceado global (60/40) | 750,000 | 30 |\n| **Total** | **2,500,000** | **100** |"
+    },
+    {
+      "title": "Perfil del cliente",
+      "content": "- Horizonte: 10-15 años (quiere pasar el negocio a sus hijos).\n- Tolerancia al riesgo: moderada-conservadora.\n- Liquidez necesaria en los próximos 12 meses: USD 150,000 (estudios de un hijo).\n- Deuda con el banco: USD 400,000, línea revolvente garantizada por el mismo portafolio.\n- Comentario reciente: 'no quiero perder lo que me costó años juntar'."
+    },
+    {
+      "title": "Contexto macro (al cierre de octubre 2026)",
+      "content": "- Spread CDS Perú 5Y: 180 bps (vs 120 bps hace 12 meses).\n- Calificación Perú: BBB (S&P), con perspectiva negativa desde agosto.\n- Tipo de cambio PEN/USD: 3.95 (vs 3.72 hace 12 meses).\n- Rendimiento 10Y Bono Soberano PEN: 7.1%.\n- Rendimiento 10Y Treasury USA: 4.3%."
+    }
+  ],
+  "temas_evaluados": ["Asset allocation", "Gestión de riesgo soberano", "Gestión de divisa", "Comunicación con cliente", "Horizonte temporal"],
+  "pista_respuesta_modelo": "Rebalanceo: reducir exposición PEN de 70% a 40% (los BTPs en PEN pasan a 25%, los BTPs en USD a 15%). Elevar global diversificado a 50% (añadir exposición a mercados desarrollados en acciones y high grade). 10% en liquidez USD para los USD 150K de necesidades. Dos acciones para la reunión: (1) ejecutar ahora venta parcial de BTPs PEN para no esperar un downgrade, (2) ofrecer cobertura cambiaria con forward 6M sobre el USD 400K de la deuda."
+}
