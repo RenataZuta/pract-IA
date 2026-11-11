@@ -1,48 +1,88 @@
 {
   "industry": "Consultoría",
-  "descripcion": "Rúbrica para group cases de Apoyo Consultoría, Lima Consulting, Deloitte, PwC, EY Advisory, KPMG, Arthur D. Little, McKinsey, BCG, Bain. Basada en frameworks estándar (Wharton 2025 case book, Management Consulted) y literatura clásica (Case in Point).",
+  "version": 2,
+  "pesos_por_tipo": {
+    "tecnico": 0.55,
+    "blando": 0.3,
+    "innovacion": 0.15
+  },
+  "descripcion": "Rúbrica para group cases de Apoyo Consultoría, Lima Consulting, Deloitte, PwC, EY Advisory, KPMG, Arthur D. Little, McKinsey, BCG, Bain. Basada en frameworks estándar (Wharton 2025 case book, Management Consulted) y literatura clásica (Case in Point). Versión 2 (2026-11-11): 55% técnico, 30% habilidades blandas y 15% aporte propio frente a la respuesta de referencia; ajustada con las 3 entrevistas de validación, que pusieron las habilidades blandas por encima de lo técnico.",
   "criterios": [
     {
-      "nombre": "Clarificación inicial",
-      "peso": 0.10,
-      "descripcion": "¿El candidato pide aclarar 2-3 preguntas clave antes de estructurar? (horizonte temporal, definición de éxito, alcance geográfico)",
+      "nombre": "Estructura MECE",
+      "peso": 0.15,
+      "descripcion": "¿El framework es Mutually Exclusive y Collectively Exhaustive? ¿Elige el tipo de framework (profitability, market entry, M&A) correcto para el caso?",
+      "ejemplos_alto": "Para evaluar market entry voy a mirar: (1) atractivo del mercado (tamaño, crecimiento, competencia), (2) capacidad de ganar (ventaja del cliente), (3) economics (profitability, inversión, payback).",
+      "ejemplos_bajo": "Framework con overlapping (revenue, costs, margin, profit — los últimos tres son dependientes).",
+      "tipo": "tecnico"
+    },
+    {
+      "nombre": "Market sizing / Fermi",
+      "peso": 0.1,
+      "descripcion": "Si el caso lo requiere: ¿segmenta bien (top-down o bottom-up)? ¿Supuestos razonables y explícitos? ¿Hace la aritmética limpia?",
+      "ejemplos_alto": "Población Lima 10M → asumo 70% adultos → 7M → de esos 40% compra la categoría → 2.8M consumidores → frecuencia 2 veces/mes a S/ 15 → mercado ~S/ 1B anual.",
+      "ejemplos_bajo": "El mercado es grande, estimaría unos 100 millones.",
+      "tipo": "tecnico",
+      "aplica_a": [
+        "Market entry",
+        "Market sizing (Fermi)"
+      ]
+    },
+    {
+      "nombre": "Profundidad analítica",
+      "peso": 0.15,
+      "descripcion": "¿Formula hipótesis explícitas? ¿Usa los anexos para validarlas o rechazarlas? ¿Hace árbol de drivers hasta el nivel accionable?",
+      "ejemplos_alto": "Mi hipótesis es que la caída de profit viene de costos, no de precio. Lo valido en Anexo 2: precio flat vs COGS +12% → sí, es costos. Dentro de COGS, el 60% es materia prima.",
+      "ejemplos_bajo": "No formula hipótesis, solo describe lo que ve.",
+      "tipo": "tecnico"
+    },
+    {
+      "nombre": "Recomendación y riesgos",
+      "peso": 0.15,
+      "descripcion": "¿Cierra con 2-3 acciones priorizadas, con impacto estimado y top 2-3 riesgos + mitigantes?",
+      "ejemplos_alto": "Recomiendo: (1) renegociar contratos de materia prima, impacto +3pp margen, (2) rightsizing SG&A, +1pp. Riesgos: huelga de proveedor; mitigar con segunda fuente.",
+      "ejemplos_bajo": "Habría que reducir costos.",
+      "tipo": "tecnico"
+    },
+    {
+      "nombre": "Clarificación y supuestos",
+      "tipo": "blando",
+      "peso": 0.05,
+      "descripcion": "¿Pide 2-3 aclaraciones clave antes de estructurar o, si no puede preguntar, declara los supuestos que asume (horizonte temporal, definición de éxito, alcance geográfico)?",
       "ejemplos_alto": "Antes de estructurar, me gustaría confirmar: (1) horizonte, ¿tres años?, (2) ¿el cliente busca entrar a Perú o LATAM?, (3) ¿hay restricción de capital?",
       "ejemplos_bajo": "Empieza directo a resolver sin aclarar nada."
     },
     {
-      "nombre": "Estructura MECE",
-      "peso": 0.25,
-      "descripcion": "¿El framework es Mutually Exclusive y Collectively Exhaustive? ¿Elige el tipo de framework (profitability, market entry, M&A) correcto para el caso?",
-      "ejemplos_alto": "Para evaluar market entry voy a mirar: (1) atractivo del mercado (tamaño, crecimiento, competencia), (2) capacidad de ganar (ventaja del cliente), (3) economics (profitability, inversión, payback).",
-      "ejemplos_bajo": "Framework con overlapping (revenue, costs, margin, profit — los últimos tres son dependientes)."
-    },
-    {
-      "nombre": "Market sizing / Fermi",
-      "peso": 0.15,
-      "descripcion": "Si el caso lo requiere: ¿segmenta bien (top-down o bottom-up)? ¿Supuestos razonables y explícitos? ¿Hace la aritmética limpia?",
-      "ejemplos_alto": "Población Lima 10M → asumo 70% adultos → 7M → de esos 40% compra la categoría → 2.8M consumidores → frecuencia 2 veces/mes a S/ 15 → mercado ~S/ 1B anual.",
-      "ejemplos_bajo": "El mercado es grande, estimaría unos 100 millones."
-    },
-    {
-      "nombre": "Profundidad analítica",
-      "peso": 0.20,
-      "descripcion": "¿Formula hipótesis explícitas? ¿Usa los anexos para validarlas o rechazarlas? ¿Hace árbol de drivers hasta el nivel accionable?",
-      "ejemplos_alto": "Mi hipótesis es que la caída de profit viene de costos, no de precio. Lo valido en Anexo 2: precio flat vs COGS +12% → sí, es costos. Dentro de COGS, el 60% es materia prima.",
-      "ejemplos_bajo": "No formula hipótesis, solo describe lo que ve."
-    },
-    {
-      "nombre": "Recomendación y riesgos",
-      "peso": 0.20,
-      "descripcion": "¿Cierra con 2-3 acciones priorizadas, con impacto estimado y top 2-3 riesgos + mitigantes?",
-      "ejemplos_alto": "Recomiendo: (1) renegociar contratos de materia prima, impacto +3pp margen, (2) rightsizing SG&A, +1pp. Riesgos: huelga de proveedor; mitigar con segunda fuente.",
-      "ejemplos_bajo": "Habría que reducir costos."
-    },
-    {
-      "nombre": "Comunicación top-down",
-      "peso": 0.10,
-      "descripcion": "¿Responde el 'so what' primero y después desarrolla? ¿Sintetiza con 'headline + 3 soportes'? ¿Mantiene la pizarra mental ordenada?",
+      "nombre": "Comunicación top-down y seguridad",
+      "tipo": "blando",
+      "peso": 0.1,
+      "descripcion": "¿Responde el 'so what' primero y después desarrolla? ¿Sintetiza con 'headline + 3 soportes'? ¿Mantiene la pizarra mental ordenada? ¿Habla con seguridad, sin arrogancia?",
       "ejemplos_alto": "Mi respuesta es sí, deberían entrar, por tres razones: (1)..., (2)..., (3)...",
       "ejemplos_bajo": "Empieza por los detalles y nunca llega al mensaje principal."
+    },
+    {
+      "nombre": "Colaboración y escucha",
+      "tipo": "blando",
+      "peso": 0.1,
+      "descripcion": "La respuesta es individual, así que se estima por señales observables. ¿Reconoce a otros actores (equipo, comité, cliente, áreas) y dice cómo los involucraría o validaría con ellos? ¿Atiende lo que el caso ya dijo (restricciones, preocupaciones del comité) en vez de ignorarlo? ¿Muestra humildad: declara supuestos, límites y qué lo haría cambiar de opinión? ¿Evita lenguaje descalificador? Sin señales a favor ni en contra, califica 5. No exijas mencionar equipos si el caso no da pie.",
+      "ejemplos_alto": "Propondría validar este supuesto con el cliente antes de seguir y, si el socio prefiere priorizar costos, adapto la hipótesis.",
+      "ejemplos_bajo": "El cliente está equivocado y mi análisis es el único válido."
+    },
+    {
+      "nombre": "Priorización y criterio",
+      "tipo": "blando",
+      "peso": 0.05,
+      "descripcion": "¿Dice qué va primero y qué sobra (2-3 prioridades, no una lista de diez)? ¿Elige los números, riesgos o acciones que más pesan y lo justifica? ¿Sabe qué dejaría fuera o para después?",
+      "ejemplos_alto": "De los cinco drivers, dos explican casi todo el efecto; me enfoco ahí y dejo el resto como siguiente paso.",
+      "ejemplos_bajo": "Revisaría todos los drivers uno por uno."
+    },
+    {
+      "nombre": "Aporte propio frente a la referencia",
+      "tipo": "innovacion",
+      "peso": 0.15,
+      "descripcion": "Se compara la respuesta del candidato con la respuesta de referencia del caso (preparada con Claude). ¿Aporta algo válido y relevante que la referencia no tiene (un riesgo, una métrica, una alternativa, un mitigante, un dato del contexto peruano) o repite una plantilla genérica? Escala: 0-2 plantilla genérica o memorizada, sin datos del caso; 3-4 adapta algo al caso pero se queda por debajo de la referencia; 5 equivalente a la referencia, con palabras propias y sin aportes nuevos; 6-7 un aporte nuevo válido; 8-10 varios aportes válidos o un ángulo más fino que la referencia, bien justificado. Diferente no es mejor: un aporte incorrecto o sin justificar no suma. La referencia es un esquema, no la única respuesta correcta.",
+      "ejemplos_alto": "Además del árbol principal, cruzaría el margen por línea y canal para ver si la caída se concentra en uno; es un dato que se puede pedir al cliente.",
+      "ejemplos_bajo": "Haría un árbol de profitability y recomendaría lo que parezca mejor."
     }
   ]
 }

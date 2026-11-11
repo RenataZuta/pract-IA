@@ -1,48 +1,84 @@
 {
   "industry": "FMCG",
-  "descripcion": "Rúbrica para group cases de Alicorp, Belcorp, Backus, P&G, Unilever, Nestlé, Kimberly. Basada en entrevistas, reportes públicos de Glassdoor sobre sus assessment centers y literatura de marketing (4Ps, Kotler, segmentación).",
+  "version": 2,
+  "pesos_por_tipo": {
+    "tecnico": 0.55,
+    "blando": 0.3,
+    "innovacion": 0.15
+  },
+  "descripcion": "Rúbrica para group cases de Alicorp, Belcorp, Backus, P&G, Unilever, Nestlé, Kimberly. Basada en entrevistas, reportes públicos de Glassdoor sobre sus assessment centers y literatura de marketing (4Ps, Kotler, segmentación). Versión 2 (2026-11-11): 55% técnico, 30% habilidades blandas y 15% aporte propio frente a la respuesta de referencia; ajustada con las 3 entrevistas de validación, que pusieron las habilidades blandas por encima de lo técnico.",
   "criterios": [
     {
       "nombre": "Framework de marketing",
-      "peso": 0.20,
+      "peso": 0.12,
       "descripcion": "¿Usa 4Ps, 3Cs, STP (segmentation-targeting-positioning), o árbol de drivers? ¿Elige el framework que se ajusta al problema, no el genérico?",
       "ejemplos_alto": "Antes de responder si lanzamos el nuevo SKU, voy a estructurar por: (1) demanda del segmento objetivo, (2) canibalización del portafolio actual, (3) capacidad de la fuerza de ventas en canal tradicional.",
-      "ejemplos_bajo": "Aplicaría las 4Ps: producto, precio, plaza, promoción."
+      "ejemplos_bajo": "Aplicaría las 4Ps: producto, precio, plaza, promoción.",
+      "tipo": "tecnico"
     },
     {
       "nombre": "Consumer insight",
-      "peso": 0.20,
+      "peso": 0.15,
       "descripcion": "¿Muestra que entiende al consumidor peruano? ¿Habla de amas de casa de NSE C/D, bodegueros, canal tradicional vs moderno, ocasiones de consumo?",
       "ejemplos_alto": "El consumidor NSE C/D compra en bodega con ticket promedio de S/ 8–12; una presentación de S/ 2 funciona mejor que una de S/ 5 aunque el precio por gramo sea peor.",
-      "ejemplos_bajo": "El consumidor quiere calidad a buen precio."
+      "ejemplos_bajo": "El consumidor quiere calidad a buen precio.",
+      "tipo": "tecnico"
     },
     {
       "nombre": "Uso de números",
-      "peso": 0.20,
+      "peso": 0.12,
       "descripcion": "¿Estima market size? ¿Calcula share, penetración, frecuencia de compra, margen? ¿Usa anexos de Nielsen / Kantar si están?",
       "ejemplos_alto": "Si el mercado de detergentes en Lima es ~50M soles/mes, y asumimos un share realista de 5% en año 1, son 2.5M/mes — cubre el BEP de S/ 1.8M según el Anexo 3.",
-      "ejemplos_bajo": "El mercado es grande, hay oportunidad."
+      "ejemplos_bajo": "El mercado es grande, hay oportunidad.",
+      "tipo": "tecnico"
     },
     {
       "nombre": "Estrategia de canal",
-      "peso": 0.15,
+      "peso": 0.08,
       "descripcion": "¿Distingue canal moderno (supermercados) vs tradicional (bodegas, mercados) vs cash&carry (Makro, Mayorsa)? ¿Propone priorización?",
       "ejemplos_alto": "Entraría primero por tradicional (80% del volumen en esa categoría), con empaque SKU bajo, y después escalaría a moderno con SKU premium.",
-      "ejemplos_bajo": "Habría que vender en todos los canales."
+      "ejemplos_bajo": "Habría que vender en todos los canales.",
+      "tipo": "tecnico"
     },
     {
       "nombre": "Recomendación accionable",
-      "peso": 0.15,
+      "peso": 0.08,
       "descripcion": "¿Cierra con qué hacer, cuándo, cuánto invertir, cómo medir éxito?",
       "ejemplos_alto": "Lanzar en abril, con inversión ATL de S/ 500K Q1-Q2, medir con share nielsen mes 3 y 6; umbral de 3% para escalar.",
-      "ejemplos_bajo": "Lanzar el producto."
+      "ejemplos_bajo": "Lanzar el producto.",
+      "tipo": "tecnico"
     },
     {
-      "nombre": "Comunicación y tiempo",
-      "peso": 0.10,
-      "descripcion": "Energía, estructura, no más de 1-2 muletillas por minuto, cierra en tiempo.",
+      "nombre": "Comunicación y seguridad",
+      "tipo": "blando",
+      "peso": 0.1,
+      "descripcion": "Energía y seguridad (afirma lo que sabe y marca lo que no), estructura con el headline arriba, pocas muletillas (solo si aparecen en la transcripción) y cierre en tiempo (3 min).",
       "ejemplos_alto": "Headline arriba, tres bullets abajo, next steps al final. 3 min netos.",
       "ejemplos_bajo": "No cerró."
+    },
+    {
+      "nombre": "Colaboración y escucha",
+      "tipo": "blando",
+      "peso": 0.1,
+      "descripcion": "La respuesta es individual, así que se estima por señales observables. ¿Reconoce a otros actores (equipo, comité, cliente, áreas) y dice cómo los involucraría o validaría con ellos? ¿Atiende lo que el caso ya dijo (restricciones, preocupaciones del comité) en vez de ignorarlo? ¿Muestra humildad: declara supuestos, límites y qué lo haría cambiar de opinión? ¿Evita lenguaje descalificador? Sin señales a favor ni en contra, califica 5. No exijas mencionar equipos si el caso no da pie.",
+      "ejemplos_alto": "Antes de lanzar lo validaría con Trade Marketing y con los distribuidores de bodega; si Ventas dice que la fuerza no llega a ese canal, ajusto el plan en vez de insistir.",
+      "ejemplos_bajo": "Ventas simplemente tiene que cumplir lo que Marketing decida."
+    },
+    {
+      "nombre": "Priorización y criterio",
+      "tipo": "blando",
+      "peso": 0.1,
+      "descripcion": "¿Dice qué va primero y qué sobra (2-3 prioridades, no una lista de diez)? ¿Elige los números, riesgos o acciones que más pesan y lo justifica? ¿Sabe qué dejaría fuera o para después?",
+      "ejemplos_alto": "De los tres canales parto por bodegas, que concentra la mayoría del volumen; moderno y cash&carry quedan para el trimestre siguiente.",
+      "ejemplos_bajo": "Habría que atacar todos los canales a la vez."
+    },
+    {
+      "nombre": "Aporte propio frente a la referencia",
+      "tipo": "innovacion",
+      "peso": 0.15,
+      "descripcion": "Se compara la respuesta del candidato con la respuesta de referencia del caso (preparada con Claude). ¿Aporta algo válido y relevante que la referencia no tiene (un riesgo, una métrica, una alternativa, un mitigante, un dato del contexto peruano) o repite una plantilla genérica? Escala: 0-2 plantilla genérica o memorizada, sin datos del caso; 3-4 adapta algo al caso pero se queda por debajo de la referencia; 5 equivalente a la referencia, con palabras propias y sin aportes nuevos; 6-7 un aporte nuevo válido; 8-10 varios aportes válidos o un ángulo más fino que la referencia, bien justificado. Diferente no es mejor: un aporte incorrecto o sin justificar no suma. La referencia es un esquema, no la única respuesta correcta.",
+      "ejemplos_alto": "Además, probaría un empaque de S/ 1 para consumo inmediato, que no está en el caso, y mediría rotación en 20 bodegas antes de escalar.",
+      "ejemplos_bajo": "Aplicaría las 4Ps y listo."
     }
   ]
 }

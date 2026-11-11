@@ -1,41 +1,76 @@
 {
   "industry": "Banca",
-  "descripcion": "Rúbrica para group cases de programas trainee de BCP, Interbank, Credicorp Capital, BBVA, Scotiabank. Basada en entrevistas con analistas junior de estas firmas y revisión de procesos públicos (Glassdoor, Indeed, blog BCP).",
+  "version": 2,
+  "pesos_por_tipo": {
+    "tecnico": 0.55,
+    "blando": 0.3,
+    "innovacion": 0.15
+  },
+  "descripcion": "Rúbrica para group cases de programas trainee de BCP, Interbank, Credicorp Capital, BBVA, Scotiabank. Basada en entrevistas con analistas junior de estas firmas y revisión de procesos públicos (Glassdoor, Indeed, blog BCP). Versión 2 (2026-11-11): 55% técnico, 30% habilidades blandas y 15% aporte propio frente a la respuesta de referencia; ajustada con las 3 entrevistas de validación, que pusieron las habilidades blandas por encima de lo técnico.",
   "criterios": [
     {
       "nombre": "Estructura del análisis",
-      "peso": 0.25,
+      "peso": 0.15,
       "descripcion": "¿El candidato organiza la respuesta con un framework claro? (profitability, risk-return, 5Cs del crédito, árbol de causas). ¿Es MECE?",
       "ejemplos_alto": "Antes de decidir si aprobamos el crédito, voy a revisar tres cosas: capacidad de pago (flujo), carácter (historial), y colateral. Dentro de capacidad veré ratios de cobertura.",
-      "ejemplos_bajo": "Habría que ver si la empresa es rentable y si puede pagar."
+      "ejemplos_bajo": "Habría que ver si la empresa es rentable y si puede pagar.",
+      "tipo": "tecnico"
     },
     {
       "nombre": "Uso de números y anexos",
-      "peso": 0.25,
+      "peso": 0.15,
       "descripcion": "¿Cita cifras de los anexos? ¿Calcula ratios (EBITDA/deuda, ROE, cobertura)? ¿Hace sensibilidad?",
       "ejemplos_alto": "El EBITDA del Anexo 2 es S/ 1.2M, con deuda financiera de S/ 4M, el ratio deuda/EBITDA es 3.3x — por encima del umbral de 3.0x que normalmente marcaría riesgo.",
-      "ejemplos_bajo": "Los números se ven bien."
+      "ejemplos_bajo": "Los números se ven bien.",
+      "tipo": "tecnico"
     },
     {
       "nombre": "Gestión de riesgo",
-      "peso": 0.20,
+      "peso": 0.15,
       "descripcion": "¿Identifica riesgos específicos del sector o cliente? ¿Propone mitigantes concretos?",
       "ejemplos_alto": "El cliente concentra 60% de ventas en un solo supermercado — riesgo de concentración; mitigante: covenant de diversificación en 18 meses.",
-      "ejemplos_bajo": "Hay riesgo de que no paguen."
+      "ejemplos_bajo": "Hay riesgo de que no paguen.",
+      "tipo": "tecnico"
     },
     {
       "nombre": "Recomendación final",
-      "peso": 0.15,
+      "peso": 0.1,
       "descripcion": "¿Cierra con un sí/no/condicional claro, con monto, plazo y condiciones? ¿O queda en el aire?",
       "ejemplos_alto": "Recomiendo aprobar el crédito por S/ 3M a 36 meses con covenants de EBITDA mínimo de S/ 1M anual y reporte trimestral.",
-      "ejemplos_bajo": "Habría que estudiarlo más."
+      "ejemplos_bajo": "Habría que estudiarlo más.",
+      "tipo": "tecnico"
     },
     {
-      "nombre": "Comunicación y tiempo",
-      "peso": 0.15,
-      "descripcion": "¿Usa el tiempo bien? ¿Muletillas bajo control? ¿Lenguaje claro para un ejecutivo?",
+      "nombre": "Comunicación y seguridad",
+      "tipo": "blando",
+      "peso": 0.1,
+      "descripcion": "¿Responde primero y desarrolla después? ¿Habla con seguridad (afirma lo que sabe y marca lo que no) sin arrogancia? ¿Usa bien el tiempo (3 min) y un lenguaje claro para un ejecutivo? La transcripción suele omitir muletillas: solo se penalizan las que aparezcan.",
       "ejemplos_alto": "Introducción de 20s, análisis de 2 min, recomendación de 30s. Pausas intencionales.",
       "ejemplos_bajo": "Diez 'o sea' y 'este' por minuto; no terminó la recomendación."
+    },
+    {
+      "nombre": "Colaboración y escucha",
+      "tipo": "blando",
+      "peso": 0.1,
+      "descripcion": "La respuesta es individual, así que se estima por señales observables. ¿Reconoce a otros actores (equipo, comité, cliente, áreas) y dice cómo los involucraría o validaría con ellos? ¿Atiende lo que el caso ya dijo (restricciones, preocupaciones del comité) en vez de ignorarlo? ¿Muestra humildad: declara supuestos, límites y qué lo haría cambiar de opinión? ¿Evita lenguaje descalificador? Sin señales a favor ni en contra, califica 5. No exijas mencionar equipos si el caso no da pie.",
+      "ejemplos_alto": "Antes de fijar el monto lo validaría con Riesgos y, como el comité puso un tope de mora, ajusto la propuesta para respetarlo. Lo que no puedo confirmar con estos datos es el ingreso real del segmento.",
+      "ejemplos_bajo": "Es lo que hay que hacer y no hay otra opción; el comité no entiende de riesgo."
+    },
+    {
+      "nombre": "Priorización y criterio",
+      "tipo": "blando",
+      "peso": 0.1,
+      "descripcion": "¿Dice qué va primero y qué sobra (2-3 prioridades, no una lista de diez)? ¿Elige los números, riesgos o acciones que más pesan y lo justifica? ¿Sabe qué dejaría fuera o para después?",
+      "ejemplos_alto": "De todo el anexo, tres números deciden: la cobertura de intereses, el crecimiento de la deuda y la exposición en dólares. El resto no cambia la decisión.",
+      "ejemplos_bajo": "Mencionó doce datos sin decir cuáles pesan más."
+    },
+    {
+      "nombre": "Aporte propio frente a la referencia",
+      "tipo": "innovacion",
+      "peso": 0.15,
+      "descripcion": "Se compara la respuesta del candidato con la respuesta de referencia del caso (preparada con Claude). ¿Aporta algo válido y relevante que la referencia no tiene (un riesgo, una métrica, una alternativa, un mitigante, un dato del contexto peruano) o repite una plantilla genérica? Escala: 0-2 plantilla genérica o memorizada, sin datos del caso; 3-4 adapta algo al caso pero se queda por debajo de la referencia; 5 equivalente a la referencia, con palabras propias y sin aportes nuevos; 6-7 un aporte nuevo válido; 8-10 varios aportes válidos o un ángulo más fino que la referencia, bien justificado. Diferente no es mejor: un aporte incorrecto o sin justificar no suma. La referencia es un esquema, no la única respuesta correcta.",
+      "ejemplos_alto": "Además de lo evidente, propondría una alerta temprana por cohorte (mora a 8 días) para frenar desembolsos antes de llegar al tope de mora.",
+      "ejemplos_bajo": "Evaluaría el riesgo y la rentabilidad y recomiendo aprobar con buenas condiciones."
     }
   ]
 }
