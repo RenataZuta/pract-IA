@@ -1,12 +1,14 @@
 # Instrucciones para Claude Code — qué hacer ahora
 
 > Dale este archivo a Claude Code junto con el `CLAUDE.md` de la raíz.
-> Dile: *"Lee `CLAUDE.md` y `docs/CLAUDE_CODE_NEXT_STEPS.md`, y ejecuta las tareas en orden."*
+> Dile: *"Lee `CLAUDE.md` y `docs/CLAUDE_CODE_NEXT_STEPS.md`, y ejecuta las tareas pendientes en orden."*
+
+El proveedor de IA es **Groq** (gratis): no uses OpenAI ni Anthropic. Detalles en `CLAUDE.md`.
 
 ## Setup inicial (una sola vez)
 
 ```bash
-# 1. Crear virtualenv
+# 1. Crear virtualenv (Python 3.11)
 python -m venv .venv
 source .venv/bin/activate     # Linux/Mac
 # .venv\Scripts\activate       # Windows
@@ -16,66 +18,43 @@ pip install -r requirements.txt
 
 # 3. Copiar variables
 cp .env.example .env
-# Luego editar .env y agregar OPENAI_API_KEY
+# Luego editar .env y agregar GROQ_API_KEY (gratis en https://console.groq.com)
 
 # 4. Probar que Streamlit levanta
 streamlit run app/main.py
 ```
 
-## Tarea 1 — Conectar Whisper (~30 min)
+## Tarea 1 — Conectar Whisper ✅ hecho
 
-Archivo: `ai/transcribe.py`. Hoy es stub.
+`ai/transcribe.py` usa `whisper-large-v3` de Groq. Los errores se devuelven como
+`[ERROR_WHISPER] ...` y se loguean con loguru (sin traceback, para no imprimir
+el audio ni la API key).
 
-**Qué hacer:**
-1. Instala la dependencia si falta: `pip install openai`.
-2. En `_transcribe_openai`, reemplaza el `TODO` por la llamada real a
-   `client.audio.transcriptions.create` con modelo `whisper-1`.
-3. Maneja errores: si falla (red, rate limit), devuelve string con prefijo
-   `[ERROR_WHISPER]` y loggea con `logger.exception`.
-4. Test manual: graba un audio corto en `.webm` en Streamlit y verifica
-   que la transcripción llega.
+## Tarea 2 — Conectar el evaluador ✅ hecho
 
-## Tarea 2 — Conectar el evaluador (~45 min)
+`ai/evaluator.py` llama al LLM de Groq en modo JSON (`openai/gpt-oss-120b` por
+defecto, cambiable con `GROQ_LLM_MODEL`), valida con `Feedback` (Pydantic) y
+reintenta una vez si el JSON es inválido. Lanza `EvaluationError` si Groq falla.
 
-Archivo: `ai/evaluator.py`.
+## Tarea 3 — Flujo end-to-end en Streamlit ✅ hecho (falta probarlo con la API real)
 
-**Qué hacer:**
-1. En `_evaluate_openai`, usa `client.beta.chat.completions.parse` con
-   `response_format=Feedback` (OpenAI structured outputs).
-2. El system prompt ya está en `ai/prompts/evaluator_system.md`. El
-   user prompt lo arma `_build_user_prompt`.
-3. Si OpenAI structured outputs rechaza el schema (`strict=true` lo
-   requiere), puede que necesites simplificar: quita los `Field(ge=0,le=10)`
-   y valida después con Pydantic.
-4. Test manual: usa el primer caso de `ai/cases/banca_01_credito_pyme.json`,
-   un transcript stub de 2 oraciones, y verifica que devuelve un `Feedback`
-   válido.
+`app/main.py`: grabación → Whisper → transcripción editable → evaluador →
+feedback (métrica, criterios, fortaleza, mejoras, red flags, respuesta modelo) y
+descarga en PDF (`app/pdf_export.py`). Incluye el modo "Entrevista 1-a-1" (solo
+muestra una pregunta de `ai/questions/`).
 
-## Tarea 3 — Conectar el flujo end-to-end en Streamlit (~60 min)
-
-Archivo: `app/main.py`.
-
-**Qué hacer:**
-1. Instala `audio-recorder-streamlit` (ya en requirements) y úsalo en
-   `recording_view` para grabar en el navegador.
-2. Al clickear "Evaluar":
-   - Llama `transcribe_audio(audio_bytes)`.
-   - Muestra la transcripción en un `st.text_area` editable (por si
-     Whisper comete errores).
-   - Llama `evaluate_response(transcript, case, rubric)`.
-   - Renderiza el `Feedback` con `st.metric` para el puntaje total y
-     `st.expander` para cada criterio.
-3. Agrega un botón "Descargar feedback como PDF" (opcional, con
-   `reportlab`).
+**Pendiente:** con `GROQ_API_KEY` en `.env`, graba (o sube) un audio corto,
+verifica que transcribe y evalúa, y guarda una captura en
+`docs/architecture/captura_01_demo_flujo.png`.
 
 ## Tarea 4 — Deploy en Streamlit Community Cloud (~15 min)
 
-1. Crea el repo en GitHub (público): `github.com/renatazuta/practia`.
-2. `git init && git add . && git commit -m "feat: estructura inicial del repo"`.
-3. `git push -u origin main`.
-4. Ve a https://share.streamlit.io, autoriza el repo, elige `app/main.py`.
-5. En Settings > Secrets agrega `OPENAI_API_KEY`.
-6. Espera 3-5 min al build. Guarda la URL en el README.
+1. El repo ya es público: `github.com/RenataZuta/pract-IA`.
+2. Ve a https://share.streamlit.io → *Create app* → repositorio
+   `RenataZuta/pract-IA`, rama `main`, archivo `app/main.py`.
+3. En *Advanced settings* elige **Python 3.11** y, en *Secrets*, agrega:
+   `GROQ_API_KEY = "gsk_..."`
+4. Espera 3-5 min al build. Guarda la URL en el README (sección 6).
 
 ## Tarea 5 — Procesar los audios de las entrevistas (~30 min, cuando ReMar los tenga)
 
@@ -114,6 +93,16 @@ Requerido por la rúbrica como Plan B.
 2. Graba la pantalla con **Loom** o **OBS Studio**: 60-90 segundos.
 3. Sube a YouTube (unlisted) o Loom.
 4. Pega el link en el README sección 6 (Demo).
+
+## Tarea 8 — Módulo 2: grabar y evaluar la entrevista
+
+Hoy el modo "Entrevista 1-a-1" solo muestra una pregunta. Falta:
+
+1. `ai/interview_evaluator.py`: evalúa la respuesta según el `tipo` de la
+   pregunta (STAR / técnica / fit), usando su `hint` como criterio.
+2. Rúbrica de entrevista en `ai/rubrics/` y prompts en `ai/prompts/`.
+3. En `app/main.py`: grabar la respuesta, transcribir, evaluar y mostrar el
+   feedback (reutiliza `feedback_view` si el schema es compatible).
 
 ## Checklist final antes del lunes 16 a las 11:59 p.m.
 

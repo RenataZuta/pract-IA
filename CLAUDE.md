@@ -4,7 +4,20 @@ Este archivo es para que **cualquier sesión de Claude Code** retome el proyecto
 
 ## Qué es PractIA
 
-Simulador de **group case** por voz para estudiantes peruanos postulando a prácticas trainee en banca, FMCG y consultoría. Ver `README.md` para el pitch completo.
+Prep por voz para estudiantes peruanos postulando a prácticas trainee en banca, FMCG y consultoría, con dos módulos (selector "Modo" en el sidebar):
+
+1. **Group case** — caso + anexos + cronómetro, respuesta por voz, feedback contra rúbrica.
+2. **Entrevista 1-a-1 con el jefe final** — preguntas del banco `docs/PractIA_Banco_Preguntas.pdf` (STAR, técnicas por industria, fit). Hoy solo muestra una pregunta aleatoria; falta grabar y evaluar.
+
+Ver `README.md` para el pitch completo.
+
+## Proveedor de IA: Groq (gratis)
+
+- Whisper `whisper-large-v3` y LLM `openai/gpt-oss-120b` (modo JSON) vía el SDK `groq`. Variables: `GROQ_API_KEY`, `GROQ_LLM_MODEL`, `GROQ_WHISPER_MODEL` (ver `.env.example`).
+- **No volver a OpenAI/Anthropic**: son de pago y se descartaron.
+- `llama-3.3-70b-versatile` ya no está en el plan gratuito (baja el 2026-08-16); por eso el default es gpt-oss-120b.
+- `groq==0.11.0` falla con `httpx>=0.28`; por eso `requirements.txt` fija `httpx==0.27.2`.
+- Límites del plan gratuito (nov. 2026): LLM 30 RPM, 1K req/día, **8K tokens/min**; Whisper 20 RPM, 2K req/día, 2 h de audio/hora.
 
 ## Contexto de la fundadora
 
@@ -37,17 +50,17 @@ Esto NO es un proyecto libre. Hay restricciones duras:
             ▼                                  ▼
 ┌──────────────────────────┐      ┌──────────────────────────┐
 │ ai/case_generator.py     │      │ ai/transcribe.py         │
-│ RAG (ChromaDB) +         │      │ Whisper large-v3-turbo   │
-│ corpus de reportes       │      │ (HF o OpenAI API)        │
+│ RAG (ChromaDB) +         │      │ Whisper large-v3 (Groq)  │
+│ corpus de reportes       │      │ (GROQ_WHISPER_MODEL)     │
 │ públicos (data/)         │      │                          │
 └──────────────────────────┘      └──────────┬───────────────┘
                                              │
                                              ▼
                                   ┌──────────────────────────┐
                                   │ ai/evaluator.py          │
-                                  │ LLM (GPT-4o-mini o       │
-                                  │ Claude Haiku) con        │
-                                  │ structured output JSON   │
+                                  │ LLM de Groq (modo JSON)  │
+                                  │ gpt-oss-120b (por .env)  │
+                                  │ + Pydantic (Feedback)    │
                                   │ contra rúbrica           │
                                   └──────────┬───────────────┘
                                              │
@@ -59,24 +72,26 @@ Esto NO es un proyecto libre. Hay restricciones duras:
 
 - [x] Idea validada conceptualmente (3 iteraciones en chat).
 - [x] Estructura del repo creada.
-- [x] README.md con las 9 secciones.
+- [x] README.md con las 9 secciones y los dos módulos.
 - [x] 10 casos semilla en `ai/cases/*.json` (3 banca, 4 FMCG, 3 consultoría).
 - [x] Rúbricas por industria en `ai/rubrics/*.json`.
-- [x] Esqueleto de app Streamlit en `app/main.py`.
-- [x] Guías de entrevista en `docs/research/guia-entrevistas.pdf`.
+- [x] Whisper (`ai/transcribe.py`) y evaluador (`ai/evaluator.py`) conectados a Groq.
+- [x] Flujo end-to-end del group case en `app/main.py`: grabación → Whisper → transcripción editable → evaluador → feedback + PDF (`app/pdf_export.py`). Probado con Groq simulado (`streamlit.testing`); **sin probar con la API real todavía**.
+- [x] Modo "Entrevista 1-a-1": pregunta aleatoria por tipo, solo lectura. Banco de 60 preguntas en `ai/questions/*.json` (extraído de `docs/PractIA_Banco_Preguntas.pdf`).
+- [x] Diagrama en `docs/architecture/arquitectura.png`.
+- [x] Guía de las entrevistas de validación en `docs/PractIA_Guia_Entrevistas.pdf`.
 
 ## Estado pendiente (lo que FALTA hacer)
 
 Prioridad descendente:
 
-1. **[CRÍTICO] Conectar Whisper real** — hoy `ai/transcribe.py` tiene un stub. Usar la API de OpenAI (`openai-whisper-large-v3-turbo`) o Hugging Face Inference Endpoints.
-2. **[CRÍTICO] Conectar el evaluador real** — `ai/evaluator.py` tiene el prompt listo pero falta el cliente API y el parsing JSON.
-3. **[CRÍTICO] Flujo end-to-end en Streamlit** — hoy la UI muestra el caso y el cronómetro; falta conectar grabación → Whisper → evaluador → mostrar feedback.
-4. **[IMPORTANTE] 3 entrevistas transcritas en `docs/research/entrevista-{01,02,03}.md`** — cuando ReMar traiga los audios (~17 min cada uno), usar `scripts/transcribe_batch.py` para procesarlos y luego sintetizar notas con la plantilla ya definida en el PDF de guías.
-5. **[IMPORTANTE] Deploy en Streamlit Community Cloud** — con `OPENAI_API_KEY` en Secrets.
-6. **[DESEABLE] RAG con memorias anuales** — descargar memorias de BCP, Alicorp, Credicorp (links en `data/sources.md`) e indexar en ChromaDB.
-7. **[DESEABLE] Video de respaldo de 60–90s** — por si falla el deploy en vivo (requerido por la rúbrica).
-8. **[DESEABLE] Diagrama de arquitectura y 3 capturas** en `docs/architecture/`.
+1. **[CRÍTICO] Probar con la API real de Groq** — poner `GROQ_API_KEY` en `.env`, correr `streamlit run app/main.py` con un audio corto y guardar la captura en `docs/architecture/captura_01_demo_flujo.png`.
+2. **[CRÍTICO] Deploy en Streamlit Community Cloud** — Python 3.11 y `GROQ_API_KEY` en Secrets; poner la URL en el README (sección 6).
+3. **[IMPORTANTE] 3 entrevistas transcritas en `docs/research/entrevista-{01,02,03}.md`** — cuando ReMar traiga los audios (~17 min cada uno), usar `scripts/transcribe_batch.py` para procesarlos y luego sintetizar notas con la plantilla ya definida en el PDF de guías. No tocar `docs/research/`: lo llena ReMar.
+4. **[IMPORTANTE] Módulo 2: grabar y evaluar** — `ai/interviewer.py`, `ai/interview_evaluator.py`, rúbrica STAR + fit en `ai/rubrics/` y prompts en `ai/prompts/`. Cada pregunta del banco trae su `hint` para usarlo como criterio.
+5. **[DESEABLE] RAG con memorias anuales** — descargar memorias de BCP, Alicorp, Credicorp (links en `data/sources.md`) e indexar en ChromaDB. `chromadb` y `sentence-transformers` ya están en `requirements.txt` pero ningún código los usa (alargan el build del deploy).
+6. **[DESEABLE] Video de respaldo de 60–90s** — por si falla el deploy en vivo (requerido por la rúbrica).
+7. **[DESEABLE] 2 capturas más del flujo** en `docs/architecture/`.
 
 ## Convenciones de código
 
@@ -99,4 +114,5 @@ Prioridad descendente:
 - No agregar login/base de datos salvo que esté explícitamente pedido.
 - No usar casos reales con nombres de empresas sin verificar que sean datos públicos.
 - No subir audios de las entrevistas al repo público (son conversaciones privadas).
+- No volver a OpenAI/Anthropic: el proveedor es Groq (gratis).
 - No pitchear ChatGPT genérico como competidor principal en el README — la diferenciación es contexto peruano.
