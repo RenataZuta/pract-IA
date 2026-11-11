@@ -27,7 +27,7 @@ if str(ROOT) not in sys.path:
 
 from ai.evaluator import EvaluationError, Feedback, evaluate_response  # noqa: E402
 from ai.transcribe import ERROR_PREFIX, transcribe_audio  # noqa: E402
-from app.pdf_export import feedback_to_pdf  # noqa: E402
+from app.pdf_export import TIPO_TITULOS, feedback_to_pdf  # noqa: E402
 
 load_dotenv()
 
@@ -231,10 +231,36 @@ def feedback_view(feedback: Feedback, case: dict, transcript: str) -> None:
     st.markdown("### 📋 Tu feedback")
     st.metric("Puntaje total", f"{feedback.puntaje_total}/100")
 
-    for criterio in feedback.criterios:
-        st.progress(criterio.puntaje / 10, text=f"{criterio.nombre}: {criterio.puntaje}/10")
-        with st.expander(f"Comentario — {criterio.nombre}"):
-            st.write(criterio.comentario)
+    if feedback.puntaje_por_tipo:
+        columnas = st.columns(len(feedback.puntaje_por_tipo))
+        for columna, (tipo, puntaje) in zip(columnas, feedback.puntaje_por_tipo.items()):
+            columna.metric(TIPO_TITULOS.get(tipo, tipo), f"{puntaje}/100")
+
+    for tipo in dict.fromkeys(c.tipo for c in feedback.criterios):
+        st.markdown(f"**{TIPO_TITULOS.get(tipo, 'Criterios')}**")
+        for criterio in (c for c in feedback.criterios if c.tipo == tipo):
+            peso = f" ({criterio.peso * 100:.0f} %)" if criterio.peso else ""
+            st.progress(criterio.puntaje / 10, text=f"{criterio.nombre}{peso}: {criterio.puntaje}/10")
+            with st.expander(f"Comentario — {criterio.nombre}"):
+                st.write(criterio.comentario)
+        if tipo == "blando":
+            st.caption(
+                "Las habilidades blandas se estiman por lo que dices y cómo lo dices; "
+                "no reemplazan una dinámica grupal real."
+            )
+
+    comparativo = feedback.comparativo_referencia
+    if comparativo:
+        st.markdown("**Comparativo con la respuesta de referencia**")
+        titulos = ("Coincidiste en", "Aportaste", "Te faltó")
+        listas = (comparativo.coincide, comparativo.aporta, comparativo.le_falto)
+        for columna, titulo, items in zip(st.columns(3), titulos, listas):
+            columna.markdown(f"*{titulo}*")
+            columna.markdown("\n".join(f"- {item}" for item in items) or "- —")
+    referencia = case.get("respuesta_referencia") or case.get("pista_respuesta_modelo")
+    if referencia:
+        with st.expander("Ver la respuesta de referencia (preparada con Claude)"):
+            st.info(referencia)
 
     st.success(f"**Fortaleza principal:** {feedback.fortaleza_principal}")
     st.warning(

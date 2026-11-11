@@ -17,6 +17,8 @@ from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, Tabl
 
 from ai.evaluator import Feedback
 
+TIPO_TITULOS = {"tecnico": "Técnico", "blando": "Habilidades blandas", "innovacion": "Aporte propio"}
+
 # Helvetica solo cubre cp1252: se reemplazan los símbolos más comunes que
 # escriben los LLM y lo demás se degrada a "?" en vez de romper el PDF.
 _REEMPLAZOS = {
@@ -65,12 +67,15 @@ def feedback_to_pdf(feedback: Feedback, case: dict, transcript: str) -> bytes:
         Spacer(1, 10),
         _para(f"Puntaje total: {feedback.puntaje_total}/100", base["Heading1"]),
     ]
+    if feedback.puntaje_por_tipo:
+        partes = [f"{TIPO_TITULOS.get(t, t)} {p}/100" for t, p in feedback.puntaje_por_tipo.items()]
+        story.append(_para(" · ".join(partes), body))
 
     # Criterios: tabla con el comentario ajustado a la columna.
     filas = [[_para("Criterio", small), _para("Puntaje", small), _para("Comentario", small)]]
     for criterio in feedback.criterios:
         filas.append([
-            _para(criterio.nombre, small),
+            _para(criterio.nombre + (f" ({criterio.peso * 100:.0f} %)" if criterio.peso else ""), small),
             _para(f"{criterio.puntaje}/10", small),
             _para(criterio.comentario, small),
         ])
@@ -81,6 +86,13 @@ def feedback_to_pdf(feedback: Feedback, case: dict, transcript: str) -> bytes:
         ("VALIGN", (0, 0), (-1, -1), "TOP"),
     ]))
     story += [Spacer(1, 4), tabla]
+
+    comparativo = feedback.comparativo_referencia
+    if comparativo:
+        story.append(_para("Comparativo con la respuesta de referencia", h2))
+        for titulo, items in (("Coincidiste en", comparativo.coincide), ("Aportaste", comparativo.aporta),
+                              ("Te faltó", comparativo.le_falto)):
+            story.append(_para(f"{titulo}: " + ("; ".join(items) or "—"), body))
 
     story += [
         _para("Fortaleza principal", h2),
