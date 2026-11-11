@@ -34,7 +34,7 @@ Hoy:
 ### Módulo 1 — Simulador de group case
 
 1. Elige empresa objetivo (BCP, Alicorp, Apoyo Consultoría, etc.) y tipo de case.
-2. Recibe el caso: 1 página de contexto + anexos numéricos (sintéticos pero realistas, con RAG sobre reportes públicos).
+2. Recibe el caso: 1 página de contexto + anexos numéricos (sintéticos pero realistas).
 3. Cronómetro con las 3 fases estándar: lectura (15 min) → discusión (20 min) → conclusión (5 min).
 4. Resuelve por voz; Whisper transcribe en segundos y puedes corregir el texto antes de evaluar.
 5. El evaluador IA puntúa contra una rúbrica por industria con tres tipos de criterio: **técnicos (55 %)**, **habilidades blandas (30 %)** (comunicación y seguridad, colaboración y escucha, priorización) y **aporte propio (15 %)**, que compara tu respuesta con una respuesta de referencia del caso preparada con Claude. Devuelve el puntaje total y por tipo, el comparativo con la referencia (en qué coincidiste, qué aportaste y qué te faltó) y red flags. Las habilidades blandas se estiman por lo que dices y no reemplazan una dinámica grupal real. Se puede descargar en PDF.
@@ -70,7 +70,7 @@ Cada pregunta del banco trae su pista de evaluación (qué busca el entrevistado
 
 ## 4. Insight
 
-El mercado asume que practicar group case **requiere grupo**. Pero el 80% de lo que evalúan los reclutadores es el desempeño individual: cómo estructuras, cómo priorizas, cómo comunicas bajo presión. Eso **sí** se puede practicar solo si tienes el caso, el cronómetro y una rúbrica que refleje cómo evalúan las empresas peruanas.
+El mercado asume que practicar group case **requiere grupo**. Pero buena parte de lo que evalúan los reclutadores es el desempeño individual: cómo estructuras, cómo priorizas, cómo comunicas bajo presión. Eso **sí** se puede practicar solo si tienes el caso, el cronómetro y una rúbrica que refleje cómo evalúan las empresas peruanas.
 
 Con la entrevista final pasa lo mismo: no necesitas a otra persona, necesitas **las preguntas reales del proceso peruano**, un lugar donde responder en voz alta y un evaluador que distinga una respuesta STAR de una anécdota sin resultado. Las dos pruebas se practican con la misma lógica: solo, por voz y con feedback contra un criterio explícito.
 
@@ -78,7 +78,7 @@ Con la entrevista final pasa lo mismo: no necesitas a otra persona, necesitas **
 
 - **Whisper large-v3 sobre Groq** transcribe voz en español en segundos y con capa gratuita, sin tarjeta.
 - **LLMs con salidas estructuradas** (modo JSON + validación Pydantic) permiten rúbricas confiables sin reglas rígidas, tanto para un group case como para una respuesta STAR.
-- **Hay 40.000+ estudiantes de pregrado de economía / admin / ing. industrial** en Lima postulando a prácticas cada ciclo (SUNEDU).
+- **Hay decenas de miles de estudiantes de pregrado de economía / admin / ing. industrial** en Lima postulando a prácticas cada ciclo *(estimación; por sustentar con datos de SUNEDU)*.
 
 ## 6. Demo
 
@@ -91,9 +91,9 @@ Con la entrevista final pasa lo mismo: no necesitas a otra persona, necesitas **
 Modelos y APIs (todo sobre [Groq](https://console.groq.com), capa gratuita):
 - **Whisper large-v3** → transcripción de la voz del estudiante, en ambos módulos.
 - **openai/gpt-oss-120b** (modo JSON, configurable con `GROQ_LLM_MODEL`) → evaluador contra rúbrica, con salida validada con Pydantic: rúbricas por industria para el group case; rúbrica STAR + técnica + fit para la entrevista *(por construir)*.
-- **RAG con ChromaDB** *(por construir)* → corpus de memorias anuales (BCP, Alicorp, Credicorp), casos semilla y banco de preguntas de entrevista.
+- **RAG ligero** (BM25 en Python puro, `ai/rag.py`) → recupera del corpus (75 preguntas de entrevista con lo que busca el entrevistador y 12 casos con su respuesta de referencia) los fragmentos más parecidos al caso y a tu respuesta, y se los da al evaluador como material de apoyo; el feedback los muestra. *Ampliación por construir:* RAG con memorias anuales (BCP, Alicorp, Credicorp) y ChromaDB (`requirements-rag.txt`).
 
-**Estado (nov. 2026):** *Módulo 1* — flujo de voz conectado (grabación → Whisper → transcripción editable → evaluador → feedback y PDF), probado de punta a punta con la API real de Groq (ver capturas); falta desplegarlo. *Módulo 2* — banco de 75 preguntas en `ai/questions/` y modo de práctica que muestra una pregunta aleatoria por tipo; falta grabar la respuesta y evaluarla (STAR + técnica + fit). Detalle en `CLAUDE.md`.
+**Estado (nov. 2026):** *Módulo 1* — flujo de voz conectado (grabación → Whisper → transcripción editable → evaluador → feedback y PDF), evaluación por rúbrica v2 y un RAG ligero que le da material de apoyo al evaluador, probado de punta a punta con la API real de Groq (ver capturas); falta desplegarlo. *Módulo 2* — banco de 75 preguntas en `ai/questions/` y modo de práctica que muestra una pregunta aleatoria por tipo; falta grabar la respuesta y evaluarla (STAR + técnica + fit). Detalle en `CLAUDE.md`.
 
 ## 7. Modelo de negocio
 
@@ -103,7 +103,7 @@ Modelos y APIs (todo sobre [Groq](https://console.groq.com), capa gratuita):
 | Pro | **S/ 29/mes** | Group cases y entrevistas ilimitados, feedback detallado (STAR + técnica + fit), biblioteca por empresa |
 | Teams (universidades) | **S/ 500/mes** | 50 usuarios, dashboard del profesor, cases y preguntas personalizados |
 
-**Margen de contribución por usuario Pro:** ~S/ 23/mes (costo API ~S/ 6).
+**Margen de contribución por usuario Pro:** ~S/ 28/mes (costo API ~S/ 1 con 40 sesiones al mes). Una sesión cuesta ~S/ 0.03 a precios de Groq (gpt-oss-120b: US$ 0.15 / 0.60 por millón de tokens de entrada / salida; Whisper large-v3: US$ 0.111 por hora; tipo de cambio S/ 3.7; respuesta de 3 min y ~6K tokens por evaluación). Estimación sin comisiones de pasarela de pago; la capa gratuita de Groq no sirve para producción y se pasaría al plan Developer.
 
 ## 8. Herramientas del curso
 
@@ -112,7 +112,7 @@ Al menos dos del syllabus están dentro del producto (no solo en el desarrollo):
 | Herramienta | Sesión | Módulo | Dónde está en el repo |
 |---|---|---|---|
 | **Whisper (voz a texto)** | 13 | 1 y 2 | `ai/transcribe.py` (Groq) |
-| **LLMs con salidas estructuradas + RAG** | 8 | 1 y 2 | `ai/evaluator.py` (M1, Groq). Por construir: `ai/interviewer.py` y `ai/interview_evaluator.py` (M2), `ai/case_generator.py` y `ai/rag_index.py` (RAG) |
+| **LLMs con salidas estructuradas + RAG** | 8 | 1 y 2 | `ai/evaluator.py` (M1, Groq) y `ai/rag.py` (RAG ligero, BM25). Por construir: `ai/interviewer.py` y `ai/interview_evaluator.py` (M2), `ai/case_generator.py` y `ai/rag_index.py` (RAG con memorias anuales) |
 | **Document AI / OCR** (opcional) | 10 | 1 y 2 | `ai/cv_parser.py` — para personalizar casos y preguntas de entrevista con el CV del estudiante |
 | **Texto a voz** (opcional) | 15 | 1 y 2 | `ai/tts.py` — el jefe final formula las preguntas en voz alta y el evaluador "habla" el feedback |
 
@@ -148,6 +148,7 @@ practia/
 │   ├── evaluator.py       # LLM de Groq en modo JSON + Pydantic — evaluador de group case (M1)
 │   ├── interviewer.py     # (por construir) Jefe final: arma y conduce la entrevista (M2)
 │   ├── interview_evaluator.py  # (por construir) Feedback STAR + técnica + fit (M2)
+│   ├── rag.py             # RAG ligero: recuperación BM25 sobre preguntas y casos (lo usa el evaluador)
 │   ├── case_generator.py  # (por construir) RAG sobre memorias anuales
 │   └── rag_index.py       # (por construir) Indexado ChromaDB
 ├── data/                  # Datos públicos de memorias anuales

@@ -17,7 +17,7 @@ Ver `README.md` para el pitch completo.
 - **No volver a OpenAI/Anthropic**: son de pago y se descartaron.
 - `llama-3.3-70b-versatile` ya no está en el plan gratuito (baja el 2026-08-16); por eso el default es gpt-oss-120b.
 - `groq==0.11.0` falla con `httpx>=0.28`; por eso `requirements.txt` fija `httpx==0.27.2`.
-- Límites del plan gratuito (nov. 2026): LLM 30 RPM, 1K req/día, **8K tokens/min** (una evaluación gasta ~5.2-6.5K tokens con la rúbrica v2: solo cabe una por minuto); Whisper 20 RPM, 2K req/día, 2 h de audio/hora.
+- Límites del plan gratuito (nov. 2026): LLM 30 RPM, 1K req/día, **8K tokens/min** (una evaluación gasta ~6.0-6.2K tokens con la rúbrica v2 y el RAG: solo cabe una por minuto); Whisper 20 RPM, 2K req/día, 2 h de audio/hora.
 
 ## Contexto de la fundadora
 
@@ -33,7 +33,7 @@ Esto NO es un proyecto libre. Hay restricciones duras:
 
 1. **Deadline:** entrega en issue #205 del repo `d2cml-ai/Data-Science-Python` antes del **lunes 16 nov 2026, 23:59**. Presentación **miércoles 18 nov, 7:50 AM** (turno #15).
 2. **Demo en vivo obligatoria:** 3 minutos exactos. El profe corta a los 3:00. El demo vale 8 de 20 puntos: URL pública en vivo = 7–8 pts, laptop = 4–6 pts, solo diapositivas = 0 pts.
-3. **Al menos 2 herramientas del syllabus dentro del producto** (no solo en desarrollo). Las elegidas: Whisper (sesión 13) + LLMs con RAG (sesión 8). Document AI y TTS son opcionales de refuerzo.
+3. **Al menos 2 herramientas del syllabus dentro del producto** (no solo en desarrollo). Las elegidas: Whisper (sesión 13) + LLMs con RAG (sesión 8). El RAG hoy es ligero (BM25, `ai/rag.py`); el de memorias anuales con ChromaDB sigue por construir. Document AI y TTS son opcionales de refuerzo.
 4. **Repo público** con 9 secciones de README (ya están en README.md).
 5. **3 conversaciones con usuarios potenciales** en `docs/research/` — las entrevistas están en curso con una analista de banca, una de FMCG y una de consultoría.
 6. **No subir claves de API al repo** — usar `.env` (ya en `.gitignore`) y `.env.example`.
@@ -45,6 +45,9 @@ Esto NO es un proyecto libre. Hay restricciones duras:
 - `ai/evaluator.py` filtra los criterios que aplican al caso y reparte el peso de los que no aplican **dentro de su mismo tipo**, para no mover el balance. El LLM puntúa cada criterio (0-10); **el total y los subtotales por tipo los calcula el código**, no el modelo. Si faltan criterios reintenta una vez; si siguen faltando conserva el total del modelo.
 - Habilidades blandas: se estiman por señales observables de una respuesta individual (reconoce a otros actores, atiende las restricciones del caso, declara supuestos, prioriza); sin evidencia vale 5.
 - Aporte propio: el LLM compara la respuesta con la referencia del caso (`respuesta_referencia` si existe, si no `pista_respuesta_modelo`, preparada con Claude) y devuelve `comparativo_referencia` (coincide / aporta / le faltó). Copia de la referencia = 5; plantilla genérica = 1-2; aportes válidos = 7+.
+- RAG ligero (`ai/rag.py`, BM25 en Python puro, sin dependencias): indexa las 75 preguntas (con su hint) y los 12 casos (con su referencia); el evaluador recupera `RAG_K` fragmentos (3 por defecto; 0 lo apaga) parecidos al caso y a la respuesta, los pasa al prompt como material de apoyo y los devuelve en `fuentes_recuperadas` (la UI los muestra). Si falla, se evalúa sin él. Cuesta ~300 tokens.
+- Cada caso puede traer `criterios_no_aplican` (lista de nombres) cuando no pide algo que la rúbrica evalúa; hoy `consultoria_01` (no pide recomendación). Su peso se reparte dentro del mismo tipo.
+- Los 9 casos originales con pista corta tienen además `respuesta_referencia` (respuesta completa, preparada con Claude y verificada contra los anexos); `consultoria_03`, `banca_04` y `consultoria_04` usan su pista, que ya es completa.
 - El modelo gpt-oss usa `reasoning_effort=low` (`GROQ_REASONING_EFFORT`) para gastar menos tokens.
 
 ## Arquitectura
@@ -97,7 +100,7 @@ Prioridad descendente:
 2. **[CRÍTICO] Deploy en Streamlit Community Cloud** — Python 3.11 y `GROQ_API_KEY` en Secrets; poner la URL en el README (sección 6).
 3. **[IMPORTANTE] 3 entrevistas transcritas en `docs/research/entrevista-{01,02,03}.md`** — cuando ReMar traiga los audios (~17 min cada uno), usar `scripts/transcribe_batch.py` para procesarlos y luego sintetizar notas con la plantilla ya definida en el PDF de guías. No tocar `docs/research/`: lo llena ReMar.
 4. **[IMPORTANTE] Módulo 2: grabar y evaluar** — `ai/interviewer.py`, `ai/interview_evaluator.py`, rúbrica STAR + fit en `ai/rubrics/` y prompts en `ai/prompts/`. Cada pregunta del banco trae su `hint` para usarlo como criterio.
-5. **[DESEABLE] Respuestas de referencia completas** — las `pista_respuesta_modelo` de los 10 casos originales son esquemas de ~350 caracteres (las de `banca_04` y `consultoria_04` son más completas, ~1000). Con referencias cortas, el criterio de aporte propio tiende a inflarse; agrega un campo `respuesta_referencia` por caso (el evaluador lo prefiere).
+5. **[DESEABLE] Revisar con ReMar** — `consultoria_02`: el payback de 5 años del anexo no cuadra con su margen de 14% y CAPEX de S/ 1.1M (daría ~2.7 años); y las referencias y pistas que redactó Claude. Corregidos al ampliar las referencias: `banca_01` (deuda +34%, no +50%), `consultoria_01` (anexo con nota "wait" y utilidad inconsistente), `consultoria_02` (8% era una tienda, no tres) y `fmcg_01` (Sao tiene 28%, no 55%).
 6. **[DESEABLE] RAG con memorias anuales** — descargar memorias de BCP, Alicorp, Credicorp (links en `data/sources.md`) e indexar en ChromaDB. `chromadb` y `sentence-transformers` están en `requirements-rag.txt`, fuera de `requirements.txt`, porque arrastran torch y alargan el build del deploy sin que ningún código las use aún; instálalas con `pip install -r requirements-rag.txt` y, si el RAG se despliega, vuelve a pasarlas a `requirements.txt`.
 7. **[DESEABLE] Video de respaldo de 60–90s** — por si falla el deploy en vivo (requerido por la rúbrica).
 8. **[DESEABLE] 2 capturas más del flujo** en `docs/architecture/`.
