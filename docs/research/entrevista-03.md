@@ -39,8 +39,8 @@ Practicante en su segunda experiencia, con formación en econometría, que se pr
 
 ## Qué cambiaría en mi idea después de esta conversación
 - Dolor menor en perfiles con base econométrica: validar el problema con estudiantes sin esa base o en su primera práctica.
-- Agregar un caso de investigación con base de datos y la regla de plantear la hipótesis antes de ver los datos (el error de "contaminas de por sí el efecto"). `ai/cases/` no tiene casos así.
-- Ampliar `ai/questions/fit.json`: hobbies, habilidades de la universidad, ciclo y tiempo para egresar, defender una idea errónea.
+- Caso de investigación con base de datos y la regla de plantear la hipótesis antes de ver los datos (el error de "contaminas de por sí el efecto"): agregado como `consultoria_04`.
+- Agregado en `ai/questions/fit.json`: hobbies, habilidades de la universidad, ciclo y tiempo para egresar, defender una idea errónea.
 - Dar feedback antes del intento: "este app tiene que tener, digamos, un feedback antes de haberlo hecho"; y mantener los casos actualizados.
 - Tono humano para que no "se note" la IA; posicionar PractIA como práctica donde la persona resuelve y la IA solo evalúa. Escucha, humildad y equipo como criterios de la rúbrica de entrevista.
 

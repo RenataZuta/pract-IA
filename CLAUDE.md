@@ -17,7 +17,7 @@ Ver `README.md` para el pitch completo.
 - **No volver a OpenAI/Anthropic**: son de pago y se descartaron.
 - `llama-3.3-70b-versatile` ya no está en el plan gratuito (baja el 2026-08-16); por eso el default es gpt-oss-120b.
 - `groq==0.11.0` falla con `httpx>=0.28`; por eso `requirements.txt` fija `httpx==0.27.2`.
-- Límites del plan gratuito (nov. 2026): LLM 30 RPM, 1K req/día, **8K tokens/min**; Whisper 20 RPM, 2K req/día, 2 h de audio/hora.
+- Límites del plan gratuito (nov. 2026): LLM 30 RPM, 1K req/día, **8K tokens/min** (una evaluación gasta ~3.5-4.7K tokens: con los casos largos solo cabe una por minuto); Whisper 20 RPM, 2K req/día, 2 h de audio/hora.
 
 ## Contexto de la fundadora
 
@@ -73,11 +73,11 @@ Esto NO es un proyecto libre. Hay restricciones duras:
 - [x] Idea validada conceptualmente (3 iteraciones en chat).
 - [x] Estructura del repo creada.
 - [x] README.md con las 9 secciones y los dos módulos.
-- [x] 10 casos semilla en `ai/cases/*.json` (3 banca, 4 FMCG, 3 consultoría).
+- [x] 12 casos semilla en `ai/cases/*.json` (4 banca, 4 FMCG, 4 consultoría); `banca_04` (pricing) y `consultoria_04` (evaluación de impacto) salieron de las entrevistas de validación.
 - [x] Rúbricas por industria en `ai/rubrics/*.json`.
 - [x] Whisper (`ai/transcribe.py`) y evaluador (`ai/evaluator.py`) conectados a Groq.
 - [x] Flujo end-to-end del group case en `app/main.py`: grabación → Whisper → transcripción editable → evaluador → feedback + PDF (`app/pdf_export.py`). Probado con Groq simulado (`streamlit.testing`) y de punta a punta con la API real en Chrome headless subiendo un audio (capturas en `docs/architecture/`). **El micrófono real (`audio_recorder`) no se ha probado.**
-- [x] Modo "Entrevista 1-a-1": pregunta aleatoria por tipo, solo lectura. Banco de 60 preguntas en `ai/questions/*.json` (extraído de `docs/PractIA_Banco_Preguntas.pdf`).
+- [x] Modo "Entrevista 1-a-1": pregunta aleatoria por tipo, solo lectura. Banco de 75 preguntas en `ai/questions/*.json`: 60 de `docs/PractIA_Banco_Preguntas.pdf` y 15 de las entrevistas de validación (campo `fuente`).
 - [x] Diagrama en `docs/architecture/arquitectura.png`.
 - [x] Guía de las entrevistas de validación en `docs/PractIA_Guia_Entrevistas.pdf`.
 

@@ -56,17 +56,17 @@ El **jefe final** es el gerente o jefe del área que cierra el proceso. PractIA 
 
 Cada pregunta del banco trae su pista de evaluación (qué busca el entrevistador y qué es red flag: *"esperé a ver qué pasaba"*, *"no he tenido desacuerdos"*, *"soy muy perfeccionista"*), y el evaluador la usa como criterio. El feedback incluye puntaje por eje, fortaleza principal, tres cosas a mejorar, red flags y una respuesta modelo.
 
-**Corpus de preguntas** (60 en total; un JSON por tipo en `ai/questions/`, con `pregunta`, `hint`, `tipo` y `subtema`):
+**Corpus de preguntas** (75 en total: 60 del banco `docs/PractIA_Banco_Preguntas.pdf` y 15 que salieron de las entrevistas de validación; un JSON por tipo en `ai/questions/`, con `pregunta`, `hint`, `tipo`, `subtema` y `fuente`):
 
 | Archivo | Preguntas | Subtemas |
 |---|---|---|
-| `behavioral_star.json` | 12 | Liderazgo e iniciativa · Trabajo en equipo y conflicto · Resolución de problemas y presión |
-| `fit.json` | 5 | Motivación y fit |
-| `tecnica_banca.json` | 15 | Fundamentos financieros · Contexto peruano · Casos y razonamiento |
+| `behavioral_star.json` | 18 | Liderazgo e iniciativa · Trabajo en equipo y conflicto · Resolución de problemas y presión · Errores y comunicación · Escucha y humildad · Preguntas trampa |
+| `fit.json` | 9 | Motivación y fit · Perfil personal · Criterio y argumentación |
+| `tecnica_banca.json` | 17 | Fundamentos financieros · Contexto peruano · Casos y razonamiento · Pricing |
 | `tecnica_fmcg.json` | 14 | Marca y marketing · Canal y trade · Consumer insight (el banco incluye el caso Marsella vs P&G) |
-| `tecnica_consultoria.json` | 14 | Frameworks · Market sizing · Fit y motivación |
+| `tecnica_consultoria.json` | 17 | Frameworks · Market sizing · Fit y motivación · Econometría y evaluación de impacto |
 
-**Fuentes del corpus:** Glassdoor PE, Indeed PE, blog BCP, Perú Retail, Wharton Consulting Casebook 2025, PrepLounge, Management Consulted y Case in Point (referencia general, sin reproducir contenido). Detalle completo en [`docs/PractIA_Banco_Preguntas.pdf`](docs/PractIA_Banco_Preguntas.pdf).
+**Fuentes del corpus:** Glassdoor PE, Indeed PE, blog BCP, Perú Retail, Wharton Consulting Casebook 2025, PrepLounge, Management Consulted y Case in Point (referencia general, sin reproducir contenido), más las 3 entrevistas de validación (`docs/research/`). Detalle completo del banco en [`docs/PractIA_Banco_Preguntas.pdf`](docs/PractIA_Banco_Preguntas.pdf).
 
 ## 4. Insight
 
@@ -93,7 +93,7 @@ Modelos y APIs (todo sobre [Groq](https://console.groq.com), capa gratuita):
 - **openai/gpt-oss-120b** (modo JSON, configurable con `GROQ_LLM_MODEL`) → evaluador contra rúbrica, con salida validada con Pydantic: rúbricas por industria para el group case; rúbrica STAR + técnica + fit para la entrevista *(por construir)*.
 - **RAG con ChromaDB** *(por construir)* → corpus de memorias anuales (BCP, Alicorp, Credicorp), casos semilla y banco de preguntas de entrevista.
 
-**Estado (nov. 2026):** *Módulo 1* — flujo de voz conectado (grabación → Whisper → transcripción editable → evaluador → feedback y PDF), probado de punta a punta con la API real de Groq (ver capturas); falta desplegarlo. *Módulo 2* — banco de 60 preguntas en `ai/questions/` y modo de práctica que muestra una pregunta aleatoria por tipo; falta grabar la respuesta y evaluarla (STAR + técnica + fit). Detalle en `CLAUDE.md`.
+**Estado (nov. 2026):** *Módulo 1* — flujo de voz conectado (grabación → Whisper → transcripción editable → evaluador → feedback y PDF), probado de punta a punta con la API real de Groq (ver capturas); falta desplegarlo. *Módulo 2* — banco de 75 preguntas en `ai/questions/` y modo de práctica que muestra una pregunta aleatoria por tipo; falta grabar la respuesta y evaluarla (STAR + técnica + fit). Detalle en `CLAUDE.md`.
 
 ## 7. Modelo de negocio
 
@@ -141,8 +141,8 @@ practia/
 │   └── components.py      # (por construir)
 ├── ai/
 │   ├── prompts/           # System prompt del evaluador de group case; jefe final y evaluador de entrevista (por construir)
-│   ├── cases/             # 10 casos semilla (JSON) — Módulo 1
-│   ├── questions/         # Banco de 60 preguntas (JSON, uno por tipo) — Módulo 2
+│   ├── cases/             # 12 casos semilla (JSON, 4 por industria) — Módulo 1
+│   ├── questions/         # Banco de 75 preguntas (JSON, uno por tipo) — Módulo 2
 │   ├── rubrics/           # Rúbricas por industria (M1); rúbrica de entrevista STAR + fit (por construir, M2)
 │   ├── transcribe.py      # Whisper large-v3 (Groq) — ambos módulos
 │   ├── evaluator.py       # LLM de Groq en modo JSON + Pydantic — evaluador de group case (M1)

@@ -36,7 +36,7 @@ Trainee de finanzas comerciales que, al no encontrar a nadie que le contara cóm
 ## Qué cambiaría en mi idea después de esta conversación
 - Priorizar el Módulo 2: lo indispensable para ella son las preguntas de habilidades blandas. Respalda el banco de preguntas y al jefe final.
 - Ya hay oferta de pago que simula la dinámica adaptada a perfil y empresa: diferenciarse con preguntas reales del proceso peruano y con precio.
-- Incluir *preguntas trampa* que no se resuelvan con un speech aprendido (el banco ya trae algunas, como *¿prefieres trabajar solo o en equipo?*).
+- Incluir *preguntas trampa* que no se resuelvan con un speech aprendido (el banco ya trae algunas, como *¿prefieres trabajar solo o en equipo?*); se agregaron dos más en `behavioral_star.json`.
 - Agregar a la rúbrica de FMCG la priorización explícita: ella dominaba el análisis financiero y el grupo le ayudó a entender "qué cosas están por demás y qué cosas son primero".
 
 ## Referidos
