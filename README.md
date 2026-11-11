@@ -83,7 +83,7 @@ Con la entrevista final pasa lo mismo: no necesitas a otra persona, necesitas **
 ## 6. Demo
 
 - **URL:** *(pendiente de deploy en Streamlit Cloud)*
-- **Capturas:** `docs/architecture/`
+- **Capturas:** `docs/architecture/` (`captura_01_demo_flujo.png`, `captura_02_feedback_pdf.png`, `captura_03_modo_entrevista.png`)
 - **Diagrama:** `docs/architecture/arquitectura.png`
 
 ![Arquitectura de PractIA](docs/architecture/arquitectura.png)
@@ -93,7 +93,7 @@ Modelos y APIs (todo sobre [Groq](https://console.groq.com), capa gratuita):
 - **openai/gpt-oss-120b** (modo JSON, configurable con `GROQ_LLM_MODEL`) → evaluador contra rúbrica, con salida validada con Pydantic: rúbricas por industria para el group case; rúbrica STAR + técnica + fit para la entrevista *(por construir)*.
 - **RAG con ChromaDB** *(por construir)* → corpus de memorias anuales (BCP, Alicorp, Credicorp), casos semilla y banco de preguntas de entrevista.
 
-**Estado (nov. 2026):** *Módulo 1* — flujo de voz conectado (grabación → Whisper → transcripción editable → evaluador → feedback y PDF), probado con Groq simulado; falta probarlo con la API real y desplegarlo. *Módulo 2* — banco de 60 preguntas en `ai/questions/` y modo de práctica que muestra una pregunta aleatoria por tipo; falta grabar la respuesta y evaluarla (STAR + técnica + fit). Detalle en `CLAUDE.md`.
+**Estado (nov. 2026):** *Módulo 1* — flujo de voz conectado (grabación → Whisper → transcripción editable → evaluador → feedback y PDF), probado de punta a punta con la API real de Groq (ver capturas); falta desplegarlo. *Módulo 2* — banco de 60 preguntas en `ai/questions/` y modo de práctica que muestra una pregunta aleatoria por tipo; falta grabar la respuesta y evaluarla (STAR + técnica + fit). Detalle en `CLAUDE.md`.
 
 ## 7. Modelo de negocio
 

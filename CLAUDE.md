@@ -76,7 +76,7 @@ Esto NO es un proyecto libre. Hay restricciones duras:
 - [x] 10 casos semilla en `ai/cases/*.json` (3 banca, 4 FMCG, 3 consultoría).
 - [x] Rúbricas por industria en `ai/rubrics/*.json`.
 - [x] Whisper (`ai/transcribe.py`) y evaluador (`ai/evaluator.py`) conectados a Groq.
-- [x] Flujo end-to-end del group case en `app/main.py`: grabación → Whisper → transcripción editable → evaluador → feedback + PDF (`app/pdf_export.py`). Probado con Groq simulado (`streamlit.testing`); **sin probar con la API real todavía**.
+- [x] Flujo end-to-end del group case en `app/main.py`: grabación → Whisper → transcripción editable → evaluador → feedback + PDF (`app/pdf_export.py`). Probado con Groq simulado (`streamlit.testing`) y de punta a punta con la API real en Chrome headless subiendo un audio (capturas en `docs/architecture/`). **El micrófono real (`audio_recorder`) no se ha probado.**
 - [x] Modo "Entrevista 1-a-1": pregunta aleatoria por tipo, solo lectura. Banco de 60 preguntas en `ai/questions/*.json` (extraído de `docs/PractIA_Banco_Preguntas.pdf`).
 - [x] Diagrama en `docs/architecture/arquitectura.png`.
 - [x] Guía de las entrevistas de validación en `docs/PractIA_Guia_Entrevistas.pdf`.
@@ -85,7 +85,7 @@ Esto NO es un proyecto libre. Hay restricciones duras:
 
 Prioridad descendente:
 
-1. **[CRÍTICO] Probar con la API real de Groq** — poner `GROQ_API_KEY` en `.env`, correr `streamlit run app/main.py` con un audio corto y guardar la captura en `docs/architecture/captura_01_demo_flujo.png`.
+1. **[CRÍTICO] Probar el micrófono real** — grabar con `audio_recorder` en el navegador y evaluar; el resto del flujo ya se probó con la API real subiendo un audio.
 2. **[CRÍTICO] Deploy en Streamlit Community Cloud** — Python 3.11 y `GROQ_API_KEY` en Secrets; poner la URL en el README (sección 6).
 3. **[IMPORTANTE] 3 entrevistas transcritas en `docs/research/entrevista-{01,02,03}.md`** — cuando ReMar traiga los audios (~17 min cada uno), usar `scripts/transcribe_batch.py` para procesarlos y luego sintetizar notas con la plantilla ya definida en el PDF de guías. No tocar `docs/research/`: lo llena ReMar.
 4. **[IMPORTANTE] Módulo 2: grabar y evaluar** — `ai/interviewer.py`, `ai/interview_evaluator.py`, rúbrica STAR + fit en `ai/rubrics/` y prompts en `ai/prompts/`. Cada pregunta del banco trae su `hint` para usarlo como criterio.
@@ -101,6 +101,7 @@ Prioridad descendente:
 - Variables de entorno via `python-dotenv`.
 - Logging con `loguru`, no `print`.
 - Si agregas una dependencia, actualiza `requirements.txt` con versión pinned.
+- Streamlit: no fijes el valor de un widget con clave fija vía `st.session_state` tras trabajo lento (no se pinta en el navegador); usa `value=` y una clave nueva por entrada. Las pruebas con `streamlit.testing` no detectan esto: verifica en un navegador.
 
 ## Cuando hagas commits
 

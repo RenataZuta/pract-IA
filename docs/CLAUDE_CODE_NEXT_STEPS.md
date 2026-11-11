@@ -36,16 +36,15 @@ el audio ni la API key).
 defecto, cambiable con `GROQ_LLM_MODEL`), valida con `Feedback` (Pydantic) y
 reintenta una vez si el JSON es inválido. Lanza `EvaluationError` si Groq falla.
 
-## Tarea 3 — Flujo end-to-end en Streamlit ✅ hecho (falta probarlo con la API real)
+## Tarea 3 — Flujo end-to-end en Streamlit ✅ hecho
 
 `app/main.py`: grabación → Whisper → transcripción editable → evaluador →
 feedback (métrica, criterios, fortaleza, mejoras, red flags, respuesta modelo) y
 descarga en PDF (`app/pdf_export.py`). Incluye el modo "Entrevista 1-a-1" (solo
 muestra una pregunta de `ai/questions/`).
 
-**Pendiente:** con `GROQ_API_KEY` en `.env`, graba (o sube) un audio corto,
-verifica que transcribe y evalúa, y guarda una captura en
-`docs/architecture/captura_01_demo_flujo.png`.
+Probado de punta a punta con la API real (subiendo un audio) y con capturas en
+`docs/architecture/`. **Pendiente:** probar el micrófono real (`audio_recorder`).
 
 ## Tarea 4 — Deploy en Streamlit Community Cloud (~15 min)
 
