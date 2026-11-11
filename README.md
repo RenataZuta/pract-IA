@@ -37,7 +37,7 @@ Hoy:
 2. Recibe el caso: 1 página de contexto + anexos numéricos (sintéticos pero realistas, con RAG sobre reportes públicos).
 3. Cronómetro con las 3 fases estándar: lectura (15 min) → discusión (20 min) → conclusión (5 min).
 4. Resuelve por voz; Whisper transcribe en segundos y puedes corregir el texto antes de evaluar.
-5. El evaluador IA devuelve feedback estructurado: framework usado, estructura numérica, claridad de recomendación, uso del tiempo, red flags. Se puede descargar en PDF.
+5. El evaluador IA puntúa contra una rúbrica por industria con tres tipos de criterio: **técnicos (55 %)**, **habilidades blandas (30 %)** (comunicación y seguridad, colaboración y escucha, priorización) y **aporte propio (15 %)**, que compara tu respuesta con una respuesta de referencia del caso preparada con Claude. Devuelve el puntaje total y por tipo, el comparativo con la referencia (en qué coincidiste, qué aportaste y qué te faltó) y red flags. Las habilidades blandas se estiman por lo que dices y no reemplazan una dinámica grupal real. Se puede descargar en PDF.
 
 ### Módulo 2 — Prep de entrevista individual con el jefe final
 

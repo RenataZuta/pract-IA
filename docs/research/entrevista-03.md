@@ -42,7 +42,7 @@ Practicante en su segunda experiencia, con formación en econometría, que se pr
 - Caso de investigación con base de datos y la regla de plantear la hipótesis antes de ver los datos (el error de "contaminas de por sí el efecto"): agregado como `consultoria_04`.
 - Agregado en `ai/questions/fit.json`: hobbies, habilidades de la universidad, ciclo y tiempo para egresar, defender una idea errónea.
 - Dar feedback antes del intento: "este app tiene que tener, digamos, un feedback antes de haberlo hecho"; y mantener los casos actualizados.
-- Tono humano para que no "se note" la IA; posicionar PractIA como práctica donde la persona resuelve y la IA solo evalúa. Escucha, humildad y equipo como criterios de la rúbrica de entrevista.
+- Tono humano para que no "se note" la IA; posicionar PractIA como práctica donde la persona resuelve y la IA solo evalúa. Escucha, humildad y equipo ya están en la rúbrica del group case («Colaboración y escucha»); falta la rúbrica de entrevista.
 
 ## Referidos
 - Se le pidió conectar con una o dos personas; no dio nombres en la grabación.

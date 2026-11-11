@@ -37,7 +37,7 @@ Auditor de riesgos que pasó por las tres fases de un proceso bancario (convocat
 ## Qué cambiaría en mi idea después de esta conversación
 - La etapa más temida es la entrevista final con gerentes: respalda priorizar el Módulo 2 (jefe final).
 - Caso de pricing bancario agregado como `banca_04` (el real fue Excel + PPT + exposición oral; el caso entrega tablas y se responde por voz).
-- Lo decisivo para él es trabajar en equipo, que un simulador individual no mide: agregar un criterio de colaboración o declarar el límite.
+- Lo decisivo para él es trabajar en equipo, que un simulador individual no mide: criterio «Colaboración y escucha» agregado a las rúbricas, estimado por señales de la respuesta (el límite se declara en la UI).
 - Agregada una pregunta STAR sobre errores propios y cómo se comunicaron (`behavioral_star.json`).
 - Entró por recomendación y casi sin gastar: baja disposición a pagar en este perfil (hipótesis; una sola entrevista).
 

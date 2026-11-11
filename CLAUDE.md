@@ -17,7 +17,7 @@ Ver `README.md` para el pitch completo.
 - **No volver a OpenAI/Anthropic**: son de pago y se descartaron.
 - `llama-3.3-70b-versatile` ya no está en el plan gratuito (baja el 2026-08-16); por eso el default es gpt-oss-120b.
 - `groq==0.11.0` falla con `httpx>=0.28`; por eso `requirements.txt` fija `httpx==0.27.2`.
-- Límites del plan gratuito (nov. 2026): LLM 30 RPM, 1K req/día, **8K tokens/min** (una evaluación gasta ~3.5-4.7K tokens: con los casos largos solo cabe una por minuto); Whisper 20 RPM, 2K req/día, 2 h de audio/hora.
+- Límites del plan gratuito (nov. 2026): LLM 30 RPM, 1K req/día, **8K tokens/min** (una evaluación gasta ~5.2-6.5K tokens con la rúbrica v2: solo cabe una por minuto); Whisper 20 RPM, 2K req/día, 2 h de audio/hora.
 
 ## Contexto de la fundadora
 
@@ -38,6 +38,14 @@ Esto NO es un proyecto libre. Hay restricciones duras:
 5. **3 conversaciones con usuarios potenciales** en `docs/research/` — las entrevistas están en curso con una analista de banca, una de FMCG y una de consultoría.
 6. **No subir claves de API al repo** — usar `.env` (ya en `.gitignore`) y `.env.example`.
 7. **Commits en varios días**, no todos el último día.
+
+## Evaluación del group case (rúbricas v2)
+
+- `ai/rubrics/{banca,fmcg,consultoria}.json`: cada criterio tiene `tipo` (`tecnico` 55 %, `blando` 30 %, `innovacion` 15 %), `peso` y, opcional, `aplica_a` (lista de `case_type`; hoy solo "Market sizing / Fermi" en consultoría). El balance salió de las entrevistas de validación: las tres pusieron las habilidades blandas por encima de lo técnico.
+- `ai/evaluator.py` filtra los criterios que aplican al caso y reparte el peso de los que no aplican **dentro de su mismo tipo**, para no mover el balance. El LLM puntúa cada criterio (0-10); **el total y los subtotales por tipo los calcula el código**, no el modelo. Si faltan criterios reintenta una vez; si siguen faltando conserva el total del modelo.
+- Habilidades blandas: se estiman por señales observables de una respuesta individual (reconoce a otros actores, atiende las restricciones del caso, declara supuestos, prioriza); sin evidencia vale 5.
+- Aporte propio: el LLM compara la respuesta con la referencia del caso (`respuesta_referencia` si existe, si no `pista_respuesta_modelo`, preparada con Claude) y devuelve `comparativo_referencia` (coincide / aporta / le faltó). Copia de la referencia = 5; plantilla genérica = 1-2; aportes válidos = 7+.
+- El modelo gpt-oss usa `reasoning_effort=low` (`GROQ_REASONING_EFFORT`) para gastar menos tokens.
 
 ## Arquitectura
 
@@ -74,7 +82,7 @@ Esto NO es un proyecto libre. Hay restricciones duras:
 - [x] Estructura del repo creada.
 - [x] README.md con las 9 secciones y los dos módulos.
 - [x] 12 casos semilla en `ai/cases/*.json` (4 banca, 4 FMCG, 4 consultoría); `banca_04` (pricing) y `consultoria_04` (evaluación de impacto) salieron de las entrevistas de validación.
-- [x] Rúbricas por industria en `ai/rubrics/*.json`.
+- [x] Rúbricas por industria en `ai/rubrics/*.json` (v2: 55 % técnico, 30 % habilidades blandas, 15 % aporte propio frente a la referencia).
 - [x] Whisper (`ai/transcribe.py`) y evaluador (`ai/evaluator.py`) conectados a Groq.
 - [x] Flujo end-to-end del group case en `app/main.py`: grabación → Whisper → transcripción editable → evaluador → feedback + PDF (`app/pdf_export.py`). Probado con Groq simulado (`streamlit.testing`) y de punta a punta con la API real en Chrome headless subiendo un audio (capturas en `docs/architecture/`). **El micrófono real (`audio_recorder`) no se ha probado.**
 - [x] Modo "Entrevista 1-a-1": pregunta aleatoria por tipo, solo lectura. Banco de 75 preguntas en `ai/questions/*.json`: 60 de `docs/PractIA_Banco_Preguntas.pdf` y 15 de las entrevistas de validación (campo `fuente`).
@@ -89,9 +97,10 @@ Prioridad descendente:
 2. **[CRÍTICO] Deploy en Streamlit Community Cloud** — Python 3.11 y `GROQ_API_KEY` en Secrets; poner la URL en el README (sección 6).
 3. **[IMPORTANTE] 3 entrevistas transcritas en `docs/research/entrevista-{01,02,03}.md`** — cuando ReMar traiga los audios (~17 min cada uno), usar `scripts/transcribe_batch.py` para procesarlos y luego sintetizar notas con la plantilla ya definida en el PDF de guías. No tocar `docs/research/`: lo llena ReMar.
 4. **[IMPORTANTE] Módulo 2: grabar y evaluar** — `ai/interviewer.py`, `ai/interview_evaluator.py`, rúbrica STAR + fit en `ai/rubrics/` y prompts en `ai/prompts/`. Cada pregunta del banco trae su `hint` para usarlo como criterio.
-5. **[DESEABLE] RAG con memorias anuales** — descargar memorias de BCP, Alicorp, Credicorp (links en `data/sources.md`) e indexar en ChromaDB. `chromadb` y `sentence-transformers` están en `requirements-rag.txt`, fuera de `requirements.txt`, porque arrastran torch y alargan el build del deploy sin que ningún código las use aún; instálalas con `pip install -r requirements-rag.txt` y, si el RAG se despliega, vuelve a pasarlas a `requirements.txt`.
-6. **[DESEABLE] Video de respaldo de 60–90s** — por si falla el deploy en vivo (requerido por la rúbrica).
-7. **[DESEABLE] 2 capturas más del flujo** en `docs/architecture/`.
+5. **[DESEABLE] Respuestas de referencia completas** — las `pista_respuesta_modelo` de los 10 casos originales son esquemas de ~350 caracteres (las de `banca_04` y `consultoria_04` son más completas, ~1000). Con referencias cortas, el criterio de aporte propio tiende a inflarse; agrega un campo `respuesta_referencia` por caso (el evaluador lo prefiere).
+6. **[DESEABLE] RAG con memorias anuales** — descargar memorias de BCP, Alicorp, Credicorp (links en `data/sources.md`) e indexar en ChromaDB. `chromadb` y `sentence-transformers` están en `requirements-rag.txt`, fuera de `requirements.txt`, porque arrastran torch y alargan el build del deploy sin que ningún código las use aún; instálalas con `pip install -r requirements-rag.txt` y, si el RAG se despliega, vuelve a pasarlas a `requirements.txt`.
+7. **[DESEABLE] Video de respaldo de 60–90s** — por si falla el deploy en vivo (requerido por la rúbrica).
+8. **[DESEABLE] 2 capturas más del flujo** en `docs/architecture/`.
 
 ## Convenciones de código
 
