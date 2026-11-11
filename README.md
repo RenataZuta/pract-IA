@@ -40,6 +40,8 @@ Hoy:
 5. El evaluador IA puntúa contra una rúbrica por industria con tres tipos de criterio: **técnicos (55 %)**, **habilidades blandas (30 %)** (comunicación y seguridad, colaboración y escucha, priorización) y **aporte propio (15 %)**, que compara tu respuesta con una respuesta de referencia del caso preparada con Claude. Devuelve el puntaje total y por tipo, el comparativo con la referencia (en qué coincidiste, qué aportaste y qué te faltó) y red flags. Las habilidades blandas se estiman por lo que dices y no reemplazan una dinámica grupal real. Se puede descargar en PDF.
 6. Un botón arma un **guion final** de ~3 minutos que combina tu respuesta con el contraste de la IA (lo que te faltó, lo que aportaste, tus puntos a mejorar) y lo baja en **un solo PDF** para practicar: guion con tiempos por bloque, qué cambió, contraste con la referencia y tu respuesta original.
 
+**Identidad por empresa y extras de práctica:** cada caso se pinta con los colores y el monograma de su empresa (franja con tipo de caso, duración y anexos, y la tarjeta "Tu misión" con lo que se evalúa); un **recorrido guiado** (Leer → Responder → Evaluar → Guion final) marca en qué paso vas; el **historial de intentos** muestra la diferencia frente al intento anterior y un gráfico de progreso; y **"Entrena tu punto más débil"** usa el RAG para recomendarte preguntas reales del banco según tu criterio más bajo. Los colores están inspirados en cada marca (sin logos) y cumplen contraste de accesibilidad WCAG AA.
+
 ### Módulo 2 — Prep de entrevista individual con el jefe final
 
 El **jefe final** es el gerente o jefe del área que cierra el proceso. PractIA lo simula:
@@ -138,6 +140,7 @@ practia/
 ├── CLAUDE.md              # Contexto para Claude Code
 ├── app/
 │   ├── main.py            # Streamlit app (selector de modo: group case / entrevista 1-a-1)
+│   ├── theme.py           # Identidad visual por empresa/industria (colores, franja, recorrido)
 │   ├── pdf_export.py      # Feedback a PDF (reportlab)
 │   └── components.py      # (por construir)
 ├── ai/
