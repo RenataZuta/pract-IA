@@ -14,6 +14,7 @@ import time
 import unicodedata
 from pathlib import Path
 
+import pandas as pd
 import streamlit as st
 from audio_recorder_streamlit import audio_recorder
 from dotenv import load_dotenv
@@ -27,8 +28,12 @@ if str(ROOT) not in sys.path:
 
 from ai.evaluator import EvaluationError, Feedback, evaluate_response  # noqa: E402
 from ai.guion import GuionError, generar_guion  # noqa: E402
+from ai.rag import recuperar  # noqa: E402
 from ai.transcribe import ERROR_PREFIX, transcribe_audio  # noqa: E402
 from app.pdf_export import TIPO_TITULOS, feedback_to_pdf, guion_to_pdf  # noqa: E402
+from app.theme import (  # noqa: E402
+    ENTREVISTA, INDUSTRIAS, banda_generica, banda_html, css, icono_y_lema, mision_html, pasos_html, tema_de,
+)
 
 load_dotenv()
 
@@ -44,6 +49,13 @@ RUBRICS_DIR = ROOT / "ai" / "rubrics"
 QUESTIONS_DIR = ROOT / "ai" / "questions"
 
 MODES = ["Group case", "Entrevista 1-a-1"]
+
+# Tipo de pregunta -> tema (las técnicas toman el color de su industria; STAR y fit, el del modo)
+TEMA_TIPO = {
+    "tecnica_banca": INDUSTRIAS["Banca"][0],
+    "tecnica_fmcg": INDUSTRIAS["FMCG"][0],
+    "tecnica_consultoria": INDUSTRIAS["Consultoría"][0],
+}
 
 # Etiqueta en el selector -> archivo en ai/questions/
 QUESTION_TYPES = {
@@ -116,9 +128,12 @@ def case_selector() -> tuple[str, dict]:
 
 # ---------- Modo: Group case ----------
 def case_view(case: dict) -> None:
-    """Muestra el caso + anexos."""
+    """Muestra el caso con la identidad de su empresa: franja, contexto, anexos y misión."""
+    tema = tema_de(case)
+    icono, lema = icono_y_lema(case["industry"])
+    st.markdown(css(tema), unsafe_allow_html=True)
+    st.markdown(banda_html(case, tema, icono), unsafe_allow_html=True)
     st.header(case["title"])
-    st.caption(f"**{case['company']}** · {case['industry']} · {case['case_type']}")
     st.markdown("### Contexto")
     st.markdown(case["context"])
 
@@ -128,8 +143,7 @@ def case_view(case: dict) -> None:
             with st.expander(f"Anexo {i}: {exhibit['title']}"):
                 st.markdown(exhibit["content"])
 
-    st.markdown("### Lo que te piden")
-    st.info(case["prompt"])
+    st.markdown(mision_html(case, lema), unsafe_allow_html=True)
 
 
 FASES = {  # fase -> minutos objetivo
@@ -243,6 +257,9 @@ def recording_view(case: dict, industry: str) -> None:
                 st.error(f"No se pudo evaluar: {exc}")
             else:
                 st.session_state.guion = None
+                st.session_state.setdefault("historial", {}).setdefault(case["id"], []).append(
+                    {"total": feedback.puntaje_total, "por_tipo": dict(feedback.puntaje_por_tipo)}
+                )
                 st.session_state.feedback = {
                     "case_id": case["id"],
                     "feedback": feedback,
@@ -258,7 +275,13 @@ def feedback_view(feedback: Feedback, case: dict, transcript: str) -> None:
     """Muestra el feedback del evaluador y el botón para bajarlo en PDF."""
     st.markdown("---")
     st.markdown("### 📋 Tu feedback")
-    st.metric("Puntaje total", f"{feedback.puntaje_total}/100")
+    historial = st.session_state.get("historial", {}).get(case["id"], [])
+    delta = f"{historial[-1]['total'] - historial[-2]['total']:+d} vs intento anterior" if len(historial) >= 2 else None
+    st.metric("Puntaje total", f"{feedback.puntaje_total}/100", delta=delta)
+    if len(historial) >= 2:
+        with st.expander(f"Tu progreso en este caso ({len(historial)} intentos)"):
+            st.line_chart(pd.DataFrame({"Intento": range(1, len(historial) + 1),
+                                        "Puntaje total": [h["total"] for h in historial]}).set_index("Intento"))
 
     if feedback.puntaje_por_tipo:
         columnas = st.columns(len(feedback.puntaje_por_tipo))
@@ -295,6 +318,7 @@ def feedback_view(feedback: Feedback, case: dict, transcript: str) -> None:
             st.caption("Fragmentos del corpus de PractIA que el evaluador usó para contrastar tu respuesta.")
             for fuente in feedback.fuentes_recuperadas:
                 st.markdown(f"- {fuente}")
+    punto_debil_view(feedback, case)
 
     st.success(f"**Fortaleza principal:** {feedback.fortaleza_principal}")
     st.warning(
@@ -317,6 +341,24 @@ def feedback_view(feedback: Feedback, case: dict, transcript: str) -> None:
     )
 
     guion_view(feedback, case, transcript)
+
+
+def punto_debil_view(feedback: Feedback, case: dict) -> None:
+    """Preguntas reales del banco (vía RAG, sin gastar tokens) para entrenar el criterio más bajo."""
+    if not feedback.criterios:
+        return
+    debil = min(feedback.criterios, key=lambda c: c.puntaje)
+    if debil.puntaje > 7:
+        return
+    descripcion = next((c["descripcion"] for c in load_rubric(case["industry"])["criterios"] if c["nombre"] == debil.nombre), "")
+    preguntas = recuperar(f"{debil.nombre}. {descripcion}", k=2, solo_preguntas=True)
+    if not preguntas:
+        return
+    with st.expander(f"🏋️ Entrena tu punto más débil: {debil.nombre} ({debil.puntaje}/10)"):
+        st.caption("Preguntas reales del banco relacionadas con ese criterio. Respóndelas en voz alta en el modo Entrevista 1-a-1.")
+        for doc, _ in preguntas:
+            st.markdown(f"**{doc.titulo}**")
+            st.write(doc.texto)
 
 
 def guion_view(feedback: Feedback, case: dict, transcript: str) -> None:
@@ -364,6 +406,8 @@ def interview_page() -> None:
     tipo = QUESTION_TYPES[label]
     questions = load_questions().get(tipo, [])
 
+    tema = TEMA_TIPO.get(tipo, ENTREVISTA)
+    st.markdown(css(tema), unsafe_allow_html=True)
     st.header("Entrevista 1-a-1 con el jefe final")
     if not questions:
         st.warning(f"No hay preguntas cargadas para «{label}» en ai/questions/.")
@@ -379,7 +423,7 @@ def interview_page() -> None:
         st.session_state.interview_question = current
 
     question = current["question"]
-    st.caption(f"{label} · {question['subtema']}")
+    st.markdown(banda_generica("🎙️ Práctica con el jefe final", [label, question["subtema"]], tema), unsafe_allow_html=True)
     st.markdown(f"### {question['pregunta']}")
     st.caption("Respóndela en voz alta, como si el jefe final estuviera frente a ti.")
     with st.expander("Pista del entrevistador (míralo después de responder)"):
@@ -391,13 +435,23 @@ def interview_page() -> None:
 
 
 # ---------- Main ----------
+def _paso_actual(case: dict) -> int:
+    """Paso del recorrido: 2 responder, 3 evaluar, 4 guion final, 5 todo hecho."""
+    guardado = st.session_state.get("feedback")
+    if guardado and guardado["case_id"] == case["id"]:
+        return 5 if st.session_state.get("guion") else 4
+    return 3 if st.session_state.get("audio_digest") else 2
+
+
 def main() -> None:
     mode = mode_selector()
     if mode == "Group case":
         industry, case = case_selector()
+        pasos = st.container()  # se llena al final, cuando el estado de esta corrida ya está actualizado
         case_view(case)
         timer_view()
         recording_view(case, industry)
+        pasos.markdown(pasos_html(_paso_actual(case)), unsafe_allow_html=True)
     else:
         interview_page()
 

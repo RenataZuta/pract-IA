@@ -113,14 +113,18 @@ def _indice() -> BM25:
     return BM25(corpus())
 
 
-def recuperar(consulta: str, k: int = 3, excluir_caso: str | None = None) -> list[tuple[Documento, float]]:
-    """Los `k` documentos más parecidos a la consulta, con su puntaje (excluye el propio caso)."""
+def recuperar(consulta: str, k: int = 3, excluir_caso: str | None = None,
+              solo_preguntas: bool = False) -> list[tuple[Documento, float]]:
+    """Los `k` documentos más parecidos a la consulta, con su puntaje (excluye el propio caso).
+
+    Con `solo_preguntas` se limita a las preguntas del banco (sin casos).
+    """
     if k <= 0:
         return []
     indice = _indice()
     candidatos = [
         (doc, s) for doc, s in zip(indice.docs, indice.puntajes(consulta))
-        if s > 0 and doc.id != f"caso:{excluir_caso}"
+        if s > 0 and doc.id != f"caso:{excluir_caso}" and (not solo_preguntas or doc.id.startswith("pregunta:"))
     ]
     return sorted(candidatos, key=lambda x: -x[1])[:k]
 
