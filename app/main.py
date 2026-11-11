@@ -26,8 +26,9 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from ai.evaluator import EvaluationError, Feedback, evaluate_response  # noqa: E402
+from ai.guion import GuionError, generar_guion  # noqa: E402
 from ai.transcribe import ERROR_PREFIX, transcribe_audio  # noqa: E402
-from app.pdf_export import TIPO_TITULOS, feedback_to_pdf  # noqa: E402
+from app.pdf_export import TIPO_TITULOS, feedback_to_pdf, guion_to_pdf  # noqa: E402
 
 load_dotenv()
 
@@ -131,17 +132,24 @@ def case_view(case: dict) -> None:
     st.info(case["prompt"])
 
 
+FASES = {  # fase -> minutos objetivo
+    "Mi respuesta (3 min)": 3,
+    "Lectura (15 min)": 15,
+    "Discusión (20 min)": 20,
+    "Conclusión (5 min)": 5,
+}
+
+
+def _reiniciar_reloj() -> None:
+    st.session_state.phase_start = None
+
+
 def timer_view() -> None:
-    """Cronómetro de 3 fases."""
+    """Cronómetro con cuenta regresiva que corre solo; la fase fija el tiempo objetivo."""
     st.sidebar.markdown("---")
     st.sidebar.subheader("⏱️ Cronómetro")
-    st.sidebar.radio(
-        "Fase actual",
-        ["Lectura (15 min)", "Discusión (20 min)", "Conclusión (5 min)"],
-    )
-
-    if "phase_start" not in st.session_state:
-        st.session_state.phase_start = None
+    fase = st.sidebar.radio("Fase actual", list(FASES), key="fase", on_change=_reiniciar_reloj)
+    st.session_state.setdefault("phase_start", None)
 
     col1, col2 = st.sidebar.columns(2)
     if col1.button("Iniciar"):
@@ -149,10 +157,30 @@ def timer_view() -> None:
     if col2.button("Reiniciar"):
         st.session_state.phase_start = None
 
-    if st.session_state.phase_start:
-        elapsed = int(time.time() - st.session_state.phase_start)
-        mins, secs = divmod(elapsed, 60)
-        st.sidebar.metric("Transcurrido", f"{mins:02d}:{secs:02d}")
+    objetivo = FASES[fase] * 60
+    corriendo = st.session_state.phase_start is not None
+
+    # Un fragmento que se re-ejecuta cada segundo solo mientras corre: no recarga la
+    # página ni interrumpe la grabación.
+    @st.fragment(run_every=1 if corriendo else None)
+    def reloj() -> None:
+        inicio = st.session_state.phase_start
+        if inicio is None:
+            st.metric("Tiempo restante", f"{objetivo // 60:02d}:{objetivo % 60:02d}")
+            st.caption("Pulsa Iniciar y empieza a hablar.")
+            return
+        transcurrido = int(time.time() - inicio)
+        restante = objetivo - transcurrido
+        if restante >= 0:
+            st.metric("Tiempo restante", f"{restante // 60:02d}:{restante % 60:02d}")
+            st.progress(min(transcurrido / objetivo, 1.0))
+        else:
+            exceso = -restante
+            st.metric("Tiempo excedido", f"+{exceso // 60:02d}:{exceso % 60:02d}")
+            st.error("¡Se acabó el tiempo! Cierra tu recomendación.")
+
+    with st.sidebar:
+        reloj()
 
 
 def recording_view(case: dict, industry: str) -> None:
@@ -188,7 +216,7 @@ def recording_view(case: dict, industry: str) -> None:
         with st.spinner("Transcribiendo con Whisper..."):
             transcript = transcribe_audio(audio_bytes)
         logger.info("Audio transcrito ({} bytes, {} chars)", len(audio_bytes), len(transcript))
-        st.session_state.update(audio_digest=digest, audio_transcript=transcript, feedback=None)
+        st.session_state.update(audio_digest=digest, audio_transcript=transcript, feedback=None, guion=None)
 
     st.audio(audio_bytes)
     # Una clave por audio: el texto editado se conserva en cada rerun y un audio
@@ -214,6 +242,7 @@ def recording_view(case: dict, industry: str) -> None:
             except EvaluationError as exc:
                 st.error(f"No se pudo evaluar: {exc}")
             else:
+                st.session_state.guion = None
                 st.session_state.feedback = {
                     "case_id": case["id"],
                     "feedback": feedback,
@@ -286,6 +315,46 @@ def feedback_view(feedback: Feedback, case: dict, transcript: str) -> None:
         file_name="feedback_practia.pdf",
         mime="application/pdf",
     )
+
+    guion_view(feedback, case, transcript)
+
+
+def guion_view(feedback: Feedback, case: dict, transcript: str) -> None:
+    """Genera (a pedido) un guion final que combina tu respuesta con el contraste de la IA, en un solo PDF."""
+    st.markdown("---")
+    st.markdown("### 🎯 Practica con un guion final")
+    st.caption(
+        "Combina tu respuesta con el contraste de la IA en un guion de ~3 minutos, con tiempos por bloque, "
+        "y lo baja en un solo PDF junto con tu respuesta original. Si acabas de evaluar, espera ~1 minuto "
+        "(límite del plan gratuito de Groq)."
+    )
+    clave = hashlib.sha1(f"{case['id']}|{transcript}".encode()).hexdigest()
+    if st.button("Generar guion final"):
+        with st.spinner("Armando tu guion final..."):
+            try:
+                guion = generar_guion(transcript, case, feedback)
+            except GuionError as exc:
+                st.error(f"No se pudo generar el guion: {exc}. Si Groq está limitando, espera un minuto y vuelve a intentar.")
+            else:
+                st.session_state.guion = {"clave": clave, "guion": guion}
+
+    guardado = st.session_state.get("guion")
+    if guardado and guardado["clave"] == clave:
+        guion = guardado["guion"]
+        st.success(f"Guion listo: ~{guion.palabras} palabras, ~{guion.segundos // 60}:{guion.segundos % 60:02d} min.")
+        with st.expander("Ver el guion final"):
+            for bloque in guion.bloques:
+                st.markdown(f"**{bloque.nombre}** ({bloque.segundos} s)")
+                st.write(bloque.texto)
+            if guion.cambios:
+                st.markdown("**Qué cambió respecto a tu respuesta**")
+                st.markdown("\n".join(f"- {c}" for c in guion.cambios))
+        st.download_button(
+            "Descargar guion final (PDF)",
+            data=guion_to_pdf(guion, case, feedback, transcript),
+            file_name="guion_final_practia.pdf",
+            mime="application/pdf",
+        )
 
 
 # ---------- Modo: Entrevista 1-a-1 ----------
