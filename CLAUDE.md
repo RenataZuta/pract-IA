@@ -97,7 +97,7 @@ Esto NO es un proyecto libre. Hay restricciones duras:
 Prioridad descendente:
 
 1. **[CRÍTICO] Probar el micrófono real** — grabar con `audio_recorder` en el navegador y evaluar; el resto del flujo ya se probó con la API real subiendo un audio.
-2. **[CRÍTICO] Deploy en Streamlit Community Cloud** — Python 3.11 y `GROQ_API_KEY` en Secrets; poner la URL en el README (sección 6).
+2. **[HECHO] Deploy en Streamlit Community Cloud** — https://practia-up.streamlit.app/ (Python 3.11, secret `GROQ_API_KEY`). Probado de punta a punta en la URL pública. Ábrela unos minutos antes de la demo: la app se duerme tras un tiempo sin visitas.
 3. **[IMPORTANTE] 3 entrevistas transcritas en `docs/research/entrevista-{01,02,03}.md`** — cuando ReMar traiga los audios (~17 min cada uno), usar `scripts/transcribe_batch.py` para procesarlos y luego sintetizar notas con la plantilla ya definida en el PDF de guías. No tocar `docs/research/`: lo llena ReMar.
 4. **[IMPORTANTE] Módulo 2: grabar y evaluar** — `ai/interviewer.py`, `ai/interview_evaluator.py`, rúbrica STAR + fit en `ai/rubrics/` y prompts en `ai/prompts/`. Cada pregunta del banco trae su `hint` para usarlo como criterio.
 5. **[DESEABLE] Revisar con ReMar** — `consultoria_02`: el payback de 5 años del anexo no cuadra con su margen de 14% y CAPEX de S/ 1.1M (daría ~2.7 años); y las referencias y pistas que redactó Claude. Corregidos al ampliar las referencias: `banca_01` (deuda +34%, no +50%), `consultoria_01` (anexo con nota "wait" y utilidad inconsistente), `consultoria_02` (8% era una tienda, no tres) y `fmcg_01` (Sao tiene 28%, no 55%).
