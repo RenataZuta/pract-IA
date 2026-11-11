@@ -36,8 +36,8 @@ Hoy:
 1. Elige empresa objetivo (BCP, Alicorp, Apoyo Consultoría, etc.) y tipo de case.
 2. Recibe el caso: 1 página de contexto + anexos numéricos (sintéticos pero realistas, con RAG sobre reportes públicos).
 3. Cronómetro con las 3 fases estándar: lectura (15 min) → discusión (20 min) → conclusión (5 min).
-4. Resuelve por voz; Whisper transcribe en tiempo real.
-5. El evaluador IA devuelve feedback estructurado: framework usado, estructura numérica, claridad de recomendación, uso del tiempo, red flags.
+4. Resuelve por voz; Whisper transcribe en segundos y puedes corregir el texto antes de evaluar.
+5. El evaluador IA devuelve feedback estructurado: framework usado, estructura numérica, claridad de recomendación, uso del tiempo, red flags. Se puede descargar en PDF.
 
 ### Módulo 2 — Prep de entrevista individual con el jefe final
 
@@ -56,14 +56,15 @@ El **jefe final** es el gerente o jefe del área que cierra el proceso. PractIA 
 
 Cada pregunta del banco trae su pista de evaluación (qué busca el entrevistador y qué es red flag: *"esperé a ver qué pasaba"*, *"no he tenido desacuerdos"*, *"soy muy perfeccionista"*), y el evaluador la usa como criterio. El feedback incluye puntaje por eje, fortaleza principal, tres cosas a mejorar, red flags y una respuesta modelo.
 
-**Corpus de preguntas** (60 en total):
+**Corpus de preguntas** (60 en total; un JSON por tipo en `ai/questions/`, con `pregunta`, `hint`, `tipo` y `subtema`):
 
-| Bloque | Preguntas | Subtemas |
+| Archivo | Preguntas | Subtemas |
 |---|---|---|
-| Behavioral (STAR) | 17 | Liderazgo e iniciativa · Trabajo en equipo y conflicto · Resolución de problemas y presión · Motivación y fit |
-| Técnicas — Banca | 15 | Fundamentos financieros · Contexto peruano · Casos y razonamiento |
-| Técnicas — FMCG | 14 | Marca y marketing · Canal y trade · Consumer insight (incluye el caso Marsella vs P&G) |
-| Técnicas — Consultoría | 14 | Frameworks · Market sizing · Fit y motivación |
+| `behavioral_star.json` | 12 | Liderazgo e iniciativa · Trabajo en equipo y conflicto · Resolución de problemas y presión |
+| `fit.json` | 5 | Motivación y fit |
+| `tecnica_banca.json` | 15 | Fundamentos financieros · Contexto peruano · Casos y razonamiento |
+| `tecnica_fmcg.json` | 14 | Marca y marketing · Canal y trade · Consumer insight (el banco incluye el caso Marsella vs P&G) |
+| `tecnica_consultoria.json` | 14 | Frameworks · Market sizing · Fit y motivación |
 
 **Fuentes del corpus:** Glassdoor PE, Indeed PE, blog BCP, Perú Retail, Wharton Consulting Casebook 2025, PrepLounge, Management Consulted y Case in Point (referencia general, sin reproducir contenido). Detalle completo en [`docs/PractIA_Banco_Preguntas.pdf`](docs/PractIA_Banco_Preguntas.pdf).
 
@@ -75,8 +76,8 @@ Con la entrevista final pasa lo mismo: no necesitas a otra persona, necesitas **
 
 ## 5. Why now
 
-- **Whisper large-v3-turbo** (ago. 2024) hace la transcripción por voz en español peruano prácticamente gratis.
-- **LLMs con salidas estructuradas** permiten rúbricas confiables sin reglas rígidas, tanto para un group case como para una respuesta STAR.
+- **Whisper large-v3 sobre Groq** transcribe voz en español en segundos y con capa gratuita, sin tarjeta.
+- **LLMs con salidas estructuradas** (modo JSON + validación Pydantic) permiten rúbricas confiables sin reglas rígidas, tanto para un group case como para una respuesta STAR.
 - **Hay 40.000+ estudiantes de pregrado de economía / admin / ing. industrial** en Lima postulando a prácticas cada ciclo (SUNEDU).
 
 ## 6. Demo
@@ -85,12 +86,14 @@ Con la entrevista final pasa lo mismo: no necesitas a otra persona, necesitas **
 - **Capturas:** `docs/architecture/`
 - **Diagrama:** `docs/architecture/arquitectura.png`
 
-Modelos y APIs:
-- **Whisper large-v3-turbo** (OpenAI o Hugging Face) → transcripción de la voz del estudiante, en ambos módulos.
-- **GPT-4o-mini / Claude Haiku 4.5** → evaluador contra rúbrica (JSON estructurado): rúbricas por industria para el group case; rúbrica STAR + técnica + fit para la entrevista.
-- **RAG con ChromaDB** → corpus de memorias anuales (BCP, Alicorp, Credicorp), casos semilla y banco de preguntas de entrevista.
+![Arquitectura de PractIA](docs/architecture/arquitectura.png)
 
-**Estado (nov. 2026):** *Módulo 1* — casos semilla, rúbricas y UI base listos; falta conectar Whisper y el evaluador. *Módulo 2* — banco de preguntas listo; falta estructurarlo en JSON, la rúbrica de entrevista y el flujo de voz. Detalle en `CLAUDE.md`.
+Modelos y APIs (todo sobre [Groq](https://console.groq.com), capa gratuita):
+- **Whisper large-v3** → transcripción de la voz del estudiante, en ambos módulos.
+- **openai/gpt-oss-120b** (modo JSON, configurable con `GROQ_LLM_MODEL`) → evaluador contra rúbrica, con salida validada con Pydantic: rúbricas por industria para el group case; rúbrica STAR + técnica + fit para la entrevista *(por construir)*.
+- **RAG con ChromaDB** *(por construir)* → corpus de memorias anuales (BCP, Alicorp, Credicorp), casos semilla y banco de preguntas de entrevista.
+
+**Estado (nov. 2026):** *Módulo 1* — flujo de voz conectado (grabación → Whisper → transcripción editable → evaluador → feedback y PDF), probado con Groq simulado; falta probarlo con la API real y desplegarlo. *Módulo 2* — banco de 60 preguntas en `ai/questions/` y modo de práctica que muestra una pregunta aleatoria por tipo; falta grabar la respuesta y evaluarla (STAR + técnica + fit). Detalle en `CLAUDE.md`.
 
 ## 7. Modelo de negocio
 
@@ -108,8 +111,8 @@ Al menos dos del syllabus están dentro del producto (no solo en el desarrollo):
 
 | Herramienta | Sesión | Módulo | Dónde está en el repo |
 |---|---|---|---|
-| **Whisper (voz a texto)** | 13 | 1 y 2 | `ai/transcribe.py` |
-| **LLMs con salidas estructuradas + RAG** | 8 | 1 y 2 | `ai/evaluator.py` (M1), `ai/interviewer.py` y `ai/interview_evaluator.py` (M2), `ai/case_generator.py`, `ai/rag_index.py` |
+| **Whisper (voz a texto)** | 13 | 1 y 2 | `ai/transcribe.py` (Groq) |
+| **LLMs con salidas estructuradas + RAG** | 8 | 1 y 2 | `ai/evaluator.py` (M1, Groq). Por construir: `ai/interviewer.py` y `ai/interview_evaluator.py` (M2), `ai/case_generator.py` y `ai/rag_index.py` (RAG) |
 | **Document AI / OCR** (opcional) | 10 | 1 y 2 | `ai/cv_parser.py` — para personalizar casos y preguntas de entrevista con el CV del estudiante |
 | **Texto a voz** (opcional) | 15 | 1 y 2 | `ai/tts.py` — el jefe final formula las preguntas en voz alta y el evaluador "habla" el feedback |
 
@@ -132,15 +135,16 @@ practia/
 ├── requirements.txt
 ├── CLAUDE.md              # Contexto para Claude Code
 ├── app/
-│   ├── main.py            # Streamlit app (selector de módulo: group case / entrevista)
+│   ├── main.py            # Streamlit app (selector de modo: group case / entrevista 1-a-1)
+│   ├── pdf_export.py      # Feedback a PDF (reportlab)
 │   └── components.py      # (por construir)
 ├── ai/
-│   ├── prompts/           # System prompts: evaluador de group case; jefe final y evaluador de entrevista (por construir)
+│   ├── prompts/           # System prompt del evaluador de group case; jefe final y evaluador de entrevista (por construir)
 │   ├── cases/             # 10 casos semilla (JSON) — Módulo 1
-│   ├── questions/         # (por construir) Banco de preguntas estructurado (JSON) — Módulo 2
+│   ├── questions/         # Banco de 60 preguntas (JSON, uno por tipo) — Módulo 2
 │   ├── rubrics/           # Rúbricas por industria (M1); rúbrica de entrevista STAR + fit (por construir, M2)
-│   ├── transcribe.py      # Whisper — ambos módulos
-│   ├── evaluator.py       # LLM con salidas estructuradas — evaluador de group case (M1)
+│   ├── transcribe.py      # Whisper large-v3 (Groq) — ambos módulos
+│   ├── evaluator.py       # LLM de Groq en modo JSON + Pydantic — evaluador de group case (M1)
 │   ├── interviewer.py     # (por construir) Jefe final: arma y conduce la entrevista (M2)
 │   ├── interview_evaluator.py  # (por construir) Feedback STAR + técnica + fit (M2)
 │   ├── case_generator.py  # (por construir) RAG sobre memorias anuales
@@ -150,7 +154,7 @@ practia/
 │   ├── PractIA_Banco_Preguntas.pdf   # Fuente del corpus de preguntas (M2)
 │   ├── PractIA_Guia_Entrevistas.pdf  # Guía de las 3 entrevistas de validación
 │   ├── research/          # 3 entrevistas de validación
-│   └── architecture/      # Diagrama + 3 capturas
+│   └── architecture/      # Diagrama + capturas del flujo
 └── scripts/
     └── transcribe_batch.py  # Procesamiento de audios
 ```
@@ -160,13 +164,13 @@ practia/
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env     # agrega tu OPENAI_API_KEY
+cp .env.example .env     # agrega tu GROQ_API_KEY (gratis en https://console.groq.com)
 streamlit run app/main.py
 ```
 
 ## Deploy
 
-[Streamlit Community Cloud](https://streamlit.io/cloud) — conecta este repo, apunta a `app/main.py`, agrega los secretos del `.env` en la UI.
+[Streamlit Community Cloud](https://streamlit.io/cloud) — conecta este repo, apunta a `app/main.py`, elige Python 3.11 y agrega `GROQ_API_KEY` en Settings → Secrets.
 
 ---
 
