@@ -21,6 +21,13 @@
       "content": "- La primera tienda de Starbucks en Trujillo cerró por: (1) formato muy grande (300m²), (2) precio percibido como caro, (3) hábitos locales más ligados a cafés de desayuno familiar.\n- Las Pataditas tiene 12 locales y cola los sábados.\n- El café en Trujillo es más ocasión 'social/familiar' que 'to-go' como en Lima."
     }
   ],
-  "temas_evaluados": ["Market sizing Fermi", "Market entry framework", "Lecciones del pasado", "Formato de tienda", "Payback"],
-  "pista_respuesta_modelo": "Sizing: 68K personas target × 2 visitas/mes × S/ 22 = ~S/ 3M/mes de mercado accesible. Una tienda hace S/ 240K/mes (Arequipa), es decir Starbucks podría capturar ~8% ocupando 2-3 tiendas. Framework: (1) atractivo mercado (sí, pero más chico y menos premium que Lima), (2) capacidad de ganar (sí, con formato adaptado), (3) economics (payback ~5 años probable, más largo que Lima). Recomendación: entrar con **2 tiendas de formato reducido (120m²) en Real Plaza y Mall Aventura**, piloto 18 meses, escalar a 4-5 solo si payback proyectado < 4.5 años."
+  "temas_evaluados": [
+    "Market sizing Fermi",
+    "Market entry framework",
+    "Lecciones del pasado",
+    "Formato de tienda",
+    "Payback"
+  ],
+  "pista_respuesta_modelo": "Sizing: 68K personas target × 2 visitas/mes × S/ 22 = ~S/ 3M/mes de mercado accesible. Una tienda hace S/ 240K/mes (Arequipa), es decir una tienda equivale a ~8% del mercado accesible y dos tiendas a ~16%. Framework: (1) atractivo mercado (sí, pero más chico y menos premium que Lima), (2) capacidad de ganar (sí, con formato adaptado), (3) economics (payback ~5 años probable, más largo que Lima). Recomendación: entrar con **2 tiendas de formato reducido (120m²) en Real Plaza y Mall Aventura**, piloto 18 meses, escalar a 4-5 solo si payback proyectado < 4.5 años.",
+  "respuesta_referencia": "Sizing simple: 68 mil personas del target, dos visitas al mes y un ticket de S/ 22 dan unos S/ 3 millones al mes de mercado accesible. Una tienda de Arequipa vende S/ 240 mil al mes, cerca de 8% de ese mercado; dos tiendas serían 16%, ya exigente en una ciudad donde Starbucks cerró en 2018. Estructura: primero, atractivo del mercado: más chico y menos premium que Lima, con PBI per cápita de USD 8,500 contra 13,500; segundo, capacidad de ganar: sí, si adapta el formato, porque la tienda anterior falló por ser de 300 m², cara y poco alineada al café social y familiar; tercero, economía: payback probable de 5 años o más, más largo que en Lima. Recomiendo entrar con 2 tiendas de formato reducido, de unos 120 m², en Real Plaza y Mall Aventura, como piloto de 18 meses, y escalar a 4 o 5 solo si el payback proyectado baja de 4.5 años. Riesgo: repetir el cierre; lo mitigo con menú local y ocasión de desayuno familiar."
 }

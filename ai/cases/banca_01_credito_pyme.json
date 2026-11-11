@@ -21,6 +21,13 @@
       "content": "- Concentración de clientes: top 3 representan 48% de ventas (Promart, Maestro y Sodimac).\n- Días de inventario: 110 días (vs 85 en 2024).\n- Rotación de cuentas por cobrar: 52 días (vs 48 en 2024).\n- Tipo de cambio: 85% de las importaciones son en USD, sin cobertura.\n- Garantías disponibles: hipoteca de local comercial en VES tasado en S/ 1,800,000."
     }
   ],
-  "temas_evaluados": ["Lectura de EEFF", "Ratios de crédito", "Gestión de riesgo cambiario", "Concentración", "Garantías"],
-  "pista_respuesta_modelo": "Aprobación condicional. EBITDA/intereses cayó de 3.5x a 2.2x — señal amarilla. Deuda financiera total creció 50% en un año. Inventario 110 días es alto. Condiciones: (1) línea reducida a S/ 900K, (2) covenant de EBITDA mínimo S/ 650K, (3) cobertura cambiaria sobre al menos 50% de las compras USD, (4) garantía hipotecaria."
+  "temas_evaluados": [
+    "Lectura de EEFF",
+    "Ratios de crédito",
+    "Gestión de riesgo cambiario",
+    "Concentración",
+    "Garantías"
+  ],
+  "pista_respuesta_modelo": "Aprobación condicional. EBITDA/intereses cayó de 3.5x a 2.2x — señal amarilla. Deuda financiera total creció 34% en un año (la de corto plazo, 52%). Inventario 110 días es alto. Condiciones: (1) línea reducida a S/ 900K, (2) covenant de EBITDA mínimo S/ 500K (sube a S/ 650K a los 12 meses; hoy el EBITDA es 560K), (3) cobertura cambiaria sobre al menos 50% de las compras USD, (4) garantía hipotecaria.",
+  "respuesta_referencia": "Recomiendo aprobar de forma condicional, con una línea reducida a S/ 900 mil a 12 meses. Tres números pesan. Primero, la cobertura de intereses cayó de 3.5 a 2.2 veces: el EBITDA bajó de 730 a 560 mil mientras los gastos financieros subieron a 260 mil. Segundo, la deuda financiera total creció 34% en un año, de 1.22 a 1.63 millones, y la de corto plazo 52%, mientras el inventario llegó a 110 días: la empresa está financiando inventario con deuda. Tercero, 85% de las compras son en dólares sin cobertura y los tres principales clientes concentran 48% de las ventas. A favor: comportamiento de pago A, tres años de relación y una hipoteca tasada en S/ 1.8 millones, que cubre dos veces la línea. Condiciones: línea de S/ 900 mil, covenant de EBITDA mínimo de S/ 500 mil que sube a 650 mil a los 12 meses, cobertura cambiaria de al menos 50% de las compras en dólares, garantía hipotecaria y reporte trimestral. Riesgo principal: que el inventario no rote y la deuda siga subiendo; lo mitigo desembolsando contra facturas de compra."
 }

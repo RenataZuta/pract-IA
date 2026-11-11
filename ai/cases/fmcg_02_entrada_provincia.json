@@ -21,6 +21,13 @@
       "content": "- Belcorp App: 78% de pedidos entran por app en Lima, 34% en Arequipa, 28% en Trujillo.\n- WhatsApp Business: canal #1 de captación en provincia según piloto Q2 (CAC S/ 60 vs S/ 140 tradicional).\n- Capacitación digital: solo 18% de consultoras en provincia completó el onboarding virtual."
     }
   ],
-  "temas_evaluados": ["Economics de canal de venta directa", "Churn", "Trade marketing regional", "Digital adoption", "Competencia local"],
-  "pista_respuesta_modelo": "Sí, con pivote. Duplicar sin atacar el churn del 50% es tirar S/ 900K. Dos cuellos: (1) churn, atacarlo con mentoras locales y rediseño del programa de incentivos (dinero o producto, no viajes); (2) adopción digital, migrar captación a WhatsApp Business (CAC 60 vs 140). KPI trimestral: consultoras activas al mes 6 vs reclutadas en el trimestre (target >55%)."
+  "temas_evaluados": [
+    "Economics de canal de venta directa",
+    "Churn",
+    "Trade marketing regional",
+    "Digital adoption",
+    "Competencia local"
+  ],
+  "pista_respuesta_modelo": "Sí, con pivote. Duplicar sin atacar el churn del 50% es tirar S/ 900K. Dos cuellos: (1) churn, atacarlo con mentoras locales y rediseño del programa de incentivos (dinero o producto, no viajes); (2) adopción digital, migrar captación a WhatsApp Business (CAC 60 vs 140). KPI trimestral: consultoras activas al mes 6 vs reclutadas en el trimestre (target >55%).",
+  "respuesta_referencia": "Sí, pero con pivote: duplicar la base sin atacar el churn es tirar plata. En Arequipa y Trujillo el churn es 48% y 51%, contra 32% en Lima, y el 60% abandona antes del sexto mes; si recluto el doble y se va la mitad, parte de los S/ 1.8 millones se pierde. Dos cuellos de botella. Primero, la retención: mentoras locales para acompañar a las nuevas y rediseñar los incentivos, que hoy son un viaje a Cusco para el top 1%, poco relevante en provincia, hacia dinero o producto. Segundo, la adopción digital: solo 18% completó el onboarding virtual y apenas 34% y 28% de los pedidos entran por app; migraría la captación a WhatsApp Business, donde el costo de adquisición es S/ 60 contra S/ 140 o 160 del canal tradicional, y con ese ahorro reclutaría más con el mismo presupuesto. KPI trimestral: consultoras activas al mes 6 sobre las reclutadas en el trimestre, con meta mayor a 55%. Como el top 10% hace 48% del volumen, cuidaría primero a las mejores."
 }

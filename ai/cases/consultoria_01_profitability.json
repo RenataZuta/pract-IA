@@ -5,12 +5,12 @@
   "case_type": "Profitability",
   "title": "Caída de utilidad en cadena de farmacias",
   "duration_minutes": 25,
-  "context": "El socio te asigna un cliente nuevo: **Farmacias Boticarium**, cadena peruana con 180 locales en Lima y 40 en provincia. En los últimos 18 meses, la utilidad operativa cayó de **S/ 48M a S/ 22M** (-54%). Las ventas se mantuvieron relativamente estables (+2%). El CEO sospecha que es 'por la competencia de Inkafarma y Mifarma' pero quiere un análisis riguroso antes del comité del mes.",
+  "context": "El socio te asigna un cliente nuevo: **Farmacias Boticarium**, cadena peruana con 180 locales en Lima y 40 en provincia. En los últimos 18 meses, la utilidad operativa pasó de **S/ 48M a una pérdida de S/ 18M**. Las ventas se mantuvieron relativamente estables (+2%). El CEO sospecha que es 'por la competencia de Inkafarma y Mifarma' pero quiere un análisis riguroso antes del comité del mes.",
   "prompt": "En 3 minutos: (1) formula tu hipótesis principal de por qué cae la utilidad, (2) qué 3 datos pedirías primero para validarla, (3) un árbol de drivers MECE para estructurar el análisis completo.",
   "exhibits": [
     {
       "title": "Estado de resultados consolidado (S/ M)",
-      "content": "| Línea | 2024 | 2025 | 2026 (LTM) |\n|---|---|---|---|\n| Ventas | 820 | 835 | 838 |\n| COGS | (578) | (612) | (638) |\n| Margen bruto | 242 | 223 | 200 |\n| % margen bruto | 29.5% | 26.7% | 23.9% |\n| Gastos de personal | (120) | (128) | (132) |\n| Alquileres | (48) | (52) | (56) |\n| Otros gastos operativos | (26) | (28) | (30) |\n| **Utilidad operativa** | **48** | **15** | **-18** (wait, 22)** |"
+      "content": "| Línea | 2024 | 2025 | 2026 (LTM) |\n|---|---|---|---|\n| Ventas | 820 | 835 | 838 |\n| COGS | (578) | (612) | (638) |\n| Margen bruto | 242 | 223 | 200 |\n| % margen bruto | 29.5% | 26.7% | 23.9% |\n| Gastos de personal | (120) | (128) | (132) |\n| Alquileres | (48) | (52) | (56) |\n| Otros gastos operativos | (26) | (28) | (30) |\n| **Utilidad operativa** | **48** | **15** | **-18** |"
     },
     {
       "title": "Detalle operativo",
@@ -21,6 +21,16 @@
       "content": "El equipo comercial dice: 'la gente se va a Inkafarma por los precios'. El equipo de operaciones dice: 'los alquileres subieron 15% en Miraflores y San Isidro'. El CFO dice: 'tenemos muchos locales nuevos que todavía no maduraron'."
     }
   ],
-  "temas_evaluados": ["Árbol de profitability", "Hipótesis explícita", "Lectura de márgenes", "Priorización de datos", "MECE"],
-  "pista_respuesta_modelo": "Hipótesis: la caída es de margen bruto (−5.6pp), no de volumen. Dentro del margen bruto, es mix o compra. Dato 1: margen por categoría en 2024 vs 2026 (si Rx cayó, es presión regulatoria SIS; si OTC cayó, es guerra de precios). Dato 2: curva de maduración de los 25 locales nuevos (¿cuántos todavía no son breakeven?). Dato 3: compras consolidadas vs descentralizadas (¿perdieron poder de negociación?). Árbol MECE: Profit = (Ventas × Margen%) − Gastos fijos. Rama 1: ventas (tickets × ticket promedio × mix). Rama 2: margen% (costo de compra, descuentos, mix). Rama 3: gastos (personal, alquiler, otros)."
+  "temas_evaluados": [
+    "Árbol de profitability",
+    "Hipótesis explícita",
+    "Lectura de márgenes",
+    "Priorización de datos",
+    "MECE"
+  ],
+  "criterios_no_aplican": [
+    "Recomendación y riesgos"
+  ],
+  "pista_respuesta_modelo": "Hipótesis: la caída es de margen bruto (−5.6pp), no de volumen. Dentro del margen bruto, es mix o compra. Dato 1: margen por categoría en 2024 vs 2026 (si Rx cayó, es presión regulatoria SIS; si OTC cayó, es guerra de precios). Dato 2: curva de maduración de los 25 locales nuevos (¿cuántos todavía no son breakeven?). Dato 3: compras consolidadas vs descentralizadas (¿perdieron poder de negociación?). Árbol MECE: Profit = (Ventas × Margen%) − Gastos fijos. Rama 1: ventas (tickets × ticket promedio × mix). Rama 2: margen% (costo de compra, descuentos, mix). Rama 3: gastos (personal, alquiler, otros).",
+  "respuesta_referencia": "Mi hipótesis: la caída de utilidad viene sobre todo del margen bruto y en segundo lugar de los gastos, no del volumen ni de perder clientes. Del Anexo 1: la utilidad operativa pasó de S/ 48 millones a una pérdida de 18, una caída de 66. De eso, 42 vienen del margen bruto, que bajó de 29.5% a 23.9% con ventas casi planas, y 24 de gastos, que subieron de 194 a 218 millones por personal y alquileres. Los tickets incluso subieron de 42 a 44 millones, así que la gente no se está yendo. Tres datos que pediría primero: margen por categoría 2024 contra 2026, para saber si cayó Rx, por regulación, u OTC, por guerra de precios; la curva de maduración de los 25 locales nuevos, porque abrieron 25 y cerraron 8; y compras consolidadas contra descentralizadas, para ver si perdieron poder de negociación. Árbol MECE: utilidad igual ventas por margen porcentual menos gastos; ventas en tickets, ticket promedio y mix; margen en costo de compra, descuentos y mix; gastos en personal, alquileres y otros."
 }

@@ -21,6 +21,13 @@
       "content": "- Sublime es la barra de chocolate #1 del Perú por volumen y por brand equity.\n- Precio psicológico en bodega: S/ 1.50 es moneda; S/ 1.70 requiere vuelto.\n- Riesgo canal: bodegueros ponen el chocolate caro al fondo del mostrador.\n- Alternativa: reducir gramaje a 28g manteniendo S/ 1.50 ('shrinkflation')."
     }
   ],
-  "temas_evaluados": ["Elasticidad precio", "Pricing estratégico", "Brand equity", "Trade de canal", "Shrinkflation"],
-  "pista_respuesta_modelo": "No subir a S/ 1.70. Mejor opción: reducir gramaje a 28g manteniendo S/ 1.50 (−12% gramaje = +6pp margen sin tocar precio; históricamente la elasticidad al gramaje es menor que al precio). Contraparte: comunicar con responsabilidad en empaque. Métrica: % de volumen retenido al mes 3 vs baseline (target >95%). Riesgo: criticismo en redes; mitigante: no hacerlo con la marca premium (Costa)."
+  "temas_evaluados": [
+    "Elasticidad precio",
+    "Pricing estratégico",
+    "Brand equity",
+    "Trade de canal",
+    "Shrinkflation"
+  ],
+  "pista_respuesta_modelo": "No subir a S/ 1.70. Mejor opción: reducir gramaje a 28g manteniendo S/ 1.50 (−12% gramaje = +6pp margen sin tocar precio; históricamente la elasticidad al gramaje es menor que al precio). Contraparte: comunicar con responsabilidad en empaque. Métrica: % de volumen retenido al mes 3 vs baseline (target >95%). Riesgo: criticismo en redes; mitigante: no hacerlo con la marca premium (Costa).",
+  "respuesta_referencia": "No subiría a S/ 1.70. La cuenta del anexo: con elasticidad de menos 1.2 el volumen cae de 9.0 a 7.6 millones y el margen total queda en S/ 2.51 millones, igual que los S/ 2.52 de antes del alza de costos; subo el precio y no recupero nada, y además arriesgo que las bodegas saquen la marca, porque S/ 1.50 es precio moneda y S/ 1.70 pide vuelto. Mi opción: reducir el gramaje de 32 a 28 gramos manteniendo S/ 1.50. Si alrededor de 60% del costo variable escala con el peso, el margen sube unos 6 puntos sin tocar el precio, y la elasticidad al gramaje suele ser menor que al precio. Lo comunicaría con transparencia en el empaque y no lo haría en marcas premium. Métrica: porcentaje del volumen retenido al mes 3 contra la línea base, con meta mayor a 95%. Riesgo: críticas en redes; lo mitigo con comunicación clara y vigilando la reacción de Princesa, que está a S/ 1.40."
 }

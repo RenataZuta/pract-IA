@@ -21,6 +21,13 @@
       "content": "- 68% de amas de casa NSE C/D compra formato chico 'cuando no alcanza para el grande'.\n- 54% dice que Primor es 'mejor que las marcas baratas pero no vale pagar tanto más'.\n- Riesgo de canibalización: estimado 25% del volumen del 250 ml vendría de ventas que hoy son del 450 ml de Primor."
     }
   ],
-  "temas_evaluados": ["Segmentación por formato", "Canibalización", "Pricing", "Break-even", "Competencia en canal tradicional"],
-  "pista_respuesta_modelo": "Lanzar, condicionado. Tres argumentos: (1) el segmento crece +22% y el 55% ya es Primor+Sao, entrar al 250 ml defiende la categoría; (2) margen de S/ 1.40 × 4M = S/ 5.6M vs BEP S/ 2.5M, buena holgura; (3) sin lanzamiento, Cocinero seguirá capturando el crecimiento. Riesgo: canibalización 25% del 450 ml. Métrica mes 6: share de volumen en 250 ml ≥ 15%, con canibalización real medida ≤ 30%."
+  "temas_evaluados": [
+    "Segmentación por formato",
+    "Canibalización",
+    "Pricing",
+    "Break-even",
+    "Competencia en canal tradicional"
+  ],
+  "pista_respuesta_modelo": "Lanzar, condicionado. Tres argumentos: (1) el segmento crece +22% y Alicorp ya tiene 28% con Sao, entrar al 250 ml defiende la categoría; (2) margen de S/ 1.40 × 4M = S/ 5.6M vs BEP S/ 2.5M, buena holgura; (3) sin lanzamiento, Cocinero seguirá capturando el crecimiento. Riesgo: canibalización 25% del 450 ml. Métrica mes 6: share de volumen en 250 ml ≥ 15%, con canibalización real medida ≤ 30%.",
+  "respuesta_referencia": "Lanzaría el 250 ml, de forma condicionada. Tres argumentos. Uno, el formato chico es el que crece, 22% contra 2025, y ya es 17% del volumen de aceites, mientras el de un litro cae 2%; además, 68% de las amas de casa NSE C/D lo compra cuando no alcanza para el grande. Dos, el margen: S/ 1.40 por unidad, 37%, así que 4 millones de unidades dejan S/ 5.6 millones al año contra una inversión de S/ 2.5 millones. Tres, si no entramos, Cocinero, que ya tiene 42% del segmento a S/ 3.50, seguirá capturando el crecimiento; Sao, de Alicorp, tiene 28%. El riesgo es la canibalización: se estima que 25% del volumen vendría del 450 ml de Primor, y el precio de S/ 3.90 queda sobre Cocinero y Sao cuando 54% dice que Primor es mejor pero no vale pagar tanto más; por eso evaluaría entrar cerca de S/ 3.70 en bodega. Métrica al mes 6: share de volumen del 250 ml de al menos 15% del segmento, con canibalización medida de máximo 30%; si no se cumple, se mata."
 }
