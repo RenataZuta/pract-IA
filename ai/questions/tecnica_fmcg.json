@@ -1,0 +1,86 @@
+[
+  {
+    "pregunta": "¿Con qué producto de [empresa] te identificas y por qué?",
+    "hint": "Pregunta real de Alicorp (Glassdoor). Prepara 2-3 marcas con historia.",
+    "tipo": "tecnica_fmcg",
+    "subtema": "Marca y marketing"
+  },
+  {
+    "pregunta": "Si fueras el brand manager de [producto], ¿qué cambiarías mañana?",
+    "hint": "Evalúan iniciativa + conocimiento del mercado.",
+    "tipo": "tecnica_fmcg",
+    "subtema": "Marca y marketing"
+  },
+  {
+    "pregunta": "Explica las 4Ps aplicadas a [Primor, Sapolio, Pilsen, lo que sea del portafolio].",
+    "hint": "Producto, precio, plaza, promoción — con ejemplos concretos.",
+    "tipo": "tecnica_fmcg",
+    "subtema": "Marca y marketing"
+  },
+  {
+    "pregunta": "¿Qué es brand equity y cómo lo medirías?",
+    "hint": "Awareness, consideración, preferencia, lealtad.",
+    "tipo": "tecnica_fmcg",
+    "subtema": "Marca y marketing"
+  },
+  {
+    "pregunta": "¿Qué diferencia marketing above-the-line (ATL), below-the-line (BTL) y through-the-line?",
+    "hint": "ATL: medios masivos. BTL: directo (muestras, trade). TTL: integración.",
+    "tipo": "tecnica_fmcg",
+    "subtema": "Marca y marketing"
+  },
+  {
+    "pregunta": "¿Comprarías tu propio producto?",
+    "hint": "Real de Belcorp (Glassdoor). Respuesta: sí, por X; para quién NO es la marca.",
+    "tipo": "tecnica_fmcg",
+    "subtema": "Marca y marketing"
+  },
+  {
+    "pregunta": "Diferencia entre canal moderno, canal tradicional y cash&carry en el Perú.",
+    "hint": "Moderno: Tottus, Wong, Metro. Tradicional: bodegas, mercados. C&C: Makro, Mayorsa.",
+    "tipo": "tecnica_fmcg",
+    "subtema": "Canal y trade"
+  },
+  {
+    "pregunta": "¿Qué % del volumen FMCG sale por canal tradicional en el Perú?",
+    "hint": "~70% en categorías masivas (aceites, detergentes, snacks).",
+    "tipo": "tecnica_fmcg",
+    "subtema": "Canal y trade"
+  },
+  {
+    "pregunta": "¿Qué es un listing fee y quién lo paga?",
+    "hint": "Lo paga la marca al retailer por entrar al surtido.",
+    "tipo": "tecnica_fmcg",
+    "subtema": "Canal y trade"
+  },
+  {
+    "pregunta": "¿Cómo calcularías el ROI de una promoción 'segundo producto a mitad de precio'?",
+    "hint": "Incremento de volumen vs margen cedido + canibalización.",
+    "tipo": "tecnica_fmcg",
+    "subtema": "Canal y trade"
+  },
+  {
+    "pregunta": "Describe al consumidor típico de [marca del portafolio]: edad, NSE, ocasión de consumo.",
+    "hint": "Prepara 2-3 marcas antes de la entrevista.",
+    "tipo": "tecnica_fmcg",
+    "subtema": "Consumer insight"
+  },
+  {
+    "pregunta": "Nombra 3 cambios de comportamiento del consumidor peruano post-pandemia.",
+    "hint": "E-commerce + delivery, salud/natural, nostalgia.",
+    "tipo": "tecnica_fmcg",
+    "subtema": "Consumer insight"
+  },
+  {
+    "pregunta": "Si tuvieras que lanzar un producto nuevo este año, ¿en qué categoría y por qué?",
+    "hint": "Mide consumer sense.",
+    "tipo": "tecnica_fmcg",
+    "subtema": "Consumer insight"
+  },
+  {
+    "pregunta": "¿Cómo investigarías si una campaña funcionó?",
+    "hint": "Tracking de awareness, intención, ventas incrementales, panel Kantar.",
+    "tipo": "tecnica_fmcg",
+    "subtema": "Consumer insight"
+  }
+]

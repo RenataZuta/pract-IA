@@ -1,0 +1,74 @@
+[
+  {
+    "pregunta": "Cuéntame de una vez que lideraste a un grupo sin tener autoridad formal.",
+    "hint": "Buscan si tomas iniciativa aunque nadie te la delegue.",
+    "tipo": "behavioral_star",
+    "subtema": "Liderazgo e iniciativa"
+  },
+  {
+    "pregunta": "Describe un momento en que viste algo que estaba mal y nadie lo decía. ¿Qué hiciste?",
+    "hint": "Red flag: 'esperé a ver qué pasaba'.",
+    "tipo": "behavioral_star",
+    "subtema": "Liderazgo e iniciativa"
+  },
+  {
+    "pregunta": "Cuéntame de un proyecto que nació de una idea tuya.",
+    "hint": "Pide: con quién, cuánto tiempo, qué resultado.",
+    "tipo": "behavioral_star",
+    "subtema": "Liderazgo e iniciativa"
+  },
+  {
+    "pregunta": "Cuéntame de una vez que tuviste que convencer a alguien más senior.",
+    "hint": "Evalúa cómo manejas jerarquía sin ceder.",
+    "tipo": "behavioral_star",
+    "subtema": "Liderazgo e iniciativa"
+  },
+  {
+    "pregunta": "Describe un desacuerdo que tuviste con un compañero de equipo. ¿Cómo lo resolviste?",
+    "hint": "Nunca 'no he tenido desacuerdos'. Peor red flag que admitirlo.",
+    "tipo": "behavioral_star",
+    "subtema": "Trabajo en equipo y conflicto"
+  },
+  {
+    "pregunta": "Cuéntame de un integrante difícil de un grupo de trabajo universitario. ¿Qué hiciste?",
+    "hint": "Busca empatía, no revancha.",
+    "tipo": "behavioral_star",
+    "subtema": "Trabajo en equipo y conflicto"
+  },
+  {
+    "pregunta": "Dame un ejemplo de un feedback duro que recibiste. ¿Qué hiciste con él?",
+    "hint": "Muestra humildad y plan de acción.",
+    "tipo": "behavioral_star",
+    "subtema": "Trabajo en equipo y conflicto"
+  },
+  {
+    "pregunta": "¿Prefieres trabajar solo o en equipo? Dame un ejemplo de cada uno.",
+    "hint": "Trampa: la respuesta correcta es 'depende', con ejemplos.",
+    "tipo": "behavioral_star",
+    "subtema": "Trabajo en equipo y conflicto"
+  },
+  {
+    "pregunta": "Cuéntame de una vez que tuviste que tomar una decisión importante con poca información.",
+    "hint": "Buscan tolerancia a la ambigüedad.",
+    "tipo": "behavioral_star",
+    "subtema": "Resolución de problemas y presión"
+  },
+  {
+    "pregunta": "Describe un fracaso. ¿Qué aprendiste?",
+    "hint": "Clásica. Que sea real y reciente, no 'soy muy perfeccionista'.",
+    "tipo": "behavioral_star",
+    "subtema": "Resolución de problemas y presión"
+  },
+  {
+    "pregunta": "Dame un ejemplo de una semana muy pesada académica o laboralmente. ¿Cómo la manejaste?",
+    "hint": "Evalúa capacidad de priorización.",
+    "tipo": "behavioral_star",
+    "subtema": "Resolución de problemas y presión"
+  },
+  {
+    "pregunta": "¿Cuándo fue la última vez que tuviste que aprender algo nuevo rápido? ¿Cómo lo hiciste?",
+    "hint": "Especialmente importante en roles técnicos.",
+    "tipo": "behavioral_star",
+    "subtema": "Resolución de problemas y presión"
+  }
+]

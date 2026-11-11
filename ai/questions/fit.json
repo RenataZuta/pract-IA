@@ -1,0 +1,32 @@
+[
+  {
+    "pregunta": "¿Por qué quieres trabajar en [empresa]?",
+    "hint": "Un número, una campaña, un líder, un reporte anual leído — no genérico.",
+    "tipo": "fit",
+    "subtema": "Motivación y fit"
+  },
+  {
+    "pregunta": "¿Dónde te ves en 5 años?",
+    "hint": "Ambición pero realista. Nombra áreas, no cargos.",
+    "tipo": "fit",
+    "subtema": "Motivación y fit"
+  },
+  {
+    "pregunta": "¿Por qué deberíamos elegirte a ti y no a otro postulante del tercio superior?",
+    "hint": "Un diferencial concreto, no 'soy proactiva y comprometida'.",
+    "tipo": "fit",
+    "subtema": "Motivación y fit"
+  },
+  {
+    "pregunta": "¿Qué sabes de nosotros? ¿Qué te llamó la atención de nuestra última noticia?",
+    "hint": "Prepara 2-3 noticias recientes del semestre.",
+    "tipo": "fit",
+    "subtema": "Motivación y fit"
+  },
+  {
+    "pregunta": "Cuéntame de una vez que trabajaste fuera de tu zona de confort.",
+    "hint": "Pregunta de crecimiento.",
+    "tipo": "fit",
+    "subtema": "Motivación y fit"
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "pregunta": "¿Qué significa que un framework sea MECE?",
+    "hint": "Mutually Exclusive, Collectively Exhaustive. Sin solape, sin huecos.",
+    "tipo": "tecnica_consultoria",
+    "subtema": "Frameworks fundamentales"
+  },
+  {
+    "pregunta": "Explica el árbol de profitability.",
+    "hint": "Profit = Revenue (price × volume) - Cost (fixed + variable).",
+    "tipo": "tecnica_consultoria",
+    "subtema": "Frameworks fundamentales"
+  },
+  {
+    "pregunta": "Dame un framework para un caso de market entry.",
+    "hint": "3Cs del mercado + capacidad propia + economics (payback).",
+    "tipo": "tecnica_consultoria",
+    "subtema": "Frameworks fundamentales"
+  },
+  {
+    "pregunta": "¿Qué pasos sigues en un market sizing bottom-up?",
+    "hint": "Población → segmentación → penetración → frecuencia × ticket.",
+    "tipo": "tecnica_consultoria",
+    "subtema": "Frameworks fundamentales"
+  },
+  {
+    "pregunta": "¿Cuál es la diferencia entre un profitability case por caída de revenue y uno por subida de costos?",
+    "hint": "Rama del árbol a priorizar. Pide clarificar antes de estructurar.",
+    "tipo": "tecnica_consultoria",
+    "subtema": "Frameworks fundamentales"
+  },
+  {
+    "pregunta": "¿Cuándo usarías Porter y cuándo los 3Cs?",
+    "hint": "Porter para atractivo estructural de industria; 3Cs para estrategia de empresa.",
+    "tipo": "tecnica_consultoria",
+    "subtema": "Frameworks fundamentales"
+  },
+  {
+    "pregunta": "¿Cuántas pizzas se venden al día en Lima?",
+    "hint": "Ver caso consultoria_03 del repo. Rango esperado 80K-120K/día.",
+    "tipo": "tecnica_consultoria",
+    "subtema": "Market sizing típicos"
+  },
+  {
+    "pregunta": "¿Cuántos cafés al año consume un limeño adulto?",
+    "hint": "Top-down: 3 tazas/semana × 52 = 156/año clase media urbana.",
+    "tipo": "tecnica_consultoria",
+    "subtema": "Market sizing típicos"
+  },
+  {
+    "pregunta": "Estima el tamaño del mercado peruano de bicicletas al año.",
+    "hint": "Precio × unidades (deporte + transporte + delivery).",
+    "tipo": "tecnica_consultoria",
+    "subtema": "Market sizing típicos"
+  },
+  {
+    "pregunta": "¿Cuántos autos nuevos se venden al año en el Perú?",
+    "hint": "~180K-200K unidades en 2025. Market share: Toyota, Hyundai, Kia liderando.",
+    "tipo": "tecnica_consultoria",
+    "subtema": "Market sizing típicos"
+  },
+  {
+    "pregunta": "¿Por qué consultoría y no banca / industria?",
+    "hint": "No digas 'no quería operaciones'. Habla de variedad, exposición, aprendizaje.",
+    "tipo": "tecnica_consultoria",
+    "subtema": "Fit y motivación"
+  },
+  {
+    "pregunta": "Nómbrame un caso reciente que te haya interesado y por qué.",
+    "hint": "Prepara un caso M&A reciente del Perú (ej. compra de Banco Pichincha por BanBif).",
+    "tipo": "tecnica_consultoria",
+    "subtema": "Fit y motivación"
+  },
+  {
+    "pregunta": "¿Cómo manejas trabajar con incertidumbre y plazos imposibles?",
+    "hint": "STAR con un ejemplo real de tus prácticas o grupos universitarios.",
+    "tipo": "tecnica_consultoria",
+    "subtema": "Fit y motivación"
+  },
+  {
+    "pregunta": "Dame un número que sepas de memoria del PBI peruano.",
+    "hint": "~USD 270B, crecimiento 2-3% esperado 2026.",
+    "tipo": "tecnica_consultoria",
+    "subtema": "Fit y motivación"
+  }
+]
