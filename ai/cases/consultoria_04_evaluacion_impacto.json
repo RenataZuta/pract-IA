@@ -1,0 +1,32 @@
+{
+  "id": "consultoria_04",
+  "industry": "Consultoría",
+  "company": "Apoyo Consultoría — Economía Aplicada",
+  "case_type": "Evaluación de impacto",
+  "title": "¿El programa «Bodega Digital» aumentó las ventas?",
+  "duration_minutes": 25,
+  "context": "Eres practicante en el equipo de Economía Aplicada de Apoyo Consultoría. Tu cliente, la **Fundación Impulso Emprendedor**, capacitó durante 2026 a bodegueros de cuatro distritos de Lima en pagos digitales (billeteras y POS) con el programa **Bodega Digital**, y quiere saber si **el programa aumentó sus ventas** para decidir si lo escala a 10 distritos. Te entrega una base de **600 bodegas** (300 que participaron y 300 que no) con sus ventas mensuales promedio antes (2025) y seis meses después (2026). La inscripción fue **voluntaria**, tras una visita comercial. El socio te pide que **plantees la hipótesis antes de mirar los datos**, y el cliente quiere un 'sí o no' con un número. (Cifras ficticias para el ejercicio.)",
+  "prompt": "En 3 minutos: (1) formula tu hipótesis (H0 y H1) y cómo la contrastarías antes de ver los datos; (2) con el Anexo 2, di qué efecto estimas y qué tan confiable es; (3) recomienda qué hacer con el programa y qué harías para confirmar el resultado.",
+  "exhibits": [
+    {
+      "title": "Características de las bodegas antes del programa (2025)",
+      "content": "| Variable | Participaron (n=300) | No participaron (n=300) |\n|---|---|---|\n| Ventas mensuales promedio (S/) | 8,200 | 6,900 |\n| Años de operación | 8.4 | 6.1 |\n| Con smartphone y billetera digital | 91% | 64% |\n| Dueño con estudios superiores | 34% | 21% |\n| Tamaño del local (m²) | 38 | 29 |"
+    },
+    {
+      "title": "Resultados a seis meses (2026)",
+      "content": "| Estimación | Efecto sobre las ventas mensuales (S/) |\n|---|---|\n| Diferencia simple 2026 (participantes 10,100 vs no participantes 7,300) | +2,800 |\n| Diferencia en diferencias (cambio de participantes 8,200 → 10,100 menos cambio de no participantes 6,900 → 7,300) | +1,500 |\n| Regresión con controles (ventas 2025, años de operación, billetera digital, estudios, tamaño del local, distrito) | +1,150 (error estándar 390; p < 0.01) |"
+    },
+    {
+      "title": "Notas del diseño y costos",
+      "content": "- Muestra de 600 bodegas en 4 distritos; ventas declaradas y verificadas con el POS o la billetera cuando la había.\n- Se inscribieron 330 bodegas; **30 abandonaron el programa y no están en la base** (no hay sus ventas de 2026).\n- Costo del programa: **S/ 1,800 por bodega** (capacitación + POS).\n- Margen neto promedio de una bodega: **9% de sus ventas**.\n- La Fundación escalará a 10 distritos solo si el programa se recupera en **menos de 18 meses**."
+    }
+  ],
+  "temas_evaluados": [
+    "Hipótesis nula y alternativa antes de ver los datos",
+    "Sesgo de selección",
+    "Diferencias en diferencias vs diferencia simple",
+    "Significancia y tamaño del efecto",
+    "Recomendación con repago y diseño aleatorizado"
+  ],
+  "pista_respuesta_modelo": "Hipótesis a priori: H0, el programa no cambia las ventas (efecto = 0); H1, las aumenta (efecto > 0). Contraste: comparar el cambio de ventas de participantes y no participantes (diferencias en diferencias) con controles de las características previas, definido antes de abrir la base.\n\nLectura: la diferencia simple (+2,800) está inflada por **sesgo de selección**: quienes se inscribieron ya vendían más y eran más digitales, con más años y estudios (Anexo 1). La diferencia en diferencias (+1,500) quita el nivel inicial, y la regresión con controles (+1,150, significativa al 1%) es la estimación más conservadora. Quedan riesgos: los 30 abandonos (sesgo de supervivencia: el efecto real podría ser menor), tendencias previas distintas que no se verificaron y la motivación no observada de quien se inscribe.\n\nRecomendación: el efecto es positivo y probablemente cercano a S/ 1,150 al mes. Con 9% de margen son ~S/ 104 de utilidad mensual y un repago de ~17 meses (1,800 / 104), justo bajo el umbral de 18, así que no conviene escalar a ciegas. Ampliar de forma escalonada y **aleatorizar quién recibe el programa primero** para confirmar el efecto, e incluir en el análisis a quienes abandonaron."
+}

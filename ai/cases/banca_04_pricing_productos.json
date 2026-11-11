@@ -1,0 +1,32 @@
+{
+  "id": "banca_04",
+  "industry": "Banca",
+  "company": "Scotiabank Perú — Banca Personas",
+  "case_type": "Pricing de productos",
+  "title": "Tasas y plazos de un préstamo para tres poblaciones",
+  "duration_minutes": 20,
+  "context": "Eres practicante en el equipo de Productos de Banca Personas de Scotiabank Perú. El banco lanzará un **piloto de préstamo personal sin garantía por S/ 60 millones** y debe decidir **a qué poblaciones dirigirlo y con qué condiciones**. Productos reunió 10 características de tres poblaciones objetivo. El comité exige que la **mora a 30 días de la cartera piloto no pase de 6%** y quiere una propuesta de **tasa (TEA), plazo y comisión por población**. Se reúne en 20 minutos. (Cifras ficticias para el ejercicio.)",
+  "prompt": "En 3 minutos, dale tu propuesta al comité: (1) qué población priorizas y cuánto del monto asignas a cada una, (2) la TEA, el plazo y la comisión que propones por población, (3) los 3 números que más pesan en tu decisión y el principal riesgo.",
+  "exhibits": [
+    {
+      "title": "Características de las tres poblaciones (10 variables)",
+      "content": "| Característica | A. Dependientes en planilla | B. Comerciantes independientes | C. Profesionales independientes |\n|---|---|---|---|\n| Edad promedio | 31 años | 42 años | 36 años |\n| Ingreso mensual mediano | S/ 3,800 | S/ 3,200 | S/ 5,200 |\n| Ingresos formales (planilla o RUC/RH) | 95% | 18% | 70% |\n| Antigüedad laboral o del negocio | 4.5 años | 7 años | 3.2 años |\n| Bancarizados (con historial en centrales de riesgo) | 92% | 41% | 85% |\n| Cuotas de deuda / ingreso mensual | 22% | 38% | 27% |\n| Mora a 30 días en créditos similares | 3% | 9% | 6% |\n| Variabilidad del ingreso (coef. de variación) | 5% | 35% | 22% |\n| Vivienda propia | 28% | 55% | 35% |\n| Uso del canal digital | 78% | 30% | 85% |"
+    },
+    {
+      "title": "Economía del préstamo por población",
+      "content": "| Concepto | A | B | C |\n|---|---|---|---|\n| Costo de fondeo (TEA) | 6.0% | 6.0% | 6.0% |\n| Gasto operativo (% del saldo anual) | 3% | 6% | 4% |\n| Pérdida dado el incumplimiento (LGD, sin garantía) | 70% | 70% | 70% |\n| Margen objetivo (sobre el saldo) | 8% | 8% | 8% |\n| TEA promedio del mercado hoy | 24% | 45% | 30% |\n| Plazo habitual en el mercado | 36-60 meses | 12-24 meses | 24-36 meses |\n\nRegla de referencia del área: **TEA mínima = costo de fondeo + pérdida esperada + gasto operativo + margen**, con pérdida esperada = probabilidad de incumplimiento × LGD. Usa la mora a 30 días como aproximación de la probabilidad de incumplimiento."
+    },
+    {
+      "title": "Restricciones y señales del comité",
+      "content": "- Monto del piloto: **S/ 60 millones**. Mora máxima de la cartera piloto: **6%**.\n- Población A: competencia intensa; otros bancos ya ofrecen préstamos preaprobados en su app.\n- Población B: solo 41% tiene historial crediticio, así que el banco **valida mal sus ingresos**; sus ventas son muy estacionales (campaña escolar, Fiestas Patrias, Navidad).\n- Población C: valora que le aprueben en minutos y es sensible a la comisión de desembolso."
+    }
+  ],
+  "temas_evaluados": [
+    "Elección de variables de riesgo por población",
+    "Tasa mínima (fondeo + pérdida esperada + gasto + margen)",
+    "Riesgo vs rentabilidad por población",
+    "Mix de cartera y restricción de mora",
+    "Plazos y comisiones por población"
+  ],
+  "pista_respuesta_modelo": "Tasa mínima por población: A = 6 + (3% × 70% = 2.1) + 3 + 8 = 19.1%; B = 6 + 6.3 + 6 + 8 = 26.3%; C = 6 + 4.2 + 4 + 8 = 22.2%. Frente al mercado (A 24%, B 45%, C 30%) la holgura es de 4.9, 18.7 y 7.8 puntos: B es la más rentable pero también la más riesgosa e incierta (ingreso variable, solo 41% bancarizado).\n\nPropuesta: 45% a A (S/ 27M), 35% a C (S/ 21M) y 20% a B (S/ 12M). Mora ponderada = 0.45×3 + 0.35×6 + 0.20×9 = 5.25%, bajo el tope de 6%. Condiciones: A, TEA ~22%, 36-48 meses y sin comisión de desembolso para competir con los preaprobados. C, TEA ~28%, 24-36 meses y comisión de desembolso baja (~0.5%). B, TEA ~36% (bajo el 45% del mercado y ~10 puntos sobre su mínimo), plazo de hasta 18 meses, cuotas ajustadas a la estacionalidad, tope de exposición de S/ 12M y revisión a los 6 meses.\n\nRiesgo principal: la mora real de B puede superar el 9% observado. Mitigantes: topes por cliente, validar ingresos con flujos de billeteras o POS y revisar el piloto antes de ampliarlo."
+}
