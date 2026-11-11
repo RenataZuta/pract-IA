@@ -151,9 +151,8 @@ practia/
 │   ├── PractIA_Guia_Entrevistas.pdf  # Guía de las 3 entrevistas de validación
 │   ├── research/          # 3 entrevistas de validación
 │   └── architecture/      # Diagrama + 3 capturas
-├── scripts/
-│   └── transcribe_batch.py  # Procesamiento de audios
-└── notebooks/             # Exploración
+└── scripts/
+    └── transcribe_batch.py  # Procesamiento de audios
 ```
 
 ## Cómo correrlo
