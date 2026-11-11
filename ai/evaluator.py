@@ -24,6 +24,8 @@ from groq import BadRequestError, Groq, GroqError
 from loguru import logger
 from pydantic import BaseModel, Field, ValidationError, field_validator
 
+from ai.rag import formatear, recuperar
+
 PROMPTS_DIR = Path(__file__).parent / "prompts"
 
 # llama-3.3-70b-versatile fue dado de baja en el plan gratuito (2026-08-16).
@@ -71,6 +73,7 @@ class Feedback(BaseModel):
     respuesta_modelo: str
     tiempo_usado_segundos: int | None = None
     puntaje_por_tipo: dict[str, int] = {}  # 0-100 por tipo; lo calcula el sistema
+    fuentes_recuperadas: list[str] = []  # fragmentos que el RAG le dio al evaluador; los pone el sistema
 
     @field_validator("puntaje_total", mode="before")
     @classmethod
@@ -105,12 +108,13 @@ def evaluate_response(transcript: str, case: dict, rubric: dict) -> Feedback:
         raise EvaluationError("Falta GROQ_API_KEY en el .env.")
 
     aplicables = criterios_aplicables(rubric, case)
+    material = _recuperar_material(transcript, case)
     nombres = {c["nombre"] for c in aplicables}
     no_aplican = [c["nombre"] for c in rubric["criterios"] if c["nombre"] not in nombres]
     messages = [
         {"role": "system", "content": _load_prompt("evaluator_system.md")},
         {"role": "user", "content": _build_user_prompt(
-            transcript, case, {**rubric, "criterios": aplicables}, no_aplican)},
+            transcript, case, {**rubric, "criterios": aplicables}, no_aplican, material)},
     ]
 
     try:
@@ -127,10 +131,10 @@ def evaluate_response(transcript: str, case: dict, rubric: dict) -> Feedback:
             else:
                 faltan = _criterios_faltantes(feedback, aplicables)
                 if not faltan:
-                    return _reconciliar(feedback, aplicables, completo=True)
+                    return _con_fuentes(_reconciliar(feedback, aplicables, completo=True), material)
                 if intento == 2:
                     logger.warning("Faltan criterios tras el reintento ({}); se conserva el total del modelo.", faltan)
-                    return _reconciliar(feedback, aplicables, completo=False)
+                    return _con_fuentes(_reconciliar(feedback, aplicables, completo=False), material)
                 logger.warning("Faltan criterios en la respuesta del evaluador, reintento una vez: {}", faltan)
                 correccion = (
                     f"Faltan estos criterios de la rúbrica: {', '.join(faltan)}. Devuelve el JSON completo con "
@@ -152,12 +156,15 @@ def criterios_aplicables(rubric: dict, case: dict) -> list[dict]:
     """
     Criterios de la rúbrica que aplican al caso, con los pesos ajustados.
 
-    Un criterio con `aplica_a` solo cuenta para esos `case_type`. El peso de los
+    Un criterio con `aplica_a` solo cuenta para esos `case_type`, y el caso puede excluir criterios
+    con `criterios_no_aplican` (lista de nombres). El peso de los
     que no aplican se reparte entre los demás criterios de su mismo tipo, para no
     cambiar el balance entre técnico, habilidades blandas y aporte propio.
     """
     todos = rubric["criterios"]
-    aplican = [c for c in todos if not c.get("aplica_a") or case.get("case_type") in c["aplica_a"]]
+    excluidos = set(case.get("criterios_no_aplican", []))  # el caso no pide eso (p. ej. no pide recomendación)
+    aplican = [c for c in todos
+               if c["nombre"] not in excluidos and (not c.get("aplica_a") or case.get("case_type") in c["aplica_a"])]
     resultado: list[dict] = []
     for tipo in dict.fromkeys(c.get("tipo", "tecnico") for c in todos):
         peso_grupo = sum(c["peso"] for c in todos if c.get("tipo", "tecnico") == tipo)
@@ -173,6 +180,23 @@ def criterios_aplicables(rubric: dict, case: dict) -> list[dict]:
 
 
 # ---------- Helpers ----------
+def _recuperar_material(transcript: str, case: dict) -> list[str]:
+    """RAG: fragmentos del corpus parecidos al caso y a la respuesta (RAG_K=0 lo desactiva)."""
+    try:
+        k = int(os.getenv("RAG_K", "3"))
+        if k <= 0:
+            return []
+        consulta = f"{case['title']} {case['case_type']} {' '.join(case.get('temas_evaluados', []))} {transcript}"
+        return formatear(recuperar(consulta, k=k, excluir_caso=case.get("id")))
+    except Exception as exc:  # el RAG es un apoyo: si falla, se evalúa igual
+        logger.warning("RAG no disponible, se evalúa sin material de apoyo: {}", exc)
+        return []
+
+
+def _con_fuentes(feedback: Feedback, material: list[str]) -> Feedback:
+    return feedback.model_copy(update={"fuentes_recuperadas": material})
+
+
 def _load_prompt(name: str) -> str:
     return (PROMPTS_DIR / name).read_text(encoding="utf-8")
 
@@ -257,7 +281,8 @@ def _reconciliar(feedback: Feedback, aplicables: list[dict], completo: bool) -> 
     return feedback.model_copy(update=cambios)
 
 
-def _build_user_prompt(transcript: str, case: dict, rubric: dict, no_aplican: list[str] | tuple = ()) -> str:
+def _build_user_prompt(transcript: str, case: dict, rubric: dict, no_aplican: list[str] | tuple = (),
+                       material: list[str] | tuple = ()) -> str:
     palabras = len(transcript.split())
     return f"""
 ## Caso presentado al candidato
@@ -277,8 +302,7 @@ def _build_user_prompt(transcript: str, case: dict, rubric: dict, no_aplican: li
 
 {_format_rubric(rubric, no_aplican)}
 
-{_format_reference(case)}
-## Transcripción de la respuesta del candidato
+{_format_reference(case)}{_format_material(material)}## Transcripción de la respuesta del candidato
 
 Longitud: {palabras} palabras (~{palabras / PALABRAS_POR_MINUTO:.1f} min a {PALABRAS_POR_MINUTO} palabras/min; objetivo: {TIEMPO_OBJETIVO_MIN} min).
 
@@ -316,6 +340,18 @@ def _format_rubric(rubric: dict, no_aplican: list[str] | tuple) -> str:
     if no_aplican:
         texto += "\n\nNo aplican a este caso (no los evalúes): " + ", ".join(no_aplican) + "."
     return texto
+
+
+def _format_material(material: list[str] | tuple) -> str:
+    """Fragmentos recuperados por el RAG (preguntas reales de entrevistadores y casos similares)."""
+    if not material:
+        return ""
+    return (
+        "## Material de apoyo recuperado (RAG)\n\n"
+        "Fragmentos del corpus de PractIA parecidos a este caso y a la respuesta (criterios de entrevistadores reales y casos "
+        "similares). Úsalos para contrastar y calibrar; no los atribuyas al candidato.\n\n"
+        + "\n".join(f"- {m}" for m in material) + "\n\n"
+    )
 
 
 def _format_exhibits(case: dict) -> str:

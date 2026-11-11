@@ -261,6 +261,11 @@ def feedback_view(feedback: Feedback, case: dict, transcript: str) -> None:
     if referencia:
         with st.expander("Ver la respuesta de referencia (preparada con Claude)"):
             st.info(referencia)
+    if feedback.fuentes_recuperadas:
+        with st.expander(f"Material recuperado por RAG ({len(feedback.fuentes_recuperadas)} fragmentos)"):
+            st.caption("Fragmentos del corpus de PractIA que el evaluador usó para contrastar tu respuesta.")
+            for fuente in feedback.fuentes_recuperadas:
+                st.markdown(f"- {fuente}")
 
     st.success(f"**Fortaleza principal:** {feedback.fortaleza_principal}")
     st.warning(

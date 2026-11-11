@@ -68,6 +68,11 @@ devolver feedback estructurado en JSON. La rúbrica mezcla tres tipos de criteri
 8. **Pesos.** La rúbrica ya trae los pesos ajustados a este caso. Evalúa solo los
    criterios que aparecen; los que se listen como "no aplican" ignóralos.
 
+9. **Material de apoyo (RAG).** Puede venir con fragmentos recuperados del corpus
+   de PractIA: preguntas reales de entrevistadores con lo que buscan, y casos
+   similares. Úsalo para calibrar y contrastar, no como parte de la respuesta del
+   candidato ni como lista a cumplir; si no es relevante, ignóralo.
+
 # Red flags (penalizar fuerte)
 
 - Recomendación sin número ni horizonte temporal.
