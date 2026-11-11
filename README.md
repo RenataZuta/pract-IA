@@ -35,9 +35,10 @@ Hoy:
 
 1. Elige empresa objetivo (BCP, Alicorp, Apoyo Consultoría, etc.) y tipo de case.
 2. Recibe el caso: 1 página de contexto + anexos numéricos (sintéticos pero realistas).
-3. Cronómetro con las 3 fases estándar: lectura (15 min) → discusión (20 min) → conclusión (5 min).
+3. Cronómetro con cuenta regresiva que corre solo: fases estándar (lectura 15 min → discusión 20 min → conclusión 5 min) y una de 3 min para tu respuesta, con aviso al excederte.
 4. Resuelve por voz; Whisper transcribe en segundos y puedes corregir el texto antes de evaluar.
 5. El evaluador IA puntúa contra una rúbrica por industria con tres tipos de criterio: **técnicos (55 %)**, **habilidades blandas (30 %)** (comunicación y seguridad, colaboración y escucha, priorización) y **aporte propio (15 %)**, que compara tu respuesta con una respuesta de referencia del caso preparada con Claude. Devuelve el puntaje total y por tipo, el comparativo con la referencia (en qué coincidiste, qué aportaste y qué te faltó) y red flags. Las habilidades blandas se estiman por lo que dices y no reemplazan una dinámica grupal real. Se puede descargar en PDF.
+6. Un botón arma un **guion final** de ~3 minutos que combina tu respuesta con el contraste de la IA (lo que te faltó, lo que aportaste, tus puntos a mejorar) y lo baja en **un solo PDF** para practicar: guion con tiempos por bloque, qué cambió, contraste con la referencia y tu respuesta original.
 
 ### Módulo 2 — Prep de entrevista individual con el jefe final
 
@@ -148,6 +149,7 @@ practia/
 │   ├── evaluator.py       # LLM de Groq en modo JSON + Pydantic — evaluador de group case (M1)
 │   ├── interviewer.py     # (por construir) Jefe final: arma y conduce la entrevista (M2)
 │   ├── interview_evaluator.py  # (por construir) Feedback STAR + técnica + fit (M2)
+│   ├── guion.py           # Guion final para practicar (respuesta + contraste de la IA -> PDF)
 │   ├── rag.py             # RAG ligero: recuperación BM25 sobre preguntas y casos (lo usa el evaluador)
 │   ├── case_generator.py  # (por construir) RAG sobre memorias anuales
 │   └── rag_index.py       # (por construir) Indexado ChromaDB
