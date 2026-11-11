@@ -76,6 +76,9 @@ consultoría).
 
 Archivo: crear `ai/rag_index.py` desde cero.
 
+0. Instala las dependencias del RAG: `pip install -r requirements-rag.txt`
+   (están fuera de `requirements.txt` para no alargar el deploy; si el RAG
+   se despliega, vuelve a pasarlas a `requirements.txt`).
 1. Descarga las memorias anuales listadas en `data/sources.md` a
    `data/corpus/`.
 2. Indexa con ChromaDB y `sentence-transformers/paraphrase-multilingual-mpnet-base-v2`.

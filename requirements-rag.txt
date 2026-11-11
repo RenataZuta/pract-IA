@@ -1,0 +1,10 @@
+# Dependencias del RAG (ai/rag_index.py, ai/case_generator.py: aún por construir).
+# Están fuera de requirements.txt a propósito: Streamlit Cloud solo lee ese
+# archivo, y estas dos librerías arrastran torch y ~75 paquetes más sin que
+# ningún código las use todavía.
+#
+# Para trabajar en el RAG en local:
+#   pip install -r requirements.txt -r requirements-rag.txt
+# Al desplegar con RAG, vuelve a pasar estas líneas a requirements.txt.
+chromadb==0.5.17
+sentence-transformers==3.3.0

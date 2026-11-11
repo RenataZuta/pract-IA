@@ -133,6 +133,7 @@ practia/
 ├── .env.example           # Variables (nunca el .env real)
 ├── .gitignore
 ├── requirements.txt
+├── requirements-rag.txt   # Dependencias del RAG (por construir); aparte para no alargar el deploy
 ├── CLAUDE.md              # Contexto para Claude Code
 ├── app/
 │   ├── main.py            # Streamlit app (selector de modo: group case / entrevista 1-a-1)
