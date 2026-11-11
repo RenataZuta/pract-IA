@@ -3,90 +3,119 @@
     "pregunta": "¿Qué es el EBITDA y para qué sirve?",
     "hint": "Define + por qué los bancos lo miran (proxy de generación de caja).",
     "tipo": "tecnica_banca",
-    "subtema": "Fundamentos financieros"
+    "subtema": "Fundamentos financieros",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "¿Qué es el ratio deuda/EBITDA? ¿Qué nivel es alto para una PYME peruana?",
     "hint": "Típicamente >3.0x prende alerta; >4.5x es crítico.",
     "tipo": "tecnica_banca",
-    "subtema": "Fundamentos financieros"
+    "subtema": "Fundamentos financieros",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "Explica las 5Cs del crédito.",
     "hint": "Carácter, capacidad, capital, colateral, condiciones.",
     "tipo": "tecnica_banca",
-    "subtema": "Fundamentos financieros"
+    "subtema": "Fundamentos financieros",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "¿Qué diferencia una banca comercial de una banca de inversión?",
     "hint": "Transformación de plazos vs intermediación de capital.",
     "tipo": "tecnica_banca",
-    "subtema": "Fundamentos financieros"
+    "subtema": "Fundamentos financieros",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "Explica qué es el spread bancario y cómo lo calculas.",
     "hint": "Tasa activa - tasa pasiva. Afecta el NIM.",
     "tipo": "tecnica_banca",
-    "subtema": "Fundamentos financieros"
+    "subtema": "Fundamentos financieros",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "¿Qué es el NIM (Net Interest Margin)? ¿Por qué cae en un contexto de baja de tasas?",
     "hint": "NIM = (ingresos financieros - gastos financieros) / activos rentables.",
     "tipo": "tecnica_banca",
-    "subtema": "Fundamentos financieros"
+    "subtema": "Fundamentos financieros",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "¿Qué es un covenant? Dame tres ejemplos.",
     "hint": "Ratio de cobertura, deuda/EBITDA máximo, limitación de dividendos.",
     "tipo": "tecnica_banca",
-    "subtema": "Fundamentos financieros"
+    "subtema": "Fundamentos financieros",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "¿Cuánto mide hoy el sistema bancario peruano en colocaciones? ¿Quién lidera?",
     "hint": "Aprox S/ 450B. BCP líder, Interbank/BBVA/Scotiabank siguen.",
     "tipo": "tecnica_banca",
-    "subtema": "Contexto peruano"
+    "subtema": "Contexto peruano",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "Explica el impacto de una baja de calificación soberana en el sistema financiero local.",
     "hint": "Sube costo de fondeo, cae valor de bonos en balance, presión regulatoria.",
     "tipo": "tecnica_banca",
-    "subtema": "Contexto peruano"
+    "subtema": "Contexto peruano",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "¿Qué es el SIS (Seguro Integral de Salud) y por qué impactaría a una cadena de farmacias?",
     "hint": "Chequea si conoces el contexto del cliente.",
     "tipo": "tecnica_banca",
-    "subtema": "Contexto peruano"
+    "subtema": "Contexto peruano",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "¿Qué está haciendo Yape que preocupa a los bancos tradicionales?",
     "hint": "Payment rails + crédito revolvente + microseguros, sin sucursales.",
     "tipo": "tecnica_banca",
-    "subtema": "Contexto peruano"
+    "subtema": "Contexto peruano",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "Si yo fuera cliente, ¿qué te haría pensar que no debería darme un crédito?",
     "hint": "Busca los red flags del analista: ingresos no sustentables, concentración, informalidad.",
     "tipo": "tecnica_banca",
-    "subtema": "Casos / razonamiento"
+    "subtema": "Casos / razonamiento",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "Un cliente importa soya y tiene el 85% de compras en USD sin cobertura. ¿Qué le recomiendas?",
     "hint": "Forwards, opciones, o pass-through al precio del cliente.",
     "tipo": "tecnica_banca",
-    "subtema": "Casos / razonamiento"
+    "subtema": "Casos / razonamiento",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "La cartera de mi banco crece 5% al año y la mora sube 1pp. ¿Qué me preocupa?",
     "hint": "Crecimiento adverso: estás colocando en segmentos riesgosos.",
     "tipo": "tecnica_banca",
-    "subtema": "Casos / razonamiento"
+    "subtema": "Casos / razonamiento",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "¿Cómo estructurarías una línea de capital de trabajo vs una línea de inversión?",
     "hint": "Plazo, garantías, forma de pago (bullet vs amortización).",
     "tipo": "tecnica_banca",
-    "subtema": "Casos / razonamiento"
+    "subtema": "Casos / razonamiento",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
+  },
+  {
+    "pregunta": "¿De qué componentes se forma la tasa de un préstamo?",
+    "hint": "Costo de fondeo + pérdida esperada (probabilidad de incumplimiento × pérdida dado el incumplimiento) + gasto operativo + margen. Ajusta por plazo y por segmento.",
+    "tipo": "tecnica_banca",
+    "subtema": "Pricing",
+    "fuente": "entrevista-01"
+  },
+  {
+    "pregunta": "Tienes tres poblaciones de clientes. ¿Qué características usarías para decidir cuál es la menos riesgosa para el banco?",
+    "hint": "Elige pocas y justifica los pesos: formalidad e historial crediticio, nivel y estabilidad del ingreso, deuda sobre ingreso y mora observada.",
+    "tipo": "tecnica_banca",
+    "subtema": "Pricing",
+    "fuente": "entrevista-01"
   }
 ]

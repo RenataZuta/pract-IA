@@ -3,72 +3,126 @@
     "pregunta": "Cuéntame de una vez que lideraste a un grupo sin tener autoridad formal.",
     "hint": "Buscan si tomas iniciativa aunque nadie te la delegue.",
     "tipo": "behavioral_star",
-    "subtema": "Liderazgo e iniciativa"
+    "subtema": "Liderazgo e iniciativa",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "Describe un momento en que viste algo que estaba mal y nadie lo decía. ¿Qué hiciste?",
     "hint": "Red flag: 'esperé a ver qué pasaba'.",
     "tipo": "behavioral_star",
-    "subtema": "Liderazgo e iniciativa"
+    "subtema": "Liderazgo e iniciativa",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "Cuéntame de un proyecto que nació de una idea tuya.",
     "hint": "Pide: con quién, cuánto tiempo, qué resultado.",
     "tipo": "behavioral_star",
-    "subtema": "Liderazgo e iniciativa"
+    "subtema": "Liderazgo e iniciativa",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "Cuéntame de una vez que tuviste que convencer a alguien más senior.",
     "hint": "Evalúa cómo manejas jerarquía sin ceder.",
     "tipo": "behavioral_star",
-    "subtema": "Liderazgo e iniciativa"
+    "subtema": "Liderazgo e iniciativa",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "Describe un desacuerdo que tuviste con un compañero de equipo. ¿Cómo lo resolviste?",
     "hint": "Nunca 'no he tenido desacuerdos'. Peor red flag que admitirlo.",
     "tipo": "behavioral_star",
-    "subtema": "Trabajo en equipo y conflicto"
+    "subtema": "Trabajo en equipo y conflicto",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "Cuéntame de un integrante difícil de un grupo de trabajo universitario. ¿Qué hiciste?",
     "hint": "Busca empatía, no revancha.",
     "tipo": "behavioral_star",
-    "subtema": "Trabajo en equipo y conflicto"
+    "subtema": "Trabajo en equipo y conflicto",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "Dame un ejemplo de un feedback duro que recibiste. ¿Qué hiciste con él?",
     "hint": "Muestra humildad y plan de acción.",
     "tipo": "behavioral_star",
-    "subtema": "Trabajo en equipo y conflicto"
+    "subtema": "Trabajo en equipo y conflicto",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "¿Prefieres trabajar solo o en equipo? Dame un ejemplo de cada uno.",
     "hint": "Trampa: la respuesta correcta es 'depende', con ejemplos.",
     "tipo": "behavioral_star",
-    "subtema": "Trabajo en equipo y conflicto"
+    "subtema": "Trabajo en equipo y conflicto",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "Cuéntame de una vez que tuviste que tomar una decisión importante con poca información.",
     "hint": "Buscan tolerancia a la ambigüedad.",
     "tipo": "behavioral_star",
-    "subtema": "Resolución de problemas y presión"
+    "subtema": "Resolución de problemas y presión",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "Describe un fracaso. ¿Qué aprendiste?",
     "hint": "Clásica. Que sea real y reciente, no 'soy muy perfeccionista'.",
     "tipo": "behavioral_star",
-    "subtema": "Resolución de problemas y presión"
+    "subtema": "Resolución de problemas y presión",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "Dame un ejemplo de una semana muy pesada académica o laboralmente. ¿Cómo la manejaste?",
     "hint": "Evalúa capacidad de priorización.",
     "tipo": "behavioral_star",
-    "subtema": "Resolución de problemas y presión"
+    "subtema": "Resolución de problemas y presión",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "¿Cuándo fue la última vez que tuviste que aprender algo nuevo rápido? ¿Cómo lo hiciste?",
     "hint": "Especialmente importante en roles técnicos.",
     "tipo": "behavioral_star",
-    "subtema": "Resolución de problemas y presión"
+    "subtema": "Resolución de problemas y presión",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
+  },
+  {
+    "pregunta": "Cuéntame de un error que cometiste en un trabajo o proyecto. ¿Cómo y cuándo se lo comunicaste a tu jefe o equipo?",
+    "hint": "Red flag: ocultarlo o avisar tarde. Busca que avises rápido, asumas tu parte y cuentes qué cambiaste para que no se repita.",
+    "tipo": "behavioral_star",
+    "subtema": "Errores y comunicación",
+    "fuente": "entrevista-01"
+  },
+  {
+    "pregunta": "Cuéntame de una vez que apoyaste a tu grupo en algo que no era tu tarea.",
+    "hint": "En banca 'se trabaja en equipo': qué viste que faltaba, qué hiciste y cómo mejoró el resultado del grupo. Sin tono de favor ni de protagonismo.",
+    "tipo": "behavioral_star",
+    "subtema": "Trabajo en equipo y conflicto",
+    "fuente": "entrevista-01"
+  },
+  {
+    "pregunta": "Cuéntame de una vez que cambiaste tu postura por lo que dijo alguien de tu equipo.",
+    "hint": "Mide escucha, una red flag en consultoría. Nombra el matiz que habías pasado por alto y cómo afinaste tu idea; evita ejemplos donde siempre tuviste la razón.",
+    "tipo": "behavioral_star",
+    "subtema": "Escucha y humildad",
+    "fuente": "entrevista-03"
+  },
+  {
+    "pregunta": "Cuéntame de una vez que le explicaste un tema que dominabas a alguien que no lo conocía.",
+    "hint": "Mide humildad y comunicación: lenguaje sencillo, sin imponer, y cómo verificaste que te entendieron.",
+    "tipo": "behavioral_star",
+    "subtema": "Escucha y humildad",
+    "fuente": "entrevista-03"
+  },
+  {
+    "pregunta": "Todo tu equipo está de acuerdo con una idea que crees equivocada. ¿Qué haces?",
+    "hint": "Pregunta trampa: ni ceder por quedar bien ni imponerte. Escucha primero, contrasta con datos y defiende tu postura con respeto.",
+    "tipo": "behavioral_star",
+    "subtema": "Preguntas trampa",
+    "fuente": "entrevista-02"
+  },
+  {
+    "pregunta": "Tienes dos tareas urgentes de jefes distintos y no alcanzas con ambas. ¿Qué haces?",
+    "hint": "Pregunta trampa: no esperes a que explote. Avisa, explica el conflicto y acuerda prioridades; muestra criterio para priorizar.",
+    "tipo": "behavioral_star",
+    "subtema": "Preguntas trampa",
+    "fuente": "entrevista-02"
   }
 ]

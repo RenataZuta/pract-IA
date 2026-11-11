@@ -3,30 +3,63 @@
     "pregunta": "¿Por qué quieres trabajar en [empresa]?",
     "hint": "Un número, una campaña, un líder, un reporte anual leído — no genérico.",
     "tipo": "fit",
-    "subtema": "Motivación y fit"
+    "subtema": "Motivación y fit",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "¿Dónde te ves en 5 años?",
     "hint": "Ambición pero realista. Nombra áreas, no cargos.",
     "tipo": "fit",
-    "subtema": "Motivación y fit"
+    "subtema": "Motivación y fit",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "¿Por qué deberíamos elegirte a ti y no a otro postulante del tercio superior?",
     "hint": "Un diferencial concreto, no 'soy proactiva y comprometida'.",
     "tipo": "fit",
-    "subtema": "Motivación y fit"
+    "subtema": "Motivación y fit",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "¿Qué sabes de nosotros? ¿Qué te llamó la atención de nuestra última noticia?",
     "hint": "Prepara 2-3 noticias recientes del semestre.",
     "tipo": "fit",
-    "subtema": "Motivación y fit"
+    "subtema": "Motivación y fit",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
   },
   {
     "pregunta": "Cuéntame de una vez que trabajaste fuera de tu zona de confort.",
     "hint": "Pregunta de crecimiento.",
     "tipo": "fit",
-    "subtema": "Motivación y fit"
+    "subtema": "Motivación y fit",
+    "fuente": "docs/PractIA_Banco_Preguntas.pdf"
+  },
+  {
+    "pregunta": "Cuéntame de ti fuera de lo académico: ¿qué hobbies o pasatiempos tienes?",
+    "hint": "Lo preguntan en la entrevista con el jefe para ver cómo eres como persona y si encajas con el equipo. Responde con algo real y breve; conéctalo con una habilidad útil para el trabajo.",
+    "tipo": "fit",
+    "subtema": "Perfil personal",
+    "fuente": "entrevista-03"
+  },
+  {
+    "pregunta": "¿Qué habilidades aprendiste en la universidad que podrías aplicar en esta práctica?",
+    "hint": "Nombra 2 habilidades concretas con un curso o proyecto como ejemplo; no listes cursos.",
+    "tipo": "fit",
+    "subtema": "Perfil personal",
+    "fuente": "entrevista-03"
+  },
+  {
+    "pregunta": "¿En qué ciclo estás y cuánto te falta para egresar?",
+    "hint": "Responde en una frase: ciclo, fecha estimada de egreso y disponibilidad (horario y duración de la práctica).",
+    "tipo": "fit",
+    "subtema": "Perfil personal",
+    "fuente": "entrevista-03"
+  },
+  {
+    "pregunta": "Defiende una idea que planteaste y que podría estar equivocada.",
+    "hint": "No buscan la respuesta perfecta sino argumentos claros y válidos: sostén tu postura, di qué dato la haría cambiar y no te pongas a la defensiva.",
+    "tipo": "fit",
+    "subtema": "Criterio y argumentación",
+    "fuente": "entrevista-03"
   }
 ]
