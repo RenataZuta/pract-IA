@@ -188,12 +188,16 @@ def recording_view(case: dict, industry: str) -> None:
         with st.spinner("Transcribiendo con Whisper..."):
             transcript = transcribe_audio(audio_bytes)
         logger.info("Audio transcrito ({} bytes, {} chars)", len(audio_bytes), len(transcript))
-        st.session_state.update(audio_digest=digest, transcript_text=transcript, feedback=None)
+        st.session_state.update(audio_digest=digest, audio_transcript=transcript, feedback=None)
 
     st.audio(audio_bytes)
+    # Una clave por audio: el texto editado se conserva en cada rerun y un audio
+    # nuevo arranca con su transcripción. Fijar el valor vía session_state con una
+    # clave fija no se pinta en el navegador cuando la corrida la dispara una subida.
     transcript = st.text_area(
         "Transcripción (puedes corregirla antes de evaluar)",
-        key="transcript_text",
+        value=st.session_state.audio_transcript,
+        key=f"transcript_{digest}",
         height=200,
     )
     if transcript.startswith(ERROR_PREFIX):
