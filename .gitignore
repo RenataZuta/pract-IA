@@ -8,6 +8,7 @@ credentials.json
 
 # Audio y data cruda (entrevistas privadas)
 data/audios/
+data/transcripts/
 data/raw/
 *.wav
 *.mp3
