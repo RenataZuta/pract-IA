@@ -76,12 +76,30 @@ def texto_sobre(fondo: str) -> str:
     return "#FFFFFF" if contraste("#FFFFFF", fondo) >= contraste("#111111", fondo) else "#111111"
 
 
+def mezclar(color: str, con: str, proporcion: float) -> str:
+    """Mezcla `color` con `con` (proporcion = parte de `con`, de 0 a 1); útil para tintes claros."""
+    a = [int(color.lstrip("#")[i:i + 2], 16) for i in (0, 2, 4)]
+    b = [int(con.lstrip("#")[i:i + 2], 16) for i in (0, 2, 4)]
+    return "#%02X%02X%02X" % tuple(round(x * (1 - proporcion) + y * proporcion) for x, y in zip(a, b))
+
+
+def fondos(tema: Tema) -> tuple[str, str, str]:
+    """(fondo de la página, fondo alto del degradado, barra lateral): tintes muy claros de la marca."""
+    return mezclar(tema.acento, "#FFFFFF", 0.93), mezclar(tema.acento, "#FFFFFF", 0.86), mezclar(tema.acento, "#FFFFFF", 0.84)
+
+
 # ---------- piezas HTML/CSS ----------
 def css(tema: Tema) -> str:
     """Estilos de la página con el color de la empresa (se inyectan con unsafe_allow_html)."""
+    fondo, fondo_alto, lateral = fondos(tema)
     return f"""
 <style>
-section[data-testid="stSidebar"] {{ border-top: 4px solid {tema.acento}; }}
+.stApp {{ background: linear-gradient(180deg, {fondo_alto} 0%, {fondo} 28%, {fondo} 72%, {fondo_alto} 100%); }}
+header[data-testid="stHeader"] {{ background: transparent; }}
+.stApp h1, .stApp h2, .stApp h3 {{ color: {tema.oscuro}; }}
+section[data-testid="stSidebar"] {{ background: {lateral}; border-top: 4px solid {tema.acento}; }}
+div[data-testid="stExpander"] details, div[data-testid="stTextArea"] textarea {{ background: #FFFFFF; }}
+iframe[title^="audio_recorder"] {{ background: #FFFFFF; border-radius: 12px; border: 1px solid {tema.acento}44; box-shadow: 0 1px 4px rgba(0,0,0,.08); }}
 button[data-testid="stBaseButton-primary"] {{ background-color: {tema.acento}; border-color: {tema.acento}; color: {texto_sobre(tema.acento)}; }}
 button[data-testid="stBaseButton-primary"]:hover {{ filter: brightness(0.92); border-color: {tema.acento}; color: {texto_sobre(tema.acento)}; }}
 /* la barra de Streamlit anida 3 capas; la del relleno es la más profunda */

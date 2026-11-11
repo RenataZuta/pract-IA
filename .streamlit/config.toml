@@ -1,0 +1,4 @@
+# Tema claro fijo: el diseño por empresa (app/theme.py) tiñe el fondo con colores claros
+# y asume texto oscuro; en modo oscuro del sistema quedaría ilegible.
+[theme]
+base = "light"
