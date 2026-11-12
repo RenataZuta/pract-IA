@@ -222,20 +222,36 @@ def recording_view(case: dict, industry: str) -> None:
             type=["mp3", "wav", "m4a", "webm"],
             key="uploader",
         )
+        st.caption("O prueba el flujo sin audio, con la respuesta de referencia del caso:")
+        if st.button("Usar la respuesta de referencia como ejemplo", key="usar_ejemplo"):
+            st.session_state.ejemplo_caso = case["id"]
     audio_bytes = (uploaded.getvalue() if uploaded else None) or recorded
-    if not audio_bytes:
+    if audio_bytes:
+        st.session_state.ejemplo_caso = None  # un audio real tiene prioridad sobre el ejemplo
+    usa_ejemplo = not audio_bytes and st.session_state.get("ejemplo_caso") == case["id"]
+    if not audio_bytes and not usa_ejemplo:
         return
 
-    # Streamlit re-ejecuta el script en cada interacción y el grabador devuelve
-    # el mismo audio: solo se transcribe cuando el audio cambia.
-    digest = hashlib.sha256(audio_bytes).hexdigest()
-    if st.session_state.get("audio_digest") != digest:
-        with st.spinner("Transcribiendo con Whisper..."):
-            transcript = transcribe_audio(audio_bytes)
-        logger.info("Audio transcrito ({} bytes, {} chars)", len(audio_bytes), len(transcript))
-        st.session_state.update(audio_digest=digest, audio_transcript=transcript, feedback=None, guion=None)
-
-    st.audio(audio_bytes)
+    if usa_ejemplo:
+        # Plan B del micrófono: la respuesta de referencia del caso entra como si fuera la transcripción.
+        digest = f"ejemplo_{case['id']}"
+        if st.session_state.get("audio_digest") != digest:
+            st.session_state.update(
+                audio_digest=digest, feedback=None, guion=None,
+                audio_transcript=case.get("respuesta_referencia") or case.get("pista_respuesta_modelo", ""),
+            )
+        st.info("Este texto es la respuesta de referencia del caso (preparada con Claude), no tu respuesta: sirve para "
+                "probar el flujo si el micrófono falla. Puedes editarlo antes de evaluar.")
+    else:
+        # Streamlit re-ejecuta el script en cada interacción y el grabador devuelve
+        # el mismo audio: solo se transcribe cuando el audio cambia.
+        digest = hashlib.sha256(audio_bytes).hexdigest()
+        if st.session_state.get("audio_digest") != digest:
+            with st.spinner("Transcribiendo con Whisper..."):
+                transcript = transcribe_audio(audio_bytes)
+            logger.info("Audio transcrito ({} bytes, {} chars)", len(audio_bytes), len(transcript))
+            st.session_state.update(audio_digest=digest, audio_transcript=transcript, feedback=None, guion=None)
+        st.audio(audio_bytes)
     # Una clave por audio: el texto editado se conserva en cada rerun y un audio
     # nuevo arranca con su transcripción. Fijar el valor vía session_state con una
     # clave fija no se pinta en el navegador cuando la corrida la dispara una subida.
