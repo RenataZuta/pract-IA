@@ -31,6 +31,7 @@ from ai.guion import GuionError, generar_guion  # noqa: E402
 from ai.rag import recuperar  # noqa: E402
 from ai.transcribe import ERROR_PREFIX, transcribe_audio  # noqa: E402
 from app.pdf_export import TIPO_TITULOS, feedback_to_pdf, guion_to_pdf  # noqa: E402
+from app import verificacion_view  # noqa: E402
 from app.theme import (  # noqa: E402
     ENTREVISTA, INDUSTRIAS, banda_generica, banda_html, css, icono_y_lema, mision_html, pasos_html, tema_de,
 )
@@ -142,6 +143,8 @@ def case_view(case: dict) -> None:
         for i, exhibit in enumerate(case["exhibits"], 1):
             with st.expander(f"Anexo {i}: {exhibit['title']}"):
                 st.markdown(exhibit["content"])
+
+    verificacion_view.render(case["id"])
 
     st.markdown(mision_html(case, lema), unsafe_allow_html=True)
 
