@@ -81,28 +81,29 @@ Reglas: un commit por tarea, mensaje en español (`feat:` `fix:` `docs:` `test:`
 - feat: agente verificador de casos (cuentas por código, hechos con fuentes verificadas) + ficha en la app + 78 pruebas
 - **Esta noche (cuota de Groq repuesta ~19:00 hora de Lima):** `python -m scripts.auditar caso ai/cases/fmcg_04_pricing.json --max-hechos 1 --sin-cache`, leer el informe y commitear `ai/audits/` con `docs: agrego informes de verificación de los casos`
 
-### Vie 13-nov — demo robusto y pruebas
-1. `fix: mensajes claros ante el límite de tasa de Groq (429) y la falta de GROQ_API_KEY` — `ai/evaluator.py`, `app/main.py`. Criterio: en vez de un traceback, la UI dice "espera ~1 minuto" o "falta la clave".
-2. `feat: botón "Usar respuesta de ejemplo" como plan B del micrófono` — `app/main.py`. Carga una respuesta de ejemplo en la caja de transcripción, rotulada como ejemplo. Criterio: el flujo evalúa sin micrófono.
-3. `test: pruebas del total del evaluador, del RAG y de la consistencia de los casos` — ya existen `tests/` y `requirements-dev.txt` (del agente verificador); agregar pruebas de `ai/evaluator.py` y `ai/rag.py`, y que el patrimonio de `banca_01` cuadre, que el payback de `consultoria_02` salga de CAPEX y margen, y que cada caso tenga los campos obligatorios. Criterio: `pytest` pasa.
-4. `docs: marco en CHECKLIST_ENTREGA.md lo ya hecho` — `docs/CHECKLIST_ENTREGA.md`.
+### Vie 13-nov — demo robusto y pruebas: ✅ ADELANTADO el 12-nov
+- ✅ `fix: mensajes claros ante el límite de Groq (429), la key inválida y la falta de key`
+- ✅ `feat: botón "Usar la respuesta de referencia como ejemplo" como plan B del micrófono`
+- ✅ `test: pruebas del evaluador, del RAG y de la coherencia de los 12 casos` (141 pruebas en total)
+- ✅ Checklist marcado (`docs/CHECKLIST_ENTREGA.md`)
+- **Lo que sí toca el 13 (tuyo):** probar el **micrófono real** en la app pública (es lo único que nunca se ha probado) y anotar qué falla.
 
-### Sáb 14-nov — producto y evidencia
-1. **Opcional (3–4 h, con tope a las 14:00):** `feat: el módulo 2 graba y evalúa la respuesta (STAR + técnica + fit)` — `ai/interview_evaluator.py`, `ai/prompts/interview_system.md`, `ai/rubrics/entrevista.json`, `app/main.py`. Si no está funcionando a la hora tope, no se sube y se hace el punto 1b.
-   - 1b. `docs: dejo el módulo 2 como roadmap en el README, sin promesas` — ajustar README sección 3 y 6.
-2. `docs: guion del demo de 3 minutos con tiempos y plan B` — `docs/GUION_DEMO.md`: 0:00–0:30 problema, 0:30–2:30 demo (qué caso, qué clics, qué decir), 2:30–3:00 negocio.
-3. `docs: completo fecha y canal de las 3 entrevistas y confirmo "AJE"` — **lo edita ReMar** en `docs/research/` (CLAUDE.md la reserva para ella); también marcar las casillas de `docs/research/README.md`.
+### Sáb 14-nov — producto y evidencia: ✅ ADELANTADO el 12-nov
+- ✅ `feat: el módulo 2 graba o recibe tu respuesta y la evalúa` (probado con la API real; la duración la mide el código)
+- ✅ `docs: guion del demo de 3 minutos con tiempos, plan B y preguntas probables` (`docs/GUION_DEMO.md`)
+- **Lo que sí toca el 14 (tuyo):** ensayar el guion con cronómetro y compartiendo pantalla; completar fecha y canal de las 3 entrevistas y confirmar «AJE» (`docs/research/`, tuyo).
 
 ### Dom 15-nov — despliegue final y pruebas con 2 personas
-1. `fix: <qué falló>` — un commit por cada falla que encuentren las 2 personas.
-2. `docs: actualizo las capturas con la interfaz final` — `docs/architecture/captura_0{1,2,3}_*.png` (las actuales son de antes del tema por empresa).
-3. `docs: agrego la foto del founder` — guardar `docs/founder.jpg` y descomentar la línea en README sección 1.
-4. `chore: congelo versiones y reviso .env.example, .gitignore y secretos` — correr `git log -p | grep -iE "gsk_|api_key|secret|token"`.
+- ✅ `docs: actualizo las capturas con la interfaz final` · ✅ revisión de secretos del historial completo (limpio)
+- **Pendiente real (necesita personas):** que **2 personas prueben la URL pública** (una desde el celular), anotar qué falló y arreglarlo (`fix: <qué falló>`, un commit por falla).
+- **Pendiente tuyo:** guardar `docs/founder.jpg` y descomentar la línea del README (sección 1) → `docs: agrego la foto del founder`.
 
 ### Lun 16-nov — cierre
-1. `docs: agrego el link del video de respaldo en el README` — sección 6.
+1. `docs: agrego el link del video de respaldo en el README` — sección 6 (grabarlo es tuyo).
 2. `docs: README final` — releer contra el checklist del PDF (sección 9 del PDF).
 3. Publicar el comentario en el issue #205 (no es un commit). **Antes de las 23:59.**
+
+> Nota sobre las fechas: lo adelantado el 12-nov quedó fechado el 12-nov. Los commits no se fechan en días que no han llegado: la rúbrica pide commits en varios días y el historial muestra la fecha real. Ya hay 3 días reales (10, 11, 12) y los días 13–16 tendrán commits genuinos con lo que solo puedes hacer tú.
 
 ---
 
