@@ -2,30 +2,56 @@
 
 > Prep de **group case** y de **entrevista final** por voz para estudiantes peruanos que postulan a su primera o segunda práctica en banca, FMCG y consultoría. Dos módulos: un **simulador de group case** (caso con anexos, cronómetro y rúbrica) y una **entrevista individual con el jefe final** (preguntas reales del proceso peruano). En ambos hablas, y recibes feedback contra una rúbrica en menos de 1 minuto.
 
-**One-liner:** Hacemos simulacros por voz de group case y de entrevista final con el jefe para estudiantes peruanos postulando a programas trainee, con casos y preguntas locales y feedback accionable.
+**One-liner:** Hacemos simulacros de group case y de entrevista final para estudiantes peruanos que postulan a prácticas y programas trainee, mediante voz (Whisper) y un evaluador con rúbrica (LLM con salida estructurada + RAG) sobre casos y preguntas del proceso peruano.
 
 ---
 
 ## 1. Founder
 
-**Ana Renata "ReMar" Zuta** — estudiante de Economía en Universidad del Pacífico (10.º ciclo, graduación dic. 2026), tercio superior. Analista de Planeamiento Financiero en Lima Expresa (OPEX, control presupuestal). Internship previo en Crece Finanzas Estratégicas (crédito privado, modelado financiero, riesgo SME). Preparando CFA Nivel I.
+<!-- FOTO: guarda tu foto en docs/founder.jpg y reemplaza esta línea por: ![Ana Renata Zuta](docs/founder.jpg) -->
 
-Postulante activa a programas de prácticas (Interbank, Nexa Resources, Repsol), vive el dolor en primera persona.
+**Ana Renata "ReMar" Zuta Luyo** — estudiante de Economía en Universidad del Pacífico (10.º ciclo, graduación dic. 2026), tercio superior. Analista de Planeamiento Financiero en Lima Expresa (OPEX, control presupuestal). Internship previo en Crece Finanzas Estratégicas (crédito privado, modelado financiero, riesgo SME). Preparando CFA Nivel I.
+
+**Por qué soy la persona indicada:** soy postulante activa a programas de prácticas (Interbank, Nexa Resources, Repsol), así que vivo el problema en primera persona. Y vengo de finanzas: pude escribir yo misma las rúbricas y revisar las cifras de los casos de banca (crédito PYME, pricing, portafolio), que es donde un simulador genérico falla.
+
+**Cómo cubro producto, ingeniería, diseño y ventas con agentes de IA** (una sola persona, sin equipo):
+
+| Función | Qué hago yo | Qué hace el agente (Claude Code) |
+|---|---|---|
+| **Producto** | Elijo el problema, las empresas objetivo y la rúbrica (55 % técnico / 30 % habilidades blandas / 15 % aporte propio, que salió de las 3 entrevistas); decido qué entra al banco de preguntas. | Redacta borradores de casos, anexos y pistas; yo los reviso. El 12-nov hice con el agente una auditoría de cifras: se corrigieron 10 incongruencias entre anexos y respuestas de referencia en 8 casos (commit `384710b`). |
+| **Ingeniería** | Defino requisitos, pruebo con la API real y despliego. | Escribe la mayor parte del código (app, evaluador, RAG, PDF). Ver sección 9. |
+| **Diseño** | Elijo identidad por empresa (colores inspirados en la marca, sin logos). | Genera el tema y el CSS (`app/theme.py`) y una prueba de contraste WCAG AA. |
+| **Ventas** | Hice las 3 entrevistas de validación y las transcribí con Whisper. Aún no vendo: primero valido (ver sección 7). | Preparó conmigo la guía y los mensajes de contacto (`docs/PractIA_Guia_Entrevistas.pdf`) y sintetizó las transcripciones. |
 
 ## 2. Problema
 
-Los estudiantes peruanos que postulan a programas trainee de banca, FMCG y consultoría enfrentan dos pruebas para las que no pueden prepararse solos:
+**Quién lo sufre:** estudiantes de los últimos ciclos (y recién egresados) de Economía, Administración e Ingeniería Industrial en Lima que postulan a su primera o segunda práctica, o a programas trainee, de banca, consumo masivo y consultoría. Enfrentan dos pruebas para las que no pueden prepararse solos:
 
 1. **El group case:** por definición requiere 4–6 personas, caso impreso, cronómetro y un evaluador.
 2. **La entrevista final con el jefe:** la ronda individual (1-on-1 en Credicorp Capital, jefe directo en Belcorp, entrevistas conductuales en P&G) mezcla preguntas comportamentales (STAR), técnicas de la industria y de fit con la empresa. Para practicarla hace falta saber qué preguntan de verdad y recibir feedback honesto sobre cómo suena tu respuesta.
 
-Hoy:
+**Cuánto les cuesta y cómo lo resuelven hoy sin PractIA:**
 
-- Se juntan en grupos de WhatsApp improvisados que nunca cuadran horarios.
-- Pagan Preplounge o sesiones de coaching individual (**S/ 150–500**) que no replican la dinámica grupal ni las preguntas del proceso peruano.
-- Usan ChatGPT genérico que no conoce el contexto peruano (marcas Alicorp/Belcorp, régimen MYPE, dinámica del BCP) ni lo que realmente preguntan estas empresas.
+| Alternativa hoy | Límite |
+|---|---|
+| Grupos de WhatsApp improvisados | Cuesta cuadrar horarios; no hay quien conozca el proceso. Una persona entrevistada buscó a alguien que ya hubiera pasado por la dinámica y "eso fue imposible". |
+| Consejos informales de compañeros | Gratis, pero anecdóticos: sin práctica ni feedback sobre cómo suena tu respuesta. |
+| Coaching individual o plataformas tipo Preplounge (rango referencial **S/ 150–500** por sesión) | Caro y no replica el proceso peruano. Otra persona pagó un programa que simulaba la dinámica (no dijo el monto). |
+| Material de la universidad | Sirve para lo técnico (una persona dedicó 2–3 h por semana), no para hablar bajo presión. |
+| ChatGPT genérico | No conoce el contexto peruano ni lo que preguntan estas empresas. |
+| No hacer nada | Llegar sin un "speech armado" a una prueba que define el pase a la siguiente ronda. |
 
-**Evidencia:** 3 conversaciones con analistas junior (banca, FMCG, consultoría) que pasaron por el proceso en los últimos 24 meses — en `docs/research/`.
+El costo que más pesa no es el dinero sino el de no pasar de ronda: la tercera fase es la más temida porque "hay más probabilidades de quedar, pero también hay más probabilidades de que no quedes".
+
+**Evidencia — 3 conversaciones con usuarios potenciales** (notas completas con citas literales en `docs/research/`; iniciales por privacidad, los audios no están en el repo):
+
+| Entrevista | Perfil | Qué confirmó | Qué cambié en el producto |
+|---|---|---|---|
+| [01 · Banca](docs/research/entrevista-01.md) | H., auditoría de riesgos de banca mayorista; pasó por las 3 fases de un proceso bancario | Su mayor miedo fue la entrevista final con gerentes, no el group case. Se preparó solo con consejos de compañeros. | Priorizar el Módulo 2; caso `banca_04` (pricing); criterio «Colaboración y escucha»; pregunta STAR sobre errores propios. |
+| [02 · FMCG](docs/research/entrevista-02.md) | M., trainee de finanzas comerciales en consumo masivo | Le faltó saber qué preguntas de habilidades blandas piden; pagó un programa para simular la dinámica. | Banco de preguntas con pista de evaluación; preguntas trampa; criterio «Priorización y criterio». |
+| [03 · Consultoría](docs/research/entrevista-03.md) | C., practicante en su segunda práctica | **Confirmación parcial:** con base econométrica no partía de cero; el dolor es la seguridad y los nervios al responder. | Caso `consultoria_04` (evaluación de impacto); preguntas de fit; feedback antes del intento. |
+
+**Lo que las entrevistas no confirmaron** (y por eso lo trato como hipótesis): el dolor es menor en perfiles con base técnica, y la disposición a pagar es baja o no está medida (de 3, una persona pagó un programa; las otras dos casi no gastaron). Las tres se hicieron en noviembre de 2026; la fecha exacta y el canal no quedaron registrados en el audio.
 
 ## 3. Solución
 
@@ -85,9 +111,19 @@ Con la entrevista final pasa lo mismo: no necesitas a otra persona, necesitas **
 
 ## 6. Demo
 
-- **URL:** https://practia-up.streamlit.app/
-- **Capturas:** `docs/architecture/` (`captura_01_demo_flujo.png`, `captura_02_feedback_pdf.png`, `captura_03_modo_entrevista.png`)
-- **Diagrama:** `docs/architecture/arquitectura.png`
+- **URL pública:** https://practia-up.streamlit.app/ (la app se duerme tras un rato sin visitas; la primera carga puede tardar unos segundos).
+- **Probarlo en 2 minutos:** elige una empresa y un caso en la barra lateral → lee el caso y los anexos → graba tu respuesta (o sube un audio) → corrige la transcripción → *Evaluar respuesta* → revisa el puntaje por tipo de criterio, el comparativo con la referencia y descarga el PDF. El plan gratuito de Groq permite una evaluación por minuto.
+- **Video de respaldo (60–90 s):** _pendiente_ <!-- cuando lo grabes: reemplaza "_pendiente_" por el link -->
+- **Código:** este repo; el flujo principal está en `app/main.py` → `ai/transcribe.py` → `ai/evaluator.py`.
+- **Cómo correrlo en local:** ver [Cómo correrlo](#cómo-correrlo).
+
+**Capturas del flujo principal (group case):**
+
+| 1. Voz → transcripción editable → evaluación | 2. Feedback por rúbrica, comparativo y PDF | 3. Modo entrevista 1-a-1 |
+|---|---|---|
+| ![Flujo del group case](docs/architecture/captura_01_demo_flujo.png) | ![Feedback y PDF](docs/architecture/captura_02_feedback_pdf.png) | ![Modo entrevista](docs/architecture/captura_03_modo_entrevista.png) |
+
+**Arquitectura** (`docs/architecture/arquitectura.png`):
 
 ![Arquitectura de PractIA](docs/architecture/arquitectura.png)
 
@@ -106,22 +142,34 @@ Modelos y APIs (todo sobre [Groq](https://console.groq.com), capa gratuita):
 | Pro | **S/ 29/mes** | Group cases y entrevistas ilimitados, feedback detallado (STAR + técnica + fit), biblioteca por empresa |
 | Teams (universidades) | **S/ 500/mes** | 50 usuarios, dashboard del profesor, cases y preguntas personalizados |
 
-**Margen de contribución por usuario Pro:** ~S/ 28/mes (costo API ~S/ 1 con 40 sesiones al mes). Una sesión cuesta ~S/ 0.03 a precios de Groq (gpt-oss-120b: US$ 0.15 / 0.60 por millón de tokens de entrada / salida; Whisper large-v3: US$ 0.111 por hora; tipo de cambio S/ 3.7; respuesta de 3 min y ~6K tokens por evaluación). Estimación sin comisiones de pasarela de pago; la capa gratuita de Groq no sirve para producción y se pasaría al plan Developer.
+**Margen de contribución por usuario Pro:** ~S/ 28/mes (costo API ~S/ 1 con 40 sesiones al mes). Una sesión cuesta ~S/ 0.03 a precios de Groq (gpt-oss-120b: US$ 0.15 / 0.60 por millón de tokens de entrada / salida; Whisper large-v3: US$ 0.111 por hora; tipo de cambio S/ 3.7; respuesta de 3 min y ~6K tokens por evaluación). Estimación sin comisiones de pasarela de pago; la capa gratuita de Groq no sirve para producción y se pasaría al plan Developer. Hoy el hosting cuesta S/ 0 (Streamlit Community Cloud).
+
+**Qué falta validar:** quién paga. Las entrevistas mostraron baja disposición a pagar en estudiantes (ver sección 2), por eso el plan Teams (la universidad paga por sus alumnos) es la hipótesis a probar primero, y el plan Pro queda como segunda apuesta. Los precios son hipótesis, no resultados de mercado.
 
 ## 8. Herramientas del curso
 
-Al menos dos del syllabus están dentro del producto (no solo en el desarrollo):
+Tres herramientas del syllabus están dentro del producto (no solo en el desarrollo), todas en archivos que existen hoy:
 
-| Herramienta | Sesión | Módulo | Dónde está en el repo |
+| Herramienta | Sesión | Dónde está en el repo | Por qué esa |
 |---|---|---|---|
-| **Whisper (voz a texto)** | 13 | 1 y 2 | `ai/transcribe.py` (Groq) |
-| **LLMs con salidas estructuradas + RAG** | 8 | 1 y 2 | `ai/evaluator.py` (M1, Groq) y `ai/rag.py` (RAG ligero, BM25). Por construir: `ai/interviewer.py` y `ai/interview_evaluator.py` (M2), `ai/case_generator.py` y `ai/rag_index.py` (RAG con memorias anuales) |
-| **Document AI / OCR** (opcional) | 10 | 1 y 2 | `ai/cv_parser.py` — para personalizar casos y preguntas de entrevista con el CV del estudiante |
-| **Texto a voz** (opcional) | 15 | 1 y 2 | `ai/tts.py` — el jefe final formula las preguntas en voz alta y el evaluador "habla" el feedback |
+| **Whisper large-v3 (voz a texto)** | 13 | `ai/transcribe.py` (en la app, vía Groq); `scripts/transcribe_batch.py` (para transcribir las entrevistas de validación) | Las dos pruebas se rinden hablando: transcribir permite evaluar lo que dijiste y corregir el texto antes de evaluar. |
+| **LLM con salidas estructuradas** | 8 | `ai/evaluator.py` (JSON validado con Pydantic; el total lo calcula el código, no el modelo) y `ai/guion.py` (guion final); prompts en `ai/prompts/` | Una rúbrica solo sirve si el feedback es comparable entre intentos y empresas; el JSON validado lo garantiza. |
+| **RAG** | 8 | `ai/rag.py` (BM25 en Python puro), usado por `ai/evaluator.py` y por el botón "Entrena tu punto más débil" en `app/main.py` | El corpus es pequeño (87 documentos), así que BM25 no necesita dependencias pesadas y cabe en el plan gratuito de Streamlit Cloud. ChromaDB con memorias anuales queda como ampliación (`requirements-rag.txt`). |
+
+Document AI / OCR (sesión 10) y texto a voz (sesión 15) no se usan en esta versión.
 
 ## 9. Qué hizo el agente
 
-El 90% del código fue escrito con Claude Code (Claude Opus 4.7). Las decisiones de producto, la selección de empresas objetivo, la rúbrica y la validación con usuarios son de ReMar. Ver `CLAUDE.md` para el contexto que recibió el agente.
+Uso Claude Code como co-founder técnico: los commits del repo llevan el trailer `Co-Authored-By: Claude`. Resumen de quién hizo qué:
+
+| Parte | Qué hizo el agente | Qué hice yo |
+|---|---|---|
+| Código de la app | Escribió la mayor parte de `app/main.py`, `app/theme.py`, `app/pdf_export.py`, `ai/evaluator.py`, `ai/rag.py`, `ai/guion.py`, `ai/transcribe.py` y `scripts/` | Definí los requisitos, probé el flujo con la API real y desplegué en Streamlit Cloud |
+| Casos y rúbricas | Redactó borradores de casos, anexos, pistas y respuestas de referencia; propuso la estructura de las rúbricas | Elegí industrias y empresas; fijé el balance 55/30/15 a partir de las entrevistas; revisé las cifras (el 12-nov se corrigieron 10 incongruencias en 8 casos) |
+| Investigación | Transcribió con Whisper y sintetizó las notas con la plantilla de la guía | Conduje las 3 entrevistas y decidí qué cambiar en el producto |
+| Documentación | Redactó borradores del README, el diagrama y las capturas | Reviso que cada afirmación sea verificable (por eso las cifras sin fuente están marcadas como estimación) |
+
+Para entender y poder explicar el código: el flujo principal es `app/main.py` (UI) → `ai/transcribe.py` (Whisper) → `ai/evaluator.py` (filtra criterios aplicables, llama al LLM con la rúbrica y el RAG, valida con Pydantic y recalcula el total) → `app/pdf_export.py`. Ver `CLAUDE.md` para el contexto que recibe el agente.
 
 ---
 
