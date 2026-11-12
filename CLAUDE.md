@@ -54,6 +54,16 @@ Esto NO es un proyecto libre. Hay restricciones duras:
 - Cronómetro (`app/main.py::timer_view`): cuenta regresiva con `st.fragment(run_every=1)` solo mientras corre; la fase fija el objetivo y no afecta la evaluación (el evaluador solo ve la longitud en palabras).
 - El modelo gpt-oss usa `reasoning_effort=low` (`GROQ_REASONING_EFFORT`) para gastar menos tokens.
 
+## Agente verificador de casos (`ai/verifier/`)
+
+Audita un caso y guarda `ai/audits/<id>.json|md` (la app lo muestra en `app/verificacion_view.py`). Detalle, medición y límites en `docs/AGENTE_VERIFICADOR.md`; CLI en `scripts/auditar.py`; pruebas en `tests/` (`pytest`, sin red ni API).
+
+- El LLM propone (qué comprobar, qué buscar); **el código calcula y verifica**. Sin cita textual encontrada en una página abierta no hay veredicto (`fuentes.py`). No editar esas reglas para "que salgan más hallazgos".
+- **Cuesta tokens de la cuota de Groq** (200K/día en gpt-oss-120b; ~7K una extracción, ~9K un hecho con web, una llamada por minuto). Antes de correrlo en lote, avisar a ReMar. No lo uses en la demo ni dentro de la app.
+- Nunca editar los casos automáticamente a partir de un informe: el agente propone, ReMar decide.
+- `tests/fixtures/casos_con_defectos/` son los casos como estaban antes de `384710b`, con sus defectos reales; no "arreglarlos".
+- Pendiente: regenerar los informes tras la cuota diaria: `python -m scripts.auditar caso ai/cases/<caso>.json --max-hechos 1 --sin-cache` y commitear `ai/audits/`.
+
 ## Arquitectura
 
 ```

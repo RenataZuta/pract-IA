@@ -78,11 +78,13 @@ Reglas: un commit por tarea, mensaje en español (`feat:` `fix:` `docs:` `test:`
 - `0b800b0` docs: ajusto el README a la rúbrica de repositorio y de problema
 - `7376356` docs: actualizo CLAUDE.md tras la auditoría de cifras de los casos
 - docs: agrego el plan de entrega, el borrador del issue y el prompt diario (este archivo)
+- feat: agente verificador de casos (cuentas por código, hechos con fuentes verificadas) + ficha en la app + 78 pruebas
+- **Esta noche (cuota de Groq repuesta ~19:00 hora de Lima):** `python -m scripts.auditar caso ai/cases/fmcg_04_pricing.json --max-hechos 1 --sin-cache`, leer el informe y commitear `ai/audits/` con `docs: agrego informes de verificación de los casos`
 
 ### Vie 13-nov — demo robusto y pruebas
 1. `fix: mensajes claros ante el límite de tasa de Groq (429) y la falta de GROQ_API_KEY` — `ai/evaluator.py`, `app/main.py`. Criterio: en vez de un traceback, la UI dice "espera ~1 minuto" o "falta la clave".
 2. `feat: botón "Usar respuesta de ejemplo" como plan B del micrófono` — `app/main.py`. Carga una respuesta de ejemplo en la caja de transcripción, rotulada como ejemplo. Criterio: el flujo evalúa sin micrófono.
-3. `test: pruebas del total, del RAG y de la consistencia de los casos` — `tests/` y `requirements-dev.txt` (pytest fuera de `requirements.txt`). Criterio: `pytest` pasa; incluye que el patrimonio de `banca_01` cuadre, que el payback de `consultoria_02` salga de CAPEX y margen, y que cada caso tenga los campos obligatorios.
+3. `test: pruebas del total del evaluador, del RAG y de la consistencia de los casos` — ya existen `tests/` y `requirements-dev.txt` (del agente verificador); agregar pruebas de `ai/evaluator.py` y `ai/rag.py`, y que el patrimonio de `banca_01` cuadre, que el payback de `consultoria_02` salga de CAPEX y margen, y que cada caso tenga los campos obligatorios. Criterio: `pytest` pasa.
 4. `docs: marco en CHECKLIST_ENTREGA.md lo ya hecho` — `docs/CHECKLIST_ENTREGA.md`.
 
 ### Sáb 14-nov — producto y evidencia

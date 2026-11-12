@@ -156,6 +156,8 @@ Tres herramientas del syllabus están dentro del producto (no solo en el desarro
 | **LLM con salidas estructuradas** | 8 | `ai/evaluator.py` (JSON validado con Pydantic; el total lo calcula el código, no el modelo) y `ai/guion.py` (guion final); prompts en `ai/prompts/` | Una rúbrica solo sirve si el feedback es comparable entre intentos y empresas; el JSON validado lo garantiza. |
 | **RAG** | 8 | `ai/rag.py` (BM25 en Python puro), usado por `ai/evaluator.py` y por el botón "Entrena tu punto más débil" en `app/main.py` | El corpus es pequeño (87 documentos), así que BM25 no necesita dependencias pesadas y cabe en el plan gratuito de Streamlit Cloud. ChromaDB con memorias anuales queda como ampliación (`requirements-rag.txt`). |
 
+| **Agente con herramientas** (patrón de la sesión 11, sin crewAI) | 11 | `ai/verifier/` y `scripts/auditar.py`; la app muestra su ficha en `app/verificacion_view.py` | Los casos tienen cifras y marcas reales: un error deja mal a la empresa nombrada. El agente recalcula los anexos con código y verifica hechos con la web, y **ningún veredicto se sostiene sin una cita verificada en una página abierta**. Corre antes (offline) y guarda informes con fuentes. Alcance, medición y límites en [`docs/AGENTE_VERIFICADOR.md`](docs/AGENTE_VERIFICADOR.md). |
+
 Document AI / OCR (sesión 10) y texto a voz (sesión 15) no se usan en esta versión.
 
 ## 9. Qué hizo el agente
@@ -164,7 +166,7 @@ Uso Claude Code como co-founder técnico: los commits del repo llevan el trailer
 
 | Parte | Qué hizo el agente | Qué hice yo |
 |---|---|---|
-| Código de la app | Escribió la mayor parte de `app/main.py`, `app/theme.py`, `app/pdf_export.py`, `ai/evaluator.py`, `ai/rag.py`, `ai/guion.py`, `ai/transcribe.py` y `scripts/` | Definí los requisitos, probé el flujo con la API real y desplegué en Streamlit Cloud |
+| Código de la app | Escribió la mayor parte de `app/main.py`, `app/theme.py`, `app/pdf_export.py`, `ai/evaluator.py`, `ai/rag.py`, `ai/guion.py`, `ai/transcribe.py`, `ai/verifier/` y `scripts/` | Definí los requisitos, probé el flujo con la API real y desplegué en Streamlit Cloud |
 | Casos y rúbricas | Redactó borradores de casos, anexos, pistas y respuestas de referencia; propuso la estructura de las rúbricas | Elegí industrias y empresas; fijé el balance 55/30/15 a partir de las entrevistas; revisé las cifras (el 12-nov se corrigieron 10 incongruencias en 8 casos) |
 | Investigación | Transcribió con Whisper y sintetizó las notas con la plantilla de la guía | Conduje las 3 entrevistas y decidí qué cambiar en el producto |
 | Documentación | Redactó borradores del README, el diagrama y las capturas | Reviso que cada afirmación sea verificable (por eso las cifras sin fuente están marcadas como estimación) |
@@ -190,6 +192,7 @@ practia/
 │   ├── main.py            # Streamlit app (selector de modo: group case / entrevista 1-a-1)
 │   ├── theme.py           # Identidad visual por empresa/industria (colores, franja, recorrido)
 │   ├── pdf_export.py      # Feedback a PDF (reportlab)
+│   ├── verificacion_view.py  # Ficha de verificación del caso (lee ai/audits/)
 │   └── components.py      # (por construir)
 ├── ai/
 │   ├── prompts/           # System prompt del evaluador de group case; jefe final y evaluador de entrevista (por construir)
@@ -201,6 +204,8 @@ practia/
 │   ├── interviewer.py     # (por construir) Jefe final: arma y conduce la entrevista (M2)
 │   ├── interview_evaluator.py  # (por construir) Feedback STAR + técnica + fit (M2)
 │   ├── guion.py           # Guion final para practicar (respuesta + contraste de la IA -> PDF)
+│   ├── verifier/          # Agente verificador de casos: cuentas por código + hechos con fuentes
+│   ├── audits/            # Informes de verificación por caso (los lee la app)
 │   ├── rag.py             # RAG ligero: recuperación BM25 sobre preguntas y casos (lo usa el evaluador)
 │   ├── case_generator.py  # (por construir) RAG sobre memorias anuales
 │   └── rag_index.py       # (por construir) Indexado ChromaDB
@@ -210,8 +215,10 @@ practia/
 │   ├── PractIA_Guia_Entrevistas.pdf  # Guía de las 3 entrevistas de validación
 │   ├── research/          # 3 entrevistas de validación
 │   └── architecture/      # Diagrama + capturas del flujo
+├── tests/                 # Pruebas (pytest): agente verificador y app; casos con defectos conocidos
 └── scripts/
-    └── transcribe_batch.py  # Procesamiento de audios
+    ├── transcribe_batch.py  # Procesamiento de audios
+    └── auditar.py           # CLI del agente verificador
 ```
 
 ## Cómo correrlo
