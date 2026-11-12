@@ -15,7 +15,7 @@ Esta carpeta contiene las **3 conversaciones con usuarios potenciales** que exig
 3. **Transcribir** → correr `python scripts/transcribe_batch.py` después de poner el audio en `data/audios/entrevista_XX_industria.m4a`.
 4. **Sintetizar** → llenar la plantilla abajo en `entrevista-01.md`, `-02.md`, `-03.md`.
 
-**Importante:** los audios NO van al repo (están en `.gitignore`). Solo las notas sintetizadas.
+**Importante:** los audios de las 3 conversaciones SÍ están en `data/audios/` (publicados el 12-nov-2026 con el consentimiento de los entrevistados; ver `data/audios/README.md`). Las transcripciones crudas NO van al repo (`data/transcripts/` está en `.gitignore`); en `docs/research/` van solo las notas sintetizadas, con iniciales.
 
 ## Plantilla por entrevista
 

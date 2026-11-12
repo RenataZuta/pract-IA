@@ -43,13 +43,13 @@
 
 El costo que más pesa no es el dinero sino el de no pasar de ronda: la tercera fase es la más temida porque "hay más probabilidades de quedar, pero también hay más probabilidades de que no quedes".
 
-**Evidencia — 3 conversaciones con usuarios potenciales** (notas completas con citas literales en `docs/research/`; iniciales por privacidad, los audios no están en el repo):
+**Evidencia — 3 conversaciones con usuarios potenciales** (notas completas con citas literales en `docs/research/`, con iniciales en vez de nombres; los **audios originales** están en [`data/audios/`](data/audios/) y se publican con el consentimiento de las tres personas entrevistadas):
 
 | Entrevista | Perfil | Qué confirmó | Qué cambié en el producto |
 |---|---|---|---|
-| [01 · Banca](docs/research/entrevista-01.md) | H., auditoría de riesgos de banca mayorista; pasó por las 3 fases de un proceso bancario | Su mayor miedo fue la entrevista final con gerentes, no el group case. Se preparó solo con consejos de compañeros. | Priorizar el Módulo 2; caso `banca_04` (pricing); criterio «Colaboración y escucha»; pregunta STAR sobre errores propios. |
-| [02 · FMCG](docs/research/entrevista-02.md) | M., trainee de finanzas comerciales en consumo masivo | Le faltó saber qué preguntas de habilidades blandas piden; pagó un programa para simular la dinámica. | Banco de preguntas con pista de evaluación; preguntas trampa; criterio «Priorización y criterio». |
-| [03 · Consultoría](docs/research/entrevista-03.md) | C., practicante en su segunda práctica | **Confirmación parcial:** con base econométrica no partía de cero; el dolor es la seguridad y los nervios al responder. | Caso `consultoria_04` (evaluación de impacto); preguntas de fit; feedback antes del intento. |
+| [01 · Banca](docs/research/entrevista-01.md) · [🎧 audio](data/audios/entrevista_01_banca.m4a) | H., auditoría de riesgos de banca mayorista; pasó por las 3 fases de un proceso bancario | Su mayor miedo fue la entrevista final con gerentes, no el group case. Se preparó solo con consejos de compañeros. | Priorizar el Módulo 2; caso `banca_04` (pricing); criterio «Colaboración y escucha»; pregunta STAR sobre errores propios. |
+| [02 · FMCG](docs/research/entrevista-02.md) · [🎧 audio](data/audios/entrevista_02_fmcg.m4a) | M., trainee de finanzas comerciales en consumo masivo | Le faltó saber qué preguntas de habilidades blandas piden; pagó un programa para simular la dinámica. | Banco de preguntas con pista de evaluación; preguntas trampa; criterio «Priorización y criterio». |
+| [03 · Consultoría](docs/research/entrevista-03.md) · [🎧 audio](data/audios/entrevista_03_consultoria.m4a) | C., practicante en su segunda práctica | **Confirmación parcial:** con base econométrica no partía de cero; el dolor es la seguridad y los nervios al responder. | Caso `consultoria_04` (evaluación de impacto); preguntas de fit; feedback antes del intento. |
 
 **Lo que las entrevistas no confirmaron** (y por eso lo trato como hipótesis): el dolor es menor en perfiles con base técnica, y la disposición a pagar es baja o no está medida (de 3, una persona pagó un programa; las otras dos casi no gastaron). Las tres se hicieron en noviembre de 2026; la fecha exacta y el canal no quedaron registrados en el audio.
 
@@ -211,7 +211,7 @@ practia/
 │   ├── rag.py             # RAG ligero: recuperación BM25 sobre preguntas y casos (lo usa el evaluador)
 │   ├── case_generator.py  # (por construir) RAG sobre memorias anuales
 │   └── rag_index.py       # (por construir) Indexado ChromaDB
-├── data/                  # Datos públicos de memorias anuales
+├── data/                  # Fuentes públicas y los 3 audios de las entrevistas de validación (data/audios/, con consentimiento)
 ├── docs/
 │   ├── PractIA_Banco_Preguntas.pdf   # Fuente del corpus de preguntas (M2)
 │   ├── PractIA_Guia_Entrevistas.pdf  # Guía de las 3 entrevistas de validación

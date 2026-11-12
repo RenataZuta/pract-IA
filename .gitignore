@@ -7,6 +7,8 @@ secrets.json
 credentials.json
 
 # Audio y data cruda (entrevistas privadas)
+# Excepción (12-nov-2026): los 3 audios entrevista_0X_*.m4a de las entrevistas de validación se publican con el
+# consentimiento de los entrevistados (se agregaron con `git add -f`). Cualquier otro audio sigue ignorado.
 data/audios/
 data/transcripts/
 data/raw/

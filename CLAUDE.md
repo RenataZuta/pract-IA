@@ -150,6 +150,6 @@ Prioridad descendente:
 - No cambiar el stack (Streamlit → Next.js) sin discutirlo con ReMar primero. 7 días no alcanzan.
 - No agregar login/base de datos salvo que esté explícitamente pedido.
 - No usar casos reales con nombres de empresas sin verificar que sean datos públicos.
-- No subir audios de las entrevistas al repo público (son conversaciones privadas).
+- Los 3 audios de las entrevistas de validación (`data/audios/entrevista_0{1,2,3}_*.m4a`) están publicados desde el 12-nov-2026 con el consentimiento de los entrevistados (lo confirmó ReMar). **No subir ningún otro audio ni las transcripciones crudas** (`data/transcripts/`); si un entrevistado pide retirar el suyo, hay que quitarlo del árbol y avisar a ReMar de que el historial de git conserva la copia hasta reescribirlo.
 - No volver a OpenAI/Anthropic: el proveedor es Groq (gratis).
 - No pitchear ChatGPT genérico como competidor principal en el README — la diferenciación es contexto peruano.
