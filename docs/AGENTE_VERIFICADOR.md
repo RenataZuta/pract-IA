@@ -30,6 +30,10 @@ caso (JSON)
 
 Archivos (`ai/verifier/`, un archivo = una responsabilidad): `tablas.py` (lee anexos), `calculo.py` (cuentas), `citas.py` y `fuentes.py` (guardarraíles), `llm.py` (Groq, ritmo de tokens), `extraccion.py`, `busqueda.py`, `agente.py` (orquesta), `informe.py`. Prompts en `ai/prompts/verificador_*.md`. La app muestra la ficha en `app/verificacion_view.py` (solo lee el informe, no gasta tokens).
 
+## Coherencia del feedback con el caso (sin tokens)
+
+Después de evaluar, la app revisa con código (`ai/verifier/coherencia.py`, sin LLM) que **las cifras del feedback salgan del contexto y los anexos del caso**: recorre comentarios, fortaleza, mejoras, comparativo y respuesta modelo, y señala las cifras que no aparecen en el caso. Una cifra señalada puede ser un cálculo legítimo del evaluador (un ratio) o un error: solo se avisa. No contrasta conteos chicos (≤ 12), años ni puntajes (`8/10`), así que un ratio como «3.0x» no se revisa.
+
 ## Decisiones de diseño
 
 | Decisión | Por qué |

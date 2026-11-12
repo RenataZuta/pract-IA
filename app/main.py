@@ -274,6 +274,24 @@ def recording_view(case: dict, industry: str) -> None:
         feedback_view(saved["feedback"], case, saved["transcript"])
 
 
+def coherencia_view(feedback: Feedback, case: dict) -> None:
+    """Avisa de cifras del feedback que no salen del caso (revisión por código, sin tokens; nunca rompe la vista)."""
+    try:
+        from ai.verifier.coherencia import revisar_feedback
+
+        alertas = revisar_feedback(feedback, case)
+    except Exception as exc:
+        logger.warning("No se pudo revisar la coherencia del feedback: {}", exc)
+        return
+    if not alertas:
+        st.caption("✅ Las cifras del feedback salen del contexto y los anexos del caso.")
+        return
+    with st.expander(f"⚠️ {len(alertas)} cifra(s) del feedback no aparecen en el caso"):
+        st.caption("Pueden ser cálculos del evaluador (un ratio, una diferencia) o errores: compáralas con los anexos.")
+        for a in alertas:
+            st.markdown(f"- **{a.cifra}** en {a.donde}: «…{a.frase}…»")
+
+
 def feedback_view(feedback: Feedback, case: dict, transcript: str) -> None:
     """Muestra el feedback del evaluador y el botón para bajarlo en PDF."""
     st.markdown("---")
@@ -343,6 +361,7 @@ def feedback_view(feedback: Feedback, case: dict, transcript: str) -> None:
         mime="application/pdf",
     )
 
+    coherencia_view(feedback, case)
     guion_view(feedback, case, transcript)
 
 
