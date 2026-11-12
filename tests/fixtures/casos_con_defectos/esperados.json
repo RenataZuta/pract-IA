@@ -1,0 +1,54 @@
+{
+  "descripcion": "Defectos reales que tenían estos casos antes del commit 384710b (auditoría manual del 12-nov-2026). Sirven para medir si el agente verificador los detecta.",
+  "banca_01_credito_pyme.json": [
+    {
+      "tipo": "numerico",
+      "descripcion": "El patrimonio sube 290 (1,860 a 2,150) con una utilidad neta de 210 y sin aportes ni dividendos",
+      "palabras_clave": [
+        "patrimonio"
+      ]
+    }
+  ],
+  "consultoria_02_market_entry.json": [
+    {
+      "tipo": "numerico",
+      "descripcion": "El payback del anexo (3.5 y 5 años) no sale de CAPEX 1.1M, venta mensual y margen operativo",
+      "palabras_clave": [
+        "payback",
+        "recuper"
+      ]
+    }
+  ],
+  "fmcg_01_lanzamiento_sku.json": [
+    {
+      "tipo": "numerico",
+      "descripcion": "4M de unidades se presenta como break-even, pero CAPEX / margen unitario da ~1.8M",
+      "palabras_clave": [
+        "break",
+        "equilibrio",
+        "punto de"
+      ]
+    },
+    {
+      "tipo": "hecho_real",
+      "descripcion": "Cocinero es una marca de Alicorp, no una B-brand competidora",
+      "palabras_clave": [
+        "cocinero"
+      ]
+    }
+  ],
+  "fmcg_04_pricing.json": [
+    {
+      "tipo": "hecho_real",
+      "descripcion": "Princesa, Triángulo y Costa son marcas de Nestlé/D'Onofrio, no competidores externos de Nestlé",
+      "palabras_clave": [
+        "princesa",
+        "triángulo",
+        "triangulo",
+        "costa",
+        "d'onofrio",
+        "donofrio"
+      ]
+    }
+  ]
+}

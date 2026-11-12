@@ -1,0 +1,2 @@
+# Solo para desarrollo y pruebas (no se instala en el deploy). Instalar junto a requirements.txt.
+pytest==9.2.0

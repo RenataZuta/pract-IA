@@ -1,0 +1,33 @@
+{
+  "id": "banca_01",
+  "industry": "Banca",
+  "company": "BCP — Banca Negocios",
+  "case_type": "Decisión de crédito",
+  "title": "Línea de capital de trabajo para una PYME importadora",
+  "duration_minutes": 20,
+  "context": "Eres analista junior en la Banca de Negocios del BCP. Un ejecutivo comercial trae una propuesta de línea de crédito revolvente de **S/ 1,200,000** a 12 meses para **Comercial Andina SAC**, una PYME importadora de insumos de ferretería con 8 años en el mercado y sede en Villa El Salvador. La empresa pide la línea para financiar inventario ante el repunte estacional de construcción (septiembre–diciembre). Es cliente del banco hace 3 años, con comportamiento de pago A. El comité se reúne en 20 minutos y necesitan tu lectura. ¿Aprobarías, rechazarías, o condicionarías?",
+  "prompt": "En 3 minutos, dale tu recomendación al comité con monto, plazo y condiciones (si aplica). Fundamenta con los 3 números que más pesan en tu decisión.",
+  "exhibits": [
+    {
+      "title": "Estado de resultados (S/ miles, anualizado)",
+      "content": "| Concepto | 2024 | 2025 | 2026 (LTM) |\n|---|---|---|---|\n| Ventas | 8,400 | 9,200 | 10,100 |\n| COGS | (6,300) | (6,950) | (7,900) |\n| Margen bruto | 2,100 | 2,250 | 2,200 |\n| Gastos operativos | (1,400) | (1,520) | (1,640) |\n| EBITDA | 700 | 730 | 560 |\n| Gastos financieros | (180) | (210) | (260) |\n| Utilidad neta | 365 | 360 | 210 |"
+    },
+    {
+      "title": "Balance resumido (S/ miles)",
+      "content": "| | 2025 | 2026 |\n|---|---|---|\n| Caja | 180 | 90 |\n| Cuentas por cobrar | 1,100 | 1,450 |\n| Inventario | 1,800 | 2,400 |\n| Activo fijo neto | 950 | 1,020 |\n| **Total activo** | **4,030** | **4,960** |\n| Proveedores | 950 | 1,180 |\n| Deuda financiera CP | 820 | 1,250 |\n| Deuda financiera LP | 400 | 380 |\n| Patrimonio | 1,860 | 2,150 |"
+    },
+    {
+      "title": "Detalle operativo",
+      "content": "- Concentración de clientes: top 3 representan 48% de ventas (Promart, Maestro y Sodimac).\n- Días de inventario: 110 días (vs 85 en 2024).\n- Rotación de cuentas por cobrar: 52 días (vs 48 en 2024).\n- Tipo de cambio: 85% de las importaciones son en USD, sin cobertura.\n- Garantías disponibles: hipoteca de local comercial en VES tasado en S/ 1,800,000."
+    }
+  ],
+  "temas_evaluados": [
+    "Lectura de EEFF",
+    "Ratios de crédito",
+    "Gestión de riesgo cambiario",
+    "Concentración",
+    "Garantías"
+  ],
+  "pista_respuesta_modelo": "Aprobación condicional. EBITDA/intereses cayó de 3.5x a 2.2x — señal amarilla. Deuda financiera total creció 34% en un año (la de corto plazo, 52%). Inventario 110 días es alto. Condiciones: (1) línea reducida a S/ 900K, (2) covenant de EBITDA mínimo S/ 500K (sube a S/ 650K a los 12 meses; hoy el EBITDA es 560K), (3) cobertura cambiaria sobre al menos 50% de las compras USD, (4) garantía hipotecaria.",
+  "respuesta_referencia": "Recomiendo aprobar de forma condicional, con una línea reducida a S/ 900 mil a 12 meses. Tres números pesan. Primero, la cobertura de intereses cayó de 3.5 a 2.2 veces: el EBITDA bajó de 730 a 560 mil mientras los gastos financieros subieron a 260 mil. Segundo, la deuda financiera total creció 34% en un año, de 1.22 a 1.63 millones, y la de corto plazo 52%, mientras el inventario llegó a 110 días: la empresa está financiando inventario con deuda. Tercero, 85% de las compras son en dólares sin cobertura y los tres principales clientes concentran 48% de las ventas. A favor: comportamiento de pago A, tres años de relación y una hipoteca tasada en S/ 1.8 millones, que cubre dos veces la línea. Condiciones: línea de S/ 900 mil, covenant de EBITDA mínimo de S/ 500 mil que sube a 650 mil a los 12 meses, cobertura cambiaria de al menos 50% de las compras en dólares, garantía hipotecaria y reporte trimestral. Riesgo principal: que el inventario no rote y la deuda siga subiendo; lo mitigo desembolsando contra facturas de compra."
+}
