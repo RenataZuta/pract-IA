@@ -7,7 +7,7 @@ Este archivo es para que **cualquier sesión de Claude Code** retome el proyecto
 Prep por voz para estudiantes peruanos postulando a prácticas trainee en banca, FMCG y consultoría, con dos módulos (selector "Modo" en el sidebar):
 
 1. **Group case** — caso + anexos + cronómetro, respuesta por voz, feedback contra rúbrica.
-2. **Entrevista 1-a-1 con el jefe final** — preguntas del banco `docs/PractIA_Banco_Preguntas.pdf` (STAR, técnicas por industria, fit). Hoy solo muestra una pregunta aleatoria; falta grabar y evaluar.
+2. **Entrevista 1-a-1 con el jefe final** — preguntas del banco `docs/PractIA_Banco_Preguntas.pdf` (STAR, técnicas por industria, fit). Graba, sube audio o escribe la respuesta; Whisper transcribe y `ai/interview_evaluator.py` la evalúa contra la rúbrica de su eje (`ai/rubrics/entrevista.json`: star, tecnica, fit, perfil).
 
 Ver `README.md` para el pitch completo.
 
@@ -35,7 +35,7 @@ Esto NO es un proyecto libre. Hay restricciones duras:
 2. **Demo en vivo obligatoria:** 3 minutos exactos. El profe corta a los 3:00. El demo vale 8 de 20 puntos: URL pública en vivo = 7–8 pts, laptop = 4–6 pts, solo diapositivas = 0 pts.
 3. **Al menos 2 herramientas del syllabus dentro del producto** (no solo en desarrollo). Las elegidas: Whisper (sesión 13) + LLMs con RAG (sesión 8). El RAG hoy es ligero (BM25, `ai/rag.py`); el de memorias anuales con ChromaDB sigue por construir. Document AI y TTS son opcionales de refuerzo.
 4. **Repo público** con 9 secciones de README (ya están en README.md).
-5. **3 conversaciones con usuarios potenciales** en `docs/research/` — las entrevistas están en curso con una analista de banca, una de FMCG y una de consultoría.
+5. **3 conversaciones con usuarios potenciales** en `docs/research/` — ya están transcritas y sintetizadas (`entrevista-0{1,2,3}.md`). Esa carpeta la llena ReMar: no editarla, decirle qué cambiar.
 6. **No subir claves de API al repo** — usar `.env` (ya en `.gitignore`) y `.env.example`.
 7. **Commits en varios días**, no todos el último día.
 
@@ -53,6 +53,16 @@ Esto NO es un proyecto libre. Hay restricciones duras:
 - Recorrido guiado: `main()` crea un contenedor arriba y lo llena al final (`_paso_actual`), porque el estado de la corrida actual recién está actualizado después de `recording_view`. Historial de intentos en `st.session_state.historial[case_id]` (solo de la sesión, sin base de datos). `punto_debil_view` busca con el RAG (`solo_preguntas=True`) preguntas del banco para el criterio más bajo (<= 7/10), sin llamar al LLM.
 - Cronómetro (`app/main.py::timer_view`): cuenta regresiva con `st.fragment(run_every=1)` solo mientras corre; la fase fija el objetivo y no afecta la evaluación (el evaluador solo ve la longitud en palabras).
 - El modelo gpt-oss usa `reasoning_effort=low` (`GROQ_REASONING_EFFORT`) para gastar menos tokens.
+
+## Módulo 2 y robustez (2026-11-12)
+
+- `ai/interview_evaluator.py`: cada pregunta del banco se evalúa con la rúbrica de su eje. `eje_de(tipo, subtema)` manda: behavioral_star→star, fit→fit, tecnica_*→tecnica, y los subtemas que no encajan (fit «Perfil personal»/«Criterio y argumentación», star «Preguntas trampa») van al eje **perfil**; consultoría «Fit y motivación» va a fit. Una debilidad evaluada con criterios de motivación por la empresa sacaba 8/100 sin motivo: no volver a eso.
+- Reutiliza `ai/evaluator.py::_evaluar_con_reintentos` (el bucle de reintentos; ya lo cubren las pruebas) y el mismo `Feedback`; el total y los subtotales los calcula el código. **La duración la decide el código**: fuera de 45–120 s el criterio «Estructura y duración» no pasa de 6 y su comentario lo escribe el código (el modelo decía «dentro del rango» con una respuesta de 30 s).
+- Un evaluación del módulo 2 cuesta ~3K tokens (prompt de ~1.6K); la del group case ~6K. En el mismo minuto no caben las dos (límite 8K/min).
+- `ai/errores_groq.py::explicar` traduce los errores de Groq (429 por minuto o por día, key inválida, modelo dado de baja, 5xx, sin conexión) a mensajes que dicen qué hacer; lo usan evaluador, guion y Whisper.
+- Plan B del micrófono (group case): botón «Usar la respuesta de referencia como ejemplo» dentro de «¿No funciona el micrófono?». Evaluar dos veces el mismo texto no vuelve a llamar a Groq (ambos módulos). `app/main.py::coherencia_view` avisa de cifras del feedback que no salen del caso (`ai/verifier/coherencia.py`, sin tokens).
+- Pruebas: 141 en `tests/` (`pytest`, sin red ni API; la app se prueba con `streamlit.testing`). `scripts/cuota.py` muestra lo que queda de cuota de Groq.
+- Para el demo: `docs/GUION_DEMO.md`. Una sola evaluación en vivo.
 
 ## Agente verificador de casos (`ai/verifier/`)
 
@@ -102,7 +112,7 @@ Audita un caso y guarda `ai/audits/<id>.json|md` (la app lo muestra en `app/veri
 - [x] Rúbricas por industria en `ai/rubrics/*.json` (v2: 55 % técnico, 30 % habilidades blandas, 15 % aporte propio frente a la referencia).
 - [x] Whisper (`ai/transcribe.py`) y evaluador (`ai/evaluator.py`) conectados a Groq.
 - [x] Flujo end-to-end del group case en `app/main.py`: grabación → Whisper → transcripción editable → evaluador → feedback + PDF (`app/pdf_export.py`). Probado con Groq simulado (`streamlit.testing`) y de punta a punta con la API real en Chrome headless subiendo un audio (capturas en `docs/architecture/`). **El micrófono real (`audio_recorder`) no se ha probado.**
-- [x] Modo "Entrevista 1-a-1": pregunta aleatoria por tipo, solo lectura. Banco de 75 preguntas en `ai/questions/*.json`: 60 de `docs/PractIA_Banco_Preguntas.pdf` y 15 de las entrevistas de validación (campo `fuente`).
+- [x] Modo "Entrevista 1-a-1": pregunta aleatoria por tipo, respuesta por voz/audio/texto y evaluación (módulo 2, 2026-11-12). Banco de 75 preguntas en `ai/questions/*.json`: 60 de `docs/PractIA_Banco_Preguntas.pdf` y 15 de las entrevistas de validación (campo `fuente`).
 - [x] Diagrama en `docs/architecture/arquitectura.png`.
 - [x] Guía de las entrevistas de validación en `docs/PractIA_Guia_Entrevistas.pdf`.
 
@@ -112,8 +122,8 @@ Prioridad descendente:
 
 1. **[CRÍTICO] Probar el micrófono real** — grabar con `audio_recorder` en el navegador y evaluar; el resto del flujo ya se probó con la API real subiendo un audio.
 2. **[HECHO] Deploy en Streamlit Community Cloud** — https://practia-up.streamlit.app/ (Python 3.11, secret `GROQ_API_KEY`). Probado de punta a punta en la URL pública. Ábrela unos minutos antes de la demo: la app se duerme tras un tiempo sin visitas.
-3. **[IMPORTANTE] 3 entrevistas transcritas en `docs/research/entrevista-{01,02,03}.md`** — cuando ReMar traiga los audios (~17 min cada uno), usar `scripts/transcribe_batch.py` para procesarlos y luego sintetizar notas con la plantilla ya definida en el PDF de guías. No tocar `docs/research/`: lo llena ReMar.
-4. **[IMPORTANTE] Módulo 2: grabar y evaluar** — `ai/interviewer.py`, `ai/interview_evaluator.py`, rúbrica STAR + fit en `ai/rubrics/` y prompts en `ai/prompts/`. Cada pregunta del banco trae su `hint` para usarlo como criterio.
+3. **[HECHO] 3 entrevistas transcritas** en `docs/research/`. Falta que ReMar complete fecha y canal de cada una y confirme «AJE» en la 02.
+4. **[HECHO 2026-11-12] Módulo 2: grabar y evaluar.** Ver la sección «Módulo 2» más abajo.
 5. **[HECHO 2026-11-12] Auditoría de cifras de los 12 casos** (commit `384710b`): se recalcularon los anexos contra las pistas y referencias y se corrigieron 10 incongruencias en 8 casos (balance de `banca_01`, payback de `consultoria_02` = CAPEX ÷ (venta anual × margen) con margen 8% / 7.5%, break-even de `fmcg_01`, la referencia de `fmcg_04` decía "no recupero nada" cuando la cuenta sí recupera margen, etc.). Antes ya estaban corregidos `banca_01` (deuda +34%), `consultoria_01` (nota "wait"), `consultoria_02` (8% era una tienda) y `fmcg_01` (Sao 28%). Los competidores "Marca B/C" de `fmcg_01` y `fmcg_04` son ficticios a propósito: Cocinero, Princesa, Triángulo y Costa son marcas de Alicorp y Nestlé. Si se editan anexos, recalcular con los números del anexo antes de tocar la referencia, y mantener las referencias en un largo parecido (el plan gratuito de Groq permite 8K tokens/min).
 6. **[DESEABLE] RAG con memorias anuales** — descargar memorias de BCP, Alicorp, Credicorp (links en `data/sources.md`) e indexar en ChromaDB. `chromadb` y `sentence-transformers` están en `requirements-rag.txt`, fuera de `requirements.txt`, porque arrastran torch y alargan el build del deploy sin que ningún código las use aún; instálalas con `pip install -r requirements-rag.txt` y, si el RAG se despliega, vuelve a pasarlas a `requirements.txt`.
 7. **[DESEABLE] Video de respaldo de 60–90s** — por si falla el deploy en vivo (requerido por la rúbrica).

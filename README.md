@@ -72,18 +72,19 @@ El costo que más pesa no es el dinero sino el de no pasar de ronda: la tercera 
 
 El **jefe final** es el gerente o jefe del área que cierra el proceso. PractIA lo simula:
 
-1. Elige empresa objetivo, industria y rol (mismo selector que el módulo 1).
-2. El jefe final te entrevista con una mezcla de tres tipos de pregunta, tomadas del banco `docs/PractIA_Banco_Preguntas.pdf`: **behavioral (STAR)**, **técnicas de tu industria** y **fit con la empresa**. Las preguntas se muestran en pantalla y, opcionalmente, se leen en voz alta con TTS.
-3. Responde por voz; Whisper transcribe.
-4. El evaluador IA devuelve feedback por respuesta y global, según el tipo de pregunta:
+1. Elige el tipo de pregunta en la barra lateral (Behavioral STAR, técnica de banca, FMCG o consultoría, o Fit) y el banco te da una al azar; puedes pedir otra.
+2. El jefe final te la hace; la pregunta sale del banco `docs/PractIA_Banco_Preguntas.pdf` y se muestra en pantalla (leerla en voz alta con TTS queda como ampliación).
+3. Respondes por voz, subes un audio o escribes; Whisper transcribe y puedes corregir el texto.
+4. El evaluador IA devuelve feedback según el eje de la pregunta (`ai/interview_evaluator.py`, rúbricas en `ai/rubrics/entrevista.json`):
 
 | Eje | Qué evalúa |
 |---|---|
 | **Behavioral STAR** | ¿Están las 4 partes (Situación, Tarea, Acción, Resultado)? ¿Arranca con una situación concreta, habla en "yo" y no en "nosotros", y cierra con un resultado medible? ¿Cabe en 60–90 s? |
 | **Técnica por industria** | Precisión del concepto o framework (EBITDA, 5Cs, 4Ps, MECE…), uso del contexto peruano y estructura del razonamiento. Banca, FMCG o consultoría según la empresa elegida. |
 | **Fit** | Motivación específica (un número, una campaña, un reporte leído) en vez de genérica; conocimiento de la empresa; un diferencial concreto frente a otros postulantes. |
+| **Perfil y criterio** | Para debilidades, preguntas trampa y de argumentación (que no son STAR ni de motivación): autoconocimiento con evidencia en vez de clichés, y un plan de mejora o un argumento concreto. |
 
-Cada pregunta del banco trae su pista de evaluación (qué busca el entrevistador y qué es red flag: *"esperé a ver qué pasaba"*, *"no he tenido desacuerdos"*, *"soy muy perfeccionista"*), y el evaluador la usa como criterio. El feedback incluye puntaje por eje, fortaleza principal, tres cosas a mejorar, red flags y una respuesta modelo.
+Cada pregunta del banco trae su pista de evaluación (qué busca el entrevistador y qué es red flag: *"esperé a ver qué pasaba"*, *"no he tenido desacuerdos"*, *"soy muy perfeccionista"*), y el evaluador la usa como criterio. El feedback incluye el puntaje total y por tipo (contenido y cómo lo comunicas), cada criterio con su comentario, la fortaleza principal, tres cosas a mejorar, red flags y un ejemplo ilustrativo de buena respuesta. **El total lo calcula el código** con los pesos de la rúbrica, y **la duración también**: si la respuesta cae fuera de 45–120 s, el criterio de duración no pasa de 6/10 (en una prueba real el modelo dio 10/10 a una respuesta de 30 s).
 
 **Corpus de preguntas** (75 en total: 60 del banco `docs/PractIA_Banco_Preguntas.pdf` y 15 que salieron de las entrevistas de validación; un JSON por tipo en `ai/questions/`, con `pregunta`, `hint`, `tipo`, `subtema` y `fuente`):
 
@@ -112,7 +113,7 @@ Con la entrevista final pasa lo mismo: no necesitas a otra persona, necesitas **
 ## 6. Demo
 
 - **URL pública:** https://practia-up.streamlit.app/ (la app se duerme tras un rato sin visitas; la primera carga puede tardar unos segundos).
-- **Probarlo en 2 minutos:** elige una empresa y un caso en la barra lateral → lee el caso y los anexos → graba tu respuesta (o sube un audio) → corrige la transcripción → *Evaluar respuesta* → revisa el puntaje por tipo de criterio, el comparativo con la referencia y descarga el PDF. El plan gratuito de Groq permite una evaluación por minuto.
+- **Probarlo en 2 minutos:** elige una empresa y un caso en la barra lateral → lee el caso y los anexos → graba tu respuesta (o sube un audio) → corrige la transcripción → *Evaluar respuesta* → revisa el puntaje por tipo de criterio, el comparativo con la referencia y descarga el PDF. Si el micrófono falla, usa «Usar la respuesta de referencia como ejemplo». El módulo **Entrevista 1-a-1** funciona igual: elige un tipo de pregunta, responde y evalúa. El plan gratuito de Groq permite una evaluación por minuto.
 - **Video de respaldo (60–90 s):** _pendiente_ <!-- cuando lo grabes: reemplaza "_pendiente_" por el link -->
 - **Código:** este repo; el flujo principal está en `app/main.py` → `ai/transcribe.py` → `ai/evaluator.py`.
 - **Cómo correrlo en local:** ver [Cómo correrlo](#cómo-correrlo).
@@ -129,10 +130,10 @@ Con la entrevista final pasa lo mismo: no necesitas a otra persona, necesitas **
 
 Modelos y APIs (todo sobre [Groq](https://console.groq.com), capa gratuita):
 - **Whisper large-v3** → transcripción de la voz del estudiante, en ambos módulos.
-- **openai/gpt-oss-120b** (modo JSON, configurable con `GROQ_LLM_MODEL`) → evaluador contra rúbrica, con salida validada con Pydantic: rúbricas por industria para el group case; rúbrica STAR + técnica + fit para la entrevista *(por construir)*.
+- **openai/gpt-oss-120b** (modo JSON, configurable con `GROQ_LLM_MODEL`) → evaluador contra rúbrica, con salida validada con Pydantic: rúbricas por industria para el group case (`ai/evaluator.py`) y rúbricas por eje para la entrevista (`ai/interview_evaluator.py`).
 - **RAG ligero** (BM25 en Python puro, `ai/rag.py`) → recupera del corpus (75 preguntas de entrevista con lo que busca el entrevistador y 12 casos con su respuesta de referencia) los fragmentos más parecidos al caso y a tu respuesta, y se los da al evaluador como material de apoyo; el feedback los muestra. *Ampliación por construir:* RAG con memorias anuales (BCP, Alicorp, Credicorp) y ChromaDB (`requirements-rag.txt`).
 
-**Estado (nov. 2026):** *Módulo 1* — flujo de voz conectado (grabación → Whisper → transcripción editable → evaluador → feedback y PDF), evaluación por rúbrica v2 y un RAG ligero que le da material de apoyo al evaluador, probado de punta a punta con la API real de Groq (ver capturas); desplegado en Streamlit Cloud. *Módulo 2* — banco de 75 preguntas en `ai/questions/` y modo de práctica que muestra una pregunta aleatoria por tipo; falta grabar la respuesta y evaluarla (STAR + técnica + fit). Detalle en `CLAUDE.md`.
+**Estado (nov. 2026):** *Módulo 1* — flujo de voz conectado (grabación → Whisper → transcripción editable → evaluador → feedback y PDF), evaluación por rúbrica v2 y un RAG ligero que le da material de apoyo al evaluador, probado de punta a punta con la API real de Groq (ver capturas); desplegado en Streamlit Cloud. *Módulo 2* — banco de 75 preguntas en `ai/questions/`; graba, sube un audio o escribe tu respuesta, Whisper la transcribe y el evaluador la puntúa contra la rúbrica de su eje (STAR, técnica, fit o perfil); probado con la API real. Ambos módulos tienen un plan B si falla el micrófono, mensajes claros ante los límites de Groq y 141 pruebas automáticas (`pytest`). Detalle en `CLAUDE.md`.
 
 ## 7. Modelo de negocio
 
@@ -153,7 +154,7 @@ Tres herramientas del syllabus están dentro del producto (no solo en el desarro
 | Herramienta | Sesión | Dónde está en el repo | Por qué esa |
 |---|---|---|---|
 | **Whisper large-v3 (voz a texto)** | 13 | `ai/transcribe.py` (en la app, vía Groq); `scripts/transcribe_batch.py` (para transcribir las entrevistas de validación) | Las dos pruebas se rinden hablando: transcribir permite evaluar lo que dijiste y corregir el texto antes de evaluar. |
-| **LLM con salidas estructuradas** | 8 | `ai/evaluator.py` (JSON validado con Pydantic; el total lo calcula el código, no el modelo) y `ai/guion.py` (guion final); prompts en `ai/prompts/` | Una rúbrica solo sirve si el feedback es comparable entre intentos y empresas; el JSON validado lo garantiza. |
+| **LLM con salidas estructuradas** | 8 | `ai/evaluator.py` y `ai/interview_evaluator.py` (JSON validado con Pydantic; el total lo calcula el código, no el modelo) y `ai/guion.py` (guion final); prompts en `ai/prompts/` | Una rúbrica solo sirve si el feedback es comparable entre intentos y empresas; el JSON validado lo garantiza. |
 | **RAG** | 8 | `ai/rag.py` (BM25 en Python puro), usado por `ai/evaluator.py` y por el botón "Entrena tu punto más débil" en `app/main.py` | El corpus es pequeño (87 documentos), así que BM25 no necesita dependencias pesadas y cabe en el plan gratuito de Streamlit Cloud. ChromaDB con memorias anuales queda como ampliación (`requirements-rag.txt`). |
 
 | **Agente con herramientas** (patrón de la sesión 11, sin crewAI) | 11 | `ai/verifier/` y `scripts/auditar.py`; la app muestra su ficha en `app/verificacion_view.py` | Los casos tienen cifras y marcas reales: un error deja mal a la empresa nombrada. El agente recalcula los anexos con código y verifica hechos con la web, y **ningún veredicto se sostiene sin una cita verificada en una página abierta**. Corre antes (offline) y guarda informes con fuentes. Alcance, medición y límites en [`docs/AGENTE_VERIFICADOR.md`](docs/AGENTE_VERIFICADOR.md). |
@@ -193,16 +194,15 @@ practia/
 │   ├── theme.py           # Identidad visual por empresa/industria (colores, franja, recorrido)
 │   ├── pdf_export.py      # Feedback a PDF (reportlab)
 │   ├── verificacion_view.py  # Ficha de verificación del caso (lee ai/audits/)
-│   └── components.py      # (por construir)
 ├── ai/
-│   ├── prompts/           # System prompt del evaluador de group case; jefe final y evaluador de entrevista (por construir)
+│   ├── prompts/           # System prompts: evaluador de group case, de entrevista, guion final y verificador
 │   ├── cases/             # 12 casos semilla (JSON, 4 por industria) — Módulo 1
 │   ├── questions/         # Banco de 75 preguntas (JSON, uno por tipo) — Módulo 2
-│   ├── rubrics/           # Rúbricas por industria (M1); rúbrica de entrevista STAR + fit (por construir, M2)
+│   ├── rubrics/           # Rúbricas por industria (M1) y por eje de pregunta: STAR, técnica, fit, perfil (M2)
 │   ├── transcribe.py      # Whisper large-v3 (Groq) — ambos módulos
 │   ├── evaluator.py       # LLM de Groq en modo JSON + Pydantic — evaluador de group case (M1)
-│   ├── interviewer.py     # (por construir) Jefe final: arma y conduce la entrevista (M2)
-│   ├── interview_evaluator.py  # (por construir) Feedback STAR + técnica + fit (M2)
+│   ├── interview_evaluator.py  # Evaluador de la entrevista 1-a-1 por eje de pregunta (M2)
+│   ├── errores_groq.py    # Traduce los errores de Groq (429, key, cupo) a mensajes claros
 │   ├── guion.py           # Guion final para practicar (respuesta + contraste de la IA -> PDF)
 │   ├── verifier/          # Agente verificador de casos: cuentas por código + hechos con fuentes
 │   ├── audits/            # Informes de verificación por caso (los lee la app)
@@ -213,9 +213,12 @@ practia/
 ├── docs/
 │   ├── PractIA_Banco_Preguntas.pdf   # Fuente del corpus de preguntas (M2)
 │   ├── PractIA_Guia_Entrevistas.pdf  # Guía de las 3 entrevistas de validación
+│   ├── GUION_DEMO.md      # Guion del demo de 3 minutos, plan B y preguntas probables
+│   ├── AGENTE_VERIFICADOR.md  # Agente verificador: diseño, medición y límites
+│   ├── PLAN_ENTREGA.md    # Checklist de la app, borrador del issue #205 y plan de commits
 │   ├── research/          # 3 entrevistas de validación
 │   └── architecture/      # Diagrama + capturas del flujo
-├── tests/                 # Pruebas (pytest): agente verificador y app; casos con defectos conocidos
+├── tests/                 # 141 pruebas (pytest): evaluadores, RAG, casos, agente verificador y app
 └── scripts/
     ├── transcribe_batch.py  # Procesamiento de audios
     └── auditar.py           # CLI del agente verificador
