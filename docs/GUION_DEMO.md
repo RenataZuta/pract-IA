@@ -12,6 +12,15 @@ Caso de la demo: **Banca → BCP — Línea de capital de trabajo para una PYME 
 - [ ] Haz **una** evaluación de calentamiento al menos 3 minutos antes de tu turno (el plan gratuito de Groq da 8K tokens por minuto y una evaluación gasta ~6K). Después, recarga la página para empezar limpia.
 - [ ] Ten abierto un plan B (ver abajo) y el micrófono ya autorizado en el navegador.
 
+## La cuota de Groq (lo que más puede salir mal)
+
+El plan gratuito da **200K tokens por día** y **8K por minuto** (una evaluación del group case gasta ~6K; la del módulo 2, ~3K). El 12-nov la cuota diaria se agotó probando cosas y la app mostró "Se agotó el cupo diario de Groq" en vez de evaluar: pasa sin aviso.
+
+- [ ] **La noche del 17 y la mañana del 18:** abre console.groq.com → *Usage* y confirma que tienes margen. `python -m scripts.cuota` solo detecta el límite por minuto y no ve el diario.
+- [ ] El 17 y el 18 **no hagas pruebas largas**: una evaluación de calentamiento y nada más. Corre `ai/verifier` solo si sobra cuota (cada caso cuesta 7–25K).
+- [ ] Si Groq no responde en tu turno: **video de respaldo** (60–90 s, `docs/video/`). Por eso conviene grabarlo con la cuota repuesta y dejarlo abierto en otra pestaña.
+- [ ] Si quieres cero riesgo: el plan Developer de Groq (de pago, con tope de gasto) sube los límites; con ~S/ 0.03 por sesión, el costo del demo sería de centavos.
+
 ## Minuto a minuto
 
 | Tiempo | Qué muestras | Qué dices |
