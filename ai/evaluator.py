@@ -118,6 +118,11 @@ def evaluate_response(transcript: str, case: dict, rubric: dict) -> Feedback:
             transcript, case, {**rubric, "criterios": aplicables}, no_aplican, material)},
     ]
 
+    return _evaluar_con_reintentos(messages, aplicables, material)
+
+
+def _evaluar_con_reintentos(messages: list[dict], aplicables: list[dict], material: list[str]) -> Feedback:
+    """Llama al LLM, valida el JSON y reintenta una vez si es inválido o faltan criterios (lo usan los dos módulos)."""
     try:
         client = Groq(api_key=os.getenv("GROQ_API_KEY"))
         for intento in (1, 2):

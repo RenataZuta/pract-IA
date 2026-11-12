@@ -1,0 +1,161 @@
+{
+  "descripcion": "Rúbrica de la entrevista 1-a-1 con el jefe final, por eje de pregunta. 'tecnico' = contenido de la respuesta; 'blando' = cómo la comunica. Cada eje suma 1.",
+  "ejes": {
+    "star": {
+      "titulo": "Behavioral (STAR)",
+      "criterios": [
+        {
+          "nombre": "Situación y tarea concretas",
+          "tipo": "tecnico",
+          "peso": 0.2,
+          "descripcion": "Abre con una situación específica (dónde, cuándo, qué estaba en juego) y deja claro cuál era su tarea o responsabilidad.",
+          "ejemplos_alto": "En mi práctica en finanzas, en la campaña de cierre de mes, tenía que conciliar 3 cuentas antes del viernes.",
+          "ejemplos_bajo": "Una vez en la universidad hubo un problema en un trabajo grupal."
+        },
+        {
+          "nombre": "Acción propia",
+          "tipo": "tecnico",
+          "peso": 0.25,
+          "descripcion": "Cuenta lo que hizo ella o él, en primera persona y con pasos concretos; distingue su aporte del del equipo.",
+          "ejemplos_alto": "Armé una hoja de control, propuse dividir por cliente y yo revisé las diferencias.",
+          "ejemplos_bajo": "Nosotros nos organizamos y al final salió."
+        },
+        {
+          "nombre": "Resultado medible",
+          "tipo": "tecnico",
+          "peso": 0.25,
+          "descripcion": "Cierra con un resultado cuantificado o verificable y con lo que aprendió.",
+          "ejemplos_alto": "Entregamos un día antes y reducimos las diferencias de 12 a 2 partidas.",
+          "ejemplos_bajo": "Al final todo salió bien."
+        },
+        {
+          "nombre": "Estructura y duración",
+          "tipo": "blando",
+          "peso": 0.1,
+          "descripcion": "Sigue el orden Situación-Tarea-Acción-Resultado y cabe en 60-90 segundos (unas 150-225 palabras).",
+          "ejemplos_bajo": "Respuesta de 20 segundos o de varios minutos sin orden."
+        },
+        {
+          "nombre": "Comunicación y seguridad",
+          "tipo": "blando",
+          "peso": 0.1,
+          "descripcion": "Habla claro y con seguridad, sin arrogancia ni rodeos."
+        },
+        {
+          "nombre": "Autocrítica y aprendizaje",
+          "tipo": "blando",
+          "peso": 0.1,
+          "descripcion": "Reconoce errores o límites sin excusas y muestra qué aprendió o cambiaría (humildad, escucha).",
+          "ejemplos_alto": "Si lo repitiera, avisaría antes del error en vez de esperar.",
+          "ejemplos_bajo": "No he tenido errores ni desacuerdos."
+        }
+      ]
+    },
+    "tecnica": {
+      "titulo": "Técnica de la industria",
+      "criterios": [
+        {
+          "nombre": "Precisión del concepto o framework",
+          "tipo": "tecnico",
+          "peso": 0.3,
+          "descripcion": "Usa bien el concepto, la fórmula o el framework que pide la pregunta (EBITDA, 5Cs, 4Ps, MECE, TEA...)."
+        },
+        {
+          "nombre": "Estructura del razonamiento",
+          "tipo": "tecnico",
+          "peso": 0.25,
+          "descripcion": "Ordena el razonamiento en pasos o ramas claras (MECE) y llega a una conclusión.",
+          "ejemplos_bajo": "Enumera ideas sueltas sin conectarlas ni concluir."
+        },
+        {
+          "nombre": "Contexto peruano y ejemplos",
+          "tipo": "tecnico",
+          "peso": 0.15,
+          "descripcion": "Aterriza en el mercado peruano o en un ejemplo real (régimen MYPE, canal tradicional, dolarización...)."
+        },
+        {
+          "nombre": "Comunicación y seguridad",
+          "tipo": "blando",
+          "peso": 0.15,
+          "descripcion": "Explica con claridad y seguridad, sin jerga innecesaria."
+        },
+        {
+          "nombre": "Honestidad intelectual y supuestos",
+          "tipo": "blando",
+          "peso": 0.15,
+          "descripcion": "Declara sus supuestos y reconoce lo que no sabe en vez de inventar.",
+          "ejemplos_alto": "Asumo que la tasa es anual; si no, ajustaría.",
+          "ejemplos_bajo": "Responde con seguridad algo que no sabe."
+        }
+      ]
+    },
+    "fit": {
+      "titulo": "Fit con la empresa",
+      "criterios": [
+        {
+          "nombre": "Motivación específica",
+          "tipo": "tecnico",
+          "peso": 0.3,
+          "descripcion": "La motivación es concreta (un dato, una campaña, un reporte, un producto) y no un cliché.",
+          "ejemplos_alto": "Me interesa Belcorp por el giro a digital de Esika, que pasó de 34% a más pedidos por app.",
+          "ejemplos_bajo": "Quiero aprender y crecer en una empresa líder."
+        },
+        {
+          "nombre": "Conocimiento de la empresa y el rol",
+          "tipo": "tecnico",
+          "peso": 0.25,
+          "descripcion": "Demuestra que conoce la empresa, la industria y qué hace el puesto."
+        },
+        {
+          "nombre": "Diferencial concreto",
+          "tipo": "tecnico",
+          "peso": 0.2,
+          "descripcion": "Dice qué aporta que otros postulantes no, con un ejemplo o evidencia."
+        },
+        {
+          "nombre": "Comunicación y seguridad",
+          "tipo": "blando",
+          "peso": 0.15,
+          "descripcion": "Se expresa con claridad y seguridad, sin exagerar."
+        },
+        {
+          "nombre": "Coherencia y honestidad",
+          "tipo": "blando",
+          "peso": 0.1,
+          "descripcion": "Su historia es coherente y creíble; evita respuestas de manual ('soy muy perfeccionista')."
+        }
+      ]
+    },
+    "perfil": {
+      "titulo": "Perfil personal y preguntas de criterio",
+      "criterios": [
+        {
+          "nombre": "Autoconocimiento con evidencia",
+          "tipo": "tecnico",
+          "peso": 0.35,
+          "descripcion": "Reconoce un rasgo, límite o preferencia real y lo respalda con un ejemplo concreto, sin clichés ni respuestas de manual.",
+          "ejemplos_alto": "Me cuesta delegar: en el cierre de octubre rehice una conciliación que ya estaba bien.",
+          "ejemplos_bajo": "Soy muy perfeccionista y me exijo demasiado."
+        },
+        {
+          "nombre": "Acción o argumento concreto",
+          "tipo": "tecnico",
+          "peso": 0.3,
+          "descripcion": "Dice qué hace al respecto (plan de mejora) o defiende su postura con argumentos y un ejemplo, no solo con una opinión."
+        },
+        {
+          "nombre": "Comunicación y seguridad",
+          "tipo": "blando",
+          "peso": 0.15,
+          "descripcion": "Se expresa con claridad y seguridad, sin arrogancia ni rodeos."
+        },
+        {
+          "nombre": "Coherencia y honestidad",
+          "tipo": "blando",
+          "peso": 0.2,
+          "descripcion": "Su respuesta es coherente y creíble, sin exagerar ni esquivar la pregunta; no depende de un discurso aprendido."
+        }
+      ]
+    }
+  }
+}
