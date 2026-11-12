@@ -28,6 +28,7 @@ if str(ROOT) not in sys.path:
 
 from ai.evaluator import EvaluationError, Feedback, evaluate_response  # noqa: E402
 from ai.guion import GuionError, generar_guion  # noqa: E402
+from ai.interview_evaluator import evaluate_interview_answer, segundos_estimados  # noqa: E402
 from ai.rag import recuperar  # noqa: E402
 from ai.transcribe import ERROR_PREFIX, transcribe_audio  # noqa: E402
 from app.pdf_export import TIPO_TITULOS, feedback_to_pdf, guion_to_pdf  # noqa: E402
@@ -443,6 +444,78 @@ def guion_view(feedback: Feedback, case: dict, transcript: str) -> None:
 
 
 # ---------- Modo: Entrevista 1-a-1 ----------
+def interview_answer_view(question: dict, tipo: str) -> None:
+    """Módulo 2: graba (o escribe) la respuesta, la transcribe y la evalúa contra la rúbrica de su eje."""
+    st.markdown("---")
+    st.markdown("### 🎤 Responde la pregunta")
+    st.caption("Idealmente en 60–90 segundos. Graba tu respuesta o escríbela: el evaluador la contrasta con lo que busca el entrevistador.")
+    nonce = st.session_state.get("iv_nonce", 0)
+    recorded = audio_recorder(text="Haz clic para grabar (se detiene tras 3 s de silencio)", pause_threshold=3.0,
+                              sample_rate=16000, key=f"iv_recorder_{nonce}")
+    with st.expander("¿No funciona el micrófono? Sube un audio"):
+        uploaded = st.file_uploader("Audio (MP3, WAV, M4A, WEBM)", type=["mp3", "wav", "m4a", "webm"], key=f"iv_uploader_{nonce}")
+    audio_bytes = (uploaded.getvalue() if uploaded else None) or recorded
+
+    if audio_bytes:
+        digest = hashlib.sha256(audio_bytes).hexdigest()
+        if st.session_state.get("iv_digest") != digest:
+            with st.spinner("Transcribiendo con Whisper..."):
+                texto = transcribe_audio(audio_bytes)
+            st.session_state.update(iv_digest=digest, iv_texto=texto, iv_feedback=None)
+        st.audio(audio_bytes)
+        transcript = st.text_area("Transcripción (puedes corregirla antes de evaluar)", value=st.session_state.iv_texto,
+                                  key=f"iv_transcript_{digest}", height=160)
+    else:
+        transcript = st.text_area("O escribe tu respuesta", key=f"iv_manual_{nonce}", height=160)
+    if transcript.startswith(ERROR_PREFIX):
+        st.error(f"No se pudo transcribir el audio: {transcript.removeprefix(ERROR_PREFIX).strip()} "
+                 "También puedes escribir tu respuesta a mano.")
+
+    if transcript.strip() and not transcript.startswith(ERROR_PREFIX):
+        segundos = segundos_estimados(transcript)
+        st.caption(f"{len(transcript.split())} palabras ≈ {segundos} s (ideal: 60–90 s).")
+    guardado = st.session_state.get("iv_feedback")
+    ya_evaluada = bool(guardado and guardado["pregunta"] == question["pregunta"] and guardado["transcript"] == transcript)
+    puede = bool(transcript.strip()) and not transcript.startswith(ERROR_PREFIX)
+    if st.button("Evaluar respuesta", type="primary", disabled=not puede, key="iv_evaluar"):
+        if ya_evaluada:
+            st.info("Esta respuesta ya está evaluada. Edita el texto si quieres evaluar una versión nueva.")
+        else:
+            with st.spinner("Evaluando tu respuesta..."):
+                try:
+                    feedback = evaluate_interview_answer(transcript, question, tipo)
+                except EvaluationError as exc:
+                    st.error(f"No se pudo evaluar: {exc}")
+                else:
+                    st.session_state.iv_feedback = {"pregunta": question["pregunta"], "transcript": transcript, "feedback": feedback}
+    guardado = st.session_state.get("iv_feedback")
+    if guardado and guardado["pregunta"] == question["pregunta"]:
+        interview_feedback_view(guardado["feedback"])
+
+
+def interview_feedback_view(feedback: Feedback) -> None:
+    """Feedback de la entrevista: puntaje, criterios con su comentario, fortaleza, mejoras y red flags."""
+    st.markdown("---")
+    st.markdown("### 📋 Tu feedback")
+    st.metric("Puntaje total", f"{feedback.puntaje_total}/100")
+    if feedback.puntaje_por_tipo:
+        columnas = st.columns(len(feedback.puntaje_por_tipo))
+        for columna, (tipo, puntaje) in zip(columnas, feedback.puntaje_por_tipo.items()):
+            columna.metric("Contenido" if tipo == "tecnico" else "Cómo lo comunicas" if tipo == "blando" else tipo, f"{puntaje}/100")
+    for c in feedback.criterios:
+        peso = f" ({round((c.peso or 0) * 100)} %)" if c.peso else ""
+        st.progress(c.puntaje / 10, text=f"{c.nombre}{peso}: {c.puntaje}/10")
+        with st.expander(f"Comentario — {c.nombre}"):
+            st.write(c.comentario)
+    st.success(f"**Fortaleza principal:** {feedback.fortaleza_principal}")
+    st.warning("**Tres cosas a mejorar:**\n\n" + "\n".join(f"- {x}" for x in feedback.tres_cosas_a_mejorar))
+    if feedback.red_flags_detectados:
+        st.error("**Red flags:**\n\n" + "\n".join(f"- {x}" for x in feedback.red_flags_detectados))
+    with st.expander("Ver un ejemplo ilustrativo de buena respuesta"):
+        st.info(feedback.respuesta_modelo)
+        st.caption("Es un esquema de ejemplo, no tu experiencia: úsalo para ver la estructura.")
+
+
 def interview_page() -> None:
     """Pregunta aleatoria del banco según el tipo elegido (solo lectura por ahora)."""
     label = st.sidebar.selectbox("Tipo de pregunta", list(QUESTION_TYPES))
@@ -464,6 +537,9 @@ def interview_page() -> None:
         options = [q for q in questions if q != previous] or questions
         current = {"tipo": tipo, "question": random.choice(options)}
         st.session_state.interview_question = current
+        # Pregunta nueva: widgets de grabación nuevos (clave nueva) y sin respuesta ni feedback de la anterior.
+        st.session_state.iv_nonce = st.session_state.get("iv_nonce", 0) + 1
+        st.session_state.update(iv_digest=None, iv_feedback=None)
 
     question = current["question"]
     st.markdown(banda_generica("🎙️ Práctica con el jefe final", [label, question["subtema"]], tema), unsafe_allow_html=True)
@@ -471,10 +547,7 @@ def interview_page() -> None:
     st.caption("Respóndela en voz alta, como si el jefe final estuviera frente a ti.")
     with st.expander("Pista del entrevistador (míralo después de responder)"):
         st.write(question["hint"])
-    st.info(
-        "Por ahora este modo solo te muestra preguntas del banco. La grabación y el "
-        "feedback STAR + técnica + fit llegan en la siguiente versión."
-    )
+    interview_answer_view(question, tipo)
 
 
 # ---------- Main ----------
