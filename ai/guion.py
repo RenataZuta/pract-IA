@@ -15,6 +15,7 @@ from groq import Groq, GroqError
 from loguru import logger
 from pydantic import BaseModel, ValidationError, field_validator
 
+from ai.errores_groq import FALTA_KEY, explicar
 from ai.evaluator import RETRY_MESSAGE, Feedback, _a_entero, _complete, _format_exhibits, _load_prompt
 
 PALABRAS_POR_MINUTO = 150
@@ -62,7 +63,7 @@ def generar_guion(transcript: str, case: dict, feedback: Feedback) -> GuionFinal
     if not transcript.strip():
         raise GuionError("No hay respuesta para convertir en guion.")
     if not os.getenv("GROQ_API_KEY"):
-        raise GuionError("Falta GROQ_API_KEY en el .env.")
+        raise GuionError(FALTA_KEY)
 
     messages = [
         {"role": "system", "content": _load_prompt("guion_system.md")},
@@ -100,7 +101,7 @@ def generar_guion(transcript: str, case: dict, feedback: Feedback) -> GuionFinal
             messages.append({"role": "user", "content": correccion})
     except GroqError as exc:
         logger.error("Error al llamar a Groq para el guion: {}", exc)
-        raise GuionError(f"Error al llamar a Groq: {exc}") from exc
+        raise GuionError(explicar(exc)) from exc
     raise GuionError("No se pudo generar el guion.")  # inalcanzable
 
 

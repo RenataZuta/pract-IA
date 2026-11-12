@@ -13,6 +13,8 @@ from pathlib import Path
 from groq import Groq
 from loguru import logger
 
+from ai.errores_groq import FALTA_KEY, explicar
+
 ERROR_PREFIX = "[ERROR_WHISPER]"
 
 # Firma (magic bytes) -> nombre de archivo. Groq decide el formato por la
@@ -54,7 +56,7 @@ def transcribe_audio(audio_bytes: bytes, language: str = "es") -> str:
     api_key = os.getenv("GROQ_API_KEY")
     if not api_key:
         logger.error("Falta GROQ_API_KEY en el entorno (.env).")
-        return f"{ERROR_PREFIX} Falta GROQ_API_KEY en el .env."
+        return f"{ERROR_PREFIX} {FALTA_KEY}"
 
     try:
         client = Groq(api_key=api_key)
@@ -67,7 +69,7 @@ def transcribe_audio(audio_bytes: bytes, language: str = "es") -> str:
     except Exception as exc:  # red, rate limit, key inválida, formato no soportado
         # Sin traceback: loguru imprimiría las variables locales (audio y API key).
         logger.error("Falló la transcripción con Groq Whisper ({}): {}", type(exc).__name__, exc)
-        return f"{ERROR_PREFIX} {exc}"
+        return f"{ERROR_PREFIX} {explicar(exc)}"
 
 
 def transcribe_file(path: str | Path, language: str = "es") -> str:

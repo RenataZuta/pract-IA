@@ -24,6 +24,7 @@ from groq import BadRequestError, Groq, GroqError
 from loguru import logger
 from pydantic import BaseModel, Field, ValidationError, field_validator
 
+from ai.errores_groq import FALTA_KEY, explicar
 from ai.rag import formatear, recuperar
 
 PROMPTS_DIR = Path(__file__).parent / "prompts"
@@ -105,7 +106,7 @@ def evaluate_response(transcript: str, case: dict, rubric: dict) -> Feedback:
     if not transcript.strip():
         raise EvaluationError("La transcripción está vacía; no hay nada que evaluar.")
     if not os.getenv("GROQ_API_KEY"):
-        raise EvaluationError("Falta GROQ_API_KEY en el .env.")
+        raise EvaluationError(FALTA_KEY)
 
     aplicables = criterios_aplicables(rubric, case)
     material = _recuperar_material(transcript, case)
@@ -148,7 +149,7 @@ def evaluate_response(transcript: str, case: dict, rubric: dict) -> Feedback:
         raise EvaluationError("El evaluador devolvió un JSON inválido dos veces.") from exc
     except GroqError as exc:
         logger.error("Error al llamar a Groq: {}", exc)
-        raise EvaluationError(f"Error al llamar a Groq: {exc}") from exc
+        raise EvaluationError(explicar(exc)) from exc
     raise EvaluationError("El evaluador no devolvió feedback.")  # inalcanzable; satisface al type checker
 
 

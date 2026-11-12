@@ -247,8 +247,8 @@ def recording_view(case: dict, industry: str) -> None:
     )
     if transcript.startswith(ERROR_PREFIX):
         st.error(
-            "No se pudo transcribir el audio. Revisa tu GROQ_API_KEY o vuelve a grabar; "
-            "también puedes escribir tu respuesta a mano en el cuadro de arriba."
+            f"No se pudo transcribir el audio: {transcript.removeprefix(ERROR_PREFIX).strip()} "
+            "También puedes escribir tu respuesta a mano en el cuadro de arriba."
         )
 
     can_evaluate = bool(transcript.strip()) and not transcript.startswith(ERROR_PREFIX)
