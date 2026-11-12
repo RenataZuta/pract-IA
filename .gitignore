@@ -52,3 +52,6 @@ logs/
 # ChromaDB
 chroma_db/
 .chroma/
+
+# Caché del agente verificador (hechos ya verificados)
+ai/audits/.cache/
