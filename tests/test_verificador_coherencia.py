@@ -31,3 +31,16 @@ def test_cifra_ajena_al_caso_se_senala_con_su_ubicacion():
 def test_puntajes_anios_y_conteos_chicos_no_se_contrastan():
     f = _feedback(fortaleza_principal="Sacó 85/100 en 2026 y dio 3 razones en 2 minutos.")
     assert revisar_feedback(f, cargar_caso("banca_01_credito_pyme.json")) == []
+
+
+def test_la_rubrica_compacta_conserva_todo_su_contenido():
+    import json
+
+    from ai.evaluator import _format_rubric
+    rubrica = json.loads((cargar_caso.__globals__["ROOT"] / "ai" / "rubrics" / "banca.json").read_text(encoding="utf-8"))
+    enviado = json.loads(_format_rubric(rubrica, ()))
+    assert [c["nombre"] for c in enviado["criterios"]] == [c["nombre"] for c in rubrica["criterios"]]
+    for original, c in zip(rubrica["criterios"], enviado["criterios"]):
+        assert c["descripcion"] == original["descripcion"] and c["peso_pct"] == round(original["peso"] * 100, 1)
+        assert c.get("ejemplos_alto", "") == original.get("ejemplos_alto", "")
+        assert c.get("ejemplos_bajo", "") == original.get("ejemplos_bajo", "")

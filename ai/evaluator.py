@@ -330,13 +330,13 @@ def _format_rubric(rubric: dict, no_aplican: list[str] | tuple) -> str:
                 "tipo": c.get("tipo", "tecnico"),
                 "peso_pct": round(c["peso"] * 100, 1),
                 "descripcion": c["descripcion"],
-                "ejemplos_alto": c.get("ejemplos_alto", ""),
-                "ejemplos_bajo": c.get("ejemplos_bajo", ""),
+                # los campos vacíos no se envían: cada token cuenta (el plan gratuito da 8K por minuto)
+                **{k: c[k] for k in ("ejemplos_alto", "ejemplos_bajo") if c.get(k)},
             }
             for c in rubric["criterios"]
         ],
     }
-    texto = json.dumps(data, ensure_ascii=False, indent=2)
+    texto = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
     if no_aplican:
         texto += "\n\nNo aplican a este caso (no los evalúes): " + ", ".join(no_aplican) + "."
     return texto

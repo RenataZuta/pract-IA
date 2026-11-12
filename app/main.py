@@ -252,22 +252,27 @@ def recording_view(case: dict, industry: str) -> None:
         )
 
     can_evaluate = bool(transcript.strip()) and not transcript.startswith(ERROR_PREFIX)
+    previo = st.session_state.get("feedback")
+    ya_evaluada = bool(previo and previo["case_id"] == case["id"] and previo["transcript"] == transcript)
     if st.button("Evaluar respuesta", type="primary", disabled=not can_evaluate):
-        with st.spinner("Evaluando tu respuesta..."):
-            try:
-                feedback = evaluate_response(transcript, case, load_rubric(industry))
-            except EvaluationError as exc:
-                st.error(f"No se pudo evaluar: {exc}")
-            else:
-                st.session_state.guion = None
-                st.session_state.setdefault("historial", {}).setdefault(case["id"], []).append(
-                    {"total": feedback.puntaje_total, "por_tipo": dict(feedback.puntaje_por_tipo)}
-                )
-                st.session_state.feedback = {
-                    "case_id": case["id"],
-                    "feedback": feedback,
-                    "transcript": transcript,
-                }
+        if ya_evaluada:  # misma respuesta, mismo caso: otra llamada gastaría ~6K tokens para el mismo resultado
+            st.info("Esta respuesta ya está evaluada. Edita el texto si quieres evaluar una versión nueva.")
+        else:
+            with st.spinner("Evaluando tu respuesta..."):
+                try:
+                    feedback = evaluate_response(transcript, case, load_rubric(industry))
+                except EvaluationError as exc:
+                    st.error(f"No se pudo evaluar: {exc}")
+                else:
+                    st.session_state.guion = None
+                    st.session_state.setdefault("historial", {}).setdefault(case["id"], []).append(
+                        {"total": feedback.puntaje_total, "por_tipo": dict(feedback.puntaje_por_tipo)}
+                    )
+                    st.session_state.feedback = {
+                        "case_id": case["id"],
+                        "feedback": feedback,
+                        "transcript": transcript,
+                    }
 
     saved = st.session_state.get("feedback")
     if saved and saved["case_id"] == case["id"]:
