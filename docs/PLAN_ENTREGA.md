@@ -59,10 +59,11 @@ Link del repo: https://github.com/RenataZuta/pract-IA
 
 Herramientas del curso que usa:
 - Whisper large-v3 (sesión 13): ai/transcribe.py
-- LLM con salidas estructuradas (sesión 8): ai/evaluator.py, ai/guion.py
+- LLM con salidas estructuradas (sesión 8): ai/evaluator.py, ai/interview_evaluator.py, ai/guion.py
 - RAG (sesión 8): ai/rag.py
+(Además, para auditar los casos: un agente verificador con el patrón de la sesión 11, sin crewAI: ai/verifier/)
 
-Video de respaldo: <PEGA AQUÍ EL LINK DEL VIDEO DE 60–90 s>
+Video de respaldo: <PEGA AQUÍ EL LINK DEL VIDEO, o escribe: "lo agrego en este mismo comentario antes del lunes 16, 11:59 p. m.">
 ```
 
 Notas: el PDF permite seguir haciendo commits hasta la presentación, pero **el link debe estar antes del lunes 16 a las 23:59**. Si aún no grabaste el video, publica con el resto y edita tu comentario cuando lo tengas (antes de esa hora). Antes de publicar, abre el repo en una ventana de incógnito y confirma que es público y que el README se ve bien.
