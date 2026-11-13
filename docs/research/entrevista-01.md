@@ -1,12 +1,12 @@
 # Entrevista 01 — Banca
 
-**Fecha:** 2026-11 (día exacto no registrado en el audio)
+**Fecha:** 2026-11-10
 **Entrevistado:** H.
 **Empresa actual:** Un banco (no nombrado en la entrevista)
 **Cargo actual:** Auditoría de riesgos de banca mayorista, área de data · años en la empresa: no mencionado
 **Práctica inicial:** Proceso para asistente, por recomendación de su jefe; venía de auditoría de riesgos de banca minorista. La convocatoria se repite dos veces al año; fecha no mencionada
 **Duración:** 13 min
-**Canal:** No mencionado en la grabación
+**Canal:** Google Meet
 
 ## Perfil en una línea
 Auditor de riesgos que pasó por las tres fases de un proceso bancario (convocatoria, group case, entrevista con gerentes) y lo conoce desde adentro.

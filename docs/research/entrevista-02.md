@@ -1,12 +1,12 @@
 # Entrevista 02 — FMCG
 
-**Fecha:** 2026-11 (día exacto no registrado en el audio)
+**Fecha:** 2026-11-10
 **Entrevistado:** M.
 **Empresa actual:** Empresa de consumo masivo (no nombrada). Postuló a los trainee de Backus y AJE (confirmado por ReMar el 12-nov: es AJE; la transcripción automática decía «AGE»)
 **Cargo actual:** Trainee de finanzas comerciales (opex, CAPEX, business cases) · años en la empresa: no mencionado
 **Práctica inicial:** Programa trainee formal, no práctica regular; fecha no mencionada
 **Duración:** 11 min
-**Canal:** No mencionado en la grabación
+**Canal:** Google Meet
 
 ## Perfil en una línea
 Trainee de finanzas comerciales que, al no encontrar a nadie que le contara cómo era el proceso, pagó un programa para simular la dinámica grupal.

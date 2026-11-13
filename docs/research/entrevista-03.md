@@ -1,12 +1,12 @@
 # Entrevista 03 — Consultoría
 
-**Fecha:** 2026-11 (día exacto no registrado en el audio)
+**Fecha:** 2026-11-10
 **Entrevistado:** C.
 **Empresa actual:** Consultora (no nombrada); su primera práctica fue en una Big Four
 **Cargo actual:** Practicante de consultoría · recién contratada
 **Práctica inicial:** Es su segunda práctica (la primera, en finanzas, en una Big Four). Llegó a la consultora gracias a un profesor; fecha no mencionada
 **Duración:** 15 min
-**Canal:** No mencionado en la grabación
+**Canal:** Google Meet
 
 ## Perfil en una línea
 Practicante en su segunda experiencia, con formación en econometría, que se preparó con material de la universidad y no sintió que partía de cero.
