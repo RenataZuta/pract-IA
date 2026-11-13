@@ -35,7 +35,7 @@ sección 9).
 ## Preparación de la presentación (martes 17 y miércoles 18)
 
 - [ ] Ensayo con cronómetro: 3 minutos exactos. El profe corta a los 3:00.
-- [x] Guion del demo (segundos): _ver `docs/GUION_DEMO.md`_
+- [x] Guion del demo (segundos): _hecho, es personal y no está en el repo_
       - 0:00–0:30 El problema (quién lo sufre, cuánto le cuesta).
       - 0:30–2:30 Demo en vivo (un flujo completo, de verdad).
       - 2:30–3:00 El negocio (quién paga, cuánto, qué sigue).

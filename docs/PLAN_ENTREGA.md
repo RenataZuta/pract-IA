@@ -91,7 +91,7 @@ Reglas: un commit por tarea, mensaje en español (`feat:` `fix:` `docs:` `test:`
 
 ### Sáb 14-nov — producto y evidencia: ✅ ADELANTADO el 12-nov
 - ✅ `feat: el módulo 2 graba o recibe tu respuesta y la evalúa` (probado con la API real; la duración la mide el código)
-- ✅ `docs: guion del demo de 3 minutos con tiempos, plan B y preguntas probables` (`docs/GUION_DEMO.md`)
+- ✅ Guion del demo de 3 minutos (personal, fuera del repo)
 - **Lo que sí toca el 14 (tuyo):** ensayar el guion con cronómetro y compartiendo pantalla; completar fecha y canal de las 3 entrevistas y confirmar «AJE» (`docs/research/`, tuyo).
 
 ### Dom 15-nov — despliegue final y pruebas con 2 personas

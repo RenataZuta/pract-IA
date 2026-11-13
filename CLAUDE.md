@@ -62,7 +62,7 @@ Esto NO es un proyecto libre. Hay restricciones duras:
 - `ai/errores_groq.py::explicar` traduce los errores de Groq (429 por minuto o por día, key inválida, modelo dado de baja, 5xx, sin conexión) a mensajes que dicen qué hacer; lo usan evaluador, guion y Whisper.
 - Plan B del micrófono (group case): botón «Usar la respuesta de referencia como ejemplo» dentro de «¿No funciona el micrófono?». Evaluar dos veces el mismo texto no vuelve a llamar a Groq (ambos módulos). `app/main.py::coherencia_view` avisa de cifras del feedback que no salen del caso (`ai/verifier/coherencia.py`, sin tokens).
 - Pruebas: 141 en `tests/` (`pytest`, sin red ni API; la app se prueba con `streamlit.testing`). `scripts/cuota.py` muestra lo que queda de cuota de Groq.
-- Para el demo: `docs/GUION_DEMO.md`. Una sola evaluación en vivo.
+- Para el demo: una sola evaluación en vivo (el guion de ReMar es personal y no vive en el repo).
 
 ## Agente verificador de casos (`ai/verifier/`)
 

@@ -215,7 +215,6 @@ practia/
 ├── docs/
 │   ├── PractIA_Banco_Preguntas.pdf   # Fuente del corpus de preguntas (M2)
 │   ├── PractIA_Guia_Entrevistas.pdf  # Guía de las 3 entrevistas de validación
-│   ├── GUION_DEMO.md      # Guion del demo de 3 minutos, plan B y preguntas probables
 │   ├── AGENTE_VERIFICADOR.md  # Agente verificador: diseño, medición y límites
 │   ├── PLAN_ENTREGA.md    # Checklist de la app, borrador del issue #205 y plan de commits
 │   ├── research/          # 3 entrevistas de validación
