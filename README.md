@@ -14,7 +14,7 @@
 
 Estudiante de Economía en Universidad del Pacífico (10.º ciclo, graduación jul. 2027), tercio superior. Asistente de Investigación del Centro de Estudios sobre Energía, Minería y Sostenibilidad.
 
-**Por qué soy la persona indicada:** soy postulante activa a programas de prácticas (Interbank, Nexa Resources, Repsol), así que vivo el problema en primera persona. Y vengo de finanzas: pude escribir yo misma las rúbricas y revisar las cifras de los casos de banca (crédito PYME, pricing, portafolio), que es donde un simulador genérico falla.
+**Por qué soy la persona indicada:** Fui postulante activa a programas de prácticas (Interbank, Nexa Resources, Repsol), así que viví el problema en primera persona. Y vengo de finanzas: pude escribir yo misma las rúbricas y revisar las cifras de los casos de banca (crédito PYME, pricing, portafolio), que es donde un simulador genérico falla con ayuda de la IA.
 
 **Cómo cubro producto, ingeniería, diseño y ventas con agentes de IA** (una sola persona, sin equipo):
 
