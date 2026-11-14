@@ -10,7 +10,7 @@
 
 <img src="docs/founder.jpg" alt="Ana Renata Zuta Luyo, founder de PractIA" width="220">
 
-**Ana Renata Zuta Luyo** · *Postulante a prácticas que arma el simulador que le hubiera gustado tener, con finanzas para escribir las rúbricas y agentes de IA para construirlo sola.*
+**Ana Renata Zuta Luyo** · *Postulé a diversas prácticas que han podido ayudarme a armar el simulador que me hubiese gustado tener, tiene temas de finanzas y con ello, se ha podido escribir las rúbricas y agentes de IA para construirlo sola.*
 
 Estudiante de Economía en Universidad del Pacífico (10.º ciclo, graduación jul. 2027), tercio superior. Asistente de Investigación del Centro de Estudios sobre Energía, Minería y Sostenibilidad.
 
