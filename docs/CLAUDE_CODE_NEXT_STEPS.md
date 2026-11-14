@@ -55,9 +55,9 @@ Probado de punta a punta con la API real (subiendo un audio) y con capturas en
    `GROQ_API_KEY = "gsk_..."`
 4. Espera 3-5 min al build. Guarda la URL en el README (sección 6).
 
-## Tarea 5 — Procesar los audios de las entrevistas (~30 min, cuando ReMar los tenga)
+## Tarea 5 — Procesar los audios de las entrevistas (~30 min, cuando Renata los tenga)
 
-ReMar está consiguiendo 3 audios de ~17 min cada uno (banca, FMCG,
+Renata está consiguiendo 3 audios de ~17 min cada uno (banca, FMCG,
 consultoría).
 
 1. Cuando los tenga, deben ir a:

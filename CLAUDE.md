@@ -1,6 +1,6 @@
 # Contexto para Claude Code — PractIA
 
-Este archivo es para que **cualquier sesión de Claude Code** retome el proyecto sin que ReMar tenga que explicar todo de nuevo. Léelo primero.
+Este archivo es para que **cualquier sesión de Claude Code** retome el proyecto sin que Renata tenga que explicar todo de nuevo. Léelo primero.
 
 ## Qué es PractIA
 
@@ -21,9 +21,8 @@ Ver `README.md` para el pitch completo.
 
 ## Contexto de la fundadora
 
-- **ReMar** (Ana Renata Zuta), estudiante de Economía en UP, 10.º ciclo, tercio superior.
-- Internship actual: Lima Expresa (planeamiento financiero).
-- Internship previo: Crece Finanzas Estratégicas (crédito SME).
+- **Renata** (Ana Renata Zuta Luyo), estudiante de Economía en Universidad del Pacífico, 10.º ciclo (graduación jul. 2027), tercio superior.
+- Asistente de Investigación del Centro de Estudios sobre Energía, Minería y Sostenibilidad.
 - Preferencia explícita: **no toques sus archivos Excel sin pedir permiso**. Si detectas que un script podría modificar un `.xlsx` de ella, pregunta antes.
 - Idioma: español peruano. Todo el UI, prompts y feedback van en español.
 
@@ -35,7 +34,7 @@ Esto NO es un proyecto libre. Hay restricciones duras:
 2. **Demo en vivo obligatoria:** 3 minutos exactos. El profe corta a los 3:00. El demo vale 8 de 20 puntos: URL pública en vivo = 7–8 pts, laptop = 4–6 pts, solo diapositivas = 0 pts.
 3. **Al menos 2 herramientas del syllabus dentro del producto** (no solo en desarrollo). Las elegidas: Whisper (sesión 13) + LLMs con RAG (sesión 8). El RAG hoy es ligero (BM25, `ai/rag.py`); el de memorias anuales con ChromaDB sigue por construir. Document AI y TTS son opcionales de refuerzo.
 4. **Repo público** con 9 secciones de README (ya están en README.md).
-5. **3 conversaciones con usuarios potenciales** en `docs/research/` — ya están transcritas y sintetizadas (`entrevista-0{1,2,3}.md`). Esa carpeta la llena ReMar: no editarla, decirle qué cambiar.
+5. **3 conversaciones con usuarios potenciales** en `docs/research/` — ya están transcritas y sintetizadas (`entrevista-0{1,2,3}.md`). Esa carpeta la llena Renata: no editarla, decirle qué cambiar.
 6. **No subir claves de API al repo** — usar `.env` (ya en `.gitignore`) y `.env.example`.
 7. **Commits en varios días**, no todos el último día.
 
@@ -62,15 +61,15 @@ Esto NO es un proyecto libre. Hay restricciones duras:
 - `ai/errores_groq.py::explicar` traduce los errores de Groq (429 por minuto o por día, key inválida, modelo dado de baja, 5xx, sin conexión) a mensajes que dicen qué hacer; lo usan evaluador, guion y Whisper.
 - Plan B del micrófono (group case): botón «Usar la respuesta de referencia como ejemplo» dentro de «¿No funciona el micrófono?». Evaluar dos veces el mismo texto no vuelve a llamar a Groq (ambos módulos). `app/main.py::coherencia_view` avisa de cifras del feedback que no salen del caso (`ai/verifier/coherencia.py`, sin tokens).
 - Pruebas: 141 en `tests/` (`pytest`, sin red ni API; la app se prueba con `streamlit.testing`). `scripts/cuota.py` muestra lo que queda de cuota de Groq.
-- Para el demo: una sola evaluación en vivo (el guion de ReMar es personal y no vive en el repo).
+- Para el demo: una sola evaluación en vivo (el guion de Renata es personal y no vive en el repo).
 
 ## Agente verificador de casos (`ai/verifier/`)
 
 Audita un caso y guarda `ai/audits/<id>.json|md` (la app lo muestra en `app/verificacion_view.py`). Detalle, medición y límites en `docs/AGENTE_VERIFICADOR.md`; CLI en `scripts/auditar.py`; pruebas en `tests/` (`pytest`, sin red ni API).
 
 - El LLM propone (qué comprobar, qué buscar); **el código calcula y verifica**. Sin cita textual encontrada en una página abierta no hay veredicto (`fuentes.py`). No editar esas reglas para "que salgan más hallazgos".
-- **Cuesta tokens de la cuota de Groq** (200K/día en gpt-oss-120b; ~7K una extracción, ~9K un hecho con web, una llamada por minuto). Antes de correrlo en lote, avisar a ReMar. No lo uses en la demo ni dentro de la app.
-- Nunca editar los casos automáticamente a partir de un informe: el agente propone, ReMar decide.
+- **Cuesta tokens de la cuota de Groq** (200K/día en gpt-oss-120b; ~7K una extracción, ~9K un hecho con web, una llamada por minuto). Antes de correrlo en lote, avisar a Renata. No lo uses en la demo ni dentro de la app.
+- Nunca editar los casos automáticamente a partir de un informe: el agente propone, Renata decide.
 - `tests/fixtures/casos_con_defectos/` son los casos como estaban antes de `384710b`, con sus defectos reales; no "arreglarlos".
 - Pendiente: regenerar los informes tras la cuota diaria: `python -m scripts.auditar caso ai/cases/<caso>.json --max-hechos 1 --sin-cache` y commitear `ai/audits/`.
 
@@ -122,7 +121,7 @@ Prioridad descendente:
 
 1. **[CRÍTICO] Probar el micrófono real** — grabar con `audio_recorder` en el navegador y evaluar; el resto del flujo ya se probó con la API real subiendo un audio.
 2. **[HECHO] Deploy en Streamlit Community Cloud** — https://practia-up.streamlit.app/ (Python 3.11, secret `GROQ_API_KEY`). Probado de punta a punta en la URL pública. Ábrela unos minutos antes de la demo: la app se duerme tras un tiempo sin visitas.
-3. **[HECHO] 3 entrevistas transcritas** en `docs/research/`. Confirmado por ReMar: es AJE (corregido en la 02). Falta que complete fecha y canal de cada una.
+3. **[HECHO] 3 entrevistas transcritas** en `docs/research/`. Confirmado por Renata: es AJE (corregido en la 02). Falta que complete fecha y canal de cada una.
 4. **[HECHO 2026-11-12] Módulo 2: grabar y evaluar.** Ver la sección «Módulo 2» más abajo.
 5. **[HECHO 2026-11-12] Auditoría de cifras de los 12 casos** (commit `384710b`): se recalcularon los anexos contra las pistas y referencias y se corrigieron 10 incongruencias en 8 casos (balance de `banca_01`, payback de `consultoria_02` = CAPEX ÷ (venta anual × margen) con margen 8% / 7.5%, break-even de `fmcg_01`, la referencia de `fmcg_04` decía "no recupero nada" cuando la cuenta sí recupera margen, etc.). Antes ya estaban corregidos `banca_01` (deuda +34%), `consultoria_01` (nota "wait"), `consultoria_02` (8% era una tienda) y `fmcg_01` (Sao 28%). Los competidores "Marca B/C" de `fmcg_01` y `fmcg_04` son ficticios a propósito: Cocinero, Princesa, Triángulo y Costa son marcas de Alicorp y Nestlé. Si se editan anexos, recalcular con los números del anexo antes de tocar la referencia, y mantener las referencias en un largo parecido (el plan gratuito de Groq permite 8K tokens/min).
 6. **[DESEABLE] RAG con memorias anuales** — descargar memorias de BCP, Alicorp, Credicorp (links en `data/sources.md`) e indexar en ChromaDB. `chromadb` y `sentence-transformers` están en `requirements-rag.txt`, fuera de `requirements.txt`, porque arrastran torch y alargan el build del deploy sin que ningún código las use aún; instálalas con `pip install -r requirements-rag.txt` y, si el RAG se despliega, vuelve a pasarlas a `requirements.txt`.
@@ -147,9 +146,9 @@ Prioridad descendente:
 
 ## Qué NO hacer
 
-- No cambiar el stack (Streamlit → Next.js) sin discutirlo con ReMar primero. 7 días no alcanzan.
+- No cambiar el stack (Streamlit → Next.js) sin discutirlo con Renata primero. 7 días no alcanzan.
 - No agregar login/base de datos salvo que esté explícitamente pedido.
 - No usar casos reales con nombres de empresas sin verificar que sean datos públicos.
-- Los 3 audios de las entrevistas de validación (`data/audios/entrevista_0{1,2,3}_*.m4a`) están publicados desde el 12-nov-2026 con el consentimiento de los entrevistados (lo confirmó ReMar). **No subir ningún otro audio ni las transcripciones crudas** (`data/transcripts/`); si un entrevistado pide retirar el suyo, hay que quitarlo del árbol y avisar a ReMar de que el historial de git conserva la copia hasta reescribirlo.
+- Los 3 audios de las entrevistas de validación (`data/audios/entrevista_0{1,2,3}_*.m4a`) están publicados desde el 12-nov-2026 con el consentimiento de los entrevistados (lo confirmó Renata). **No subir ningún otro audio ni las transcripciones crudas** (`data/transcripts/`); si un entrevistado pide retirar el suyo, hay que quitarlo del árbol y avisar a Renata de que el historial de git conserva la copia hasta reescribirlo.
 - No volver a OpenAI/Anthropic: el proveedor es Groq (gratis).
 - No pitchear ChatGPT genérico como competidor principal en el README — la diferenciación es contexto peruano.

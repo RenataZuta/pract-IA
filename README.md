@@ -8,9 +8,11 @@
 
 ## 1. Founder
 
-<!-- FOTO: guarda tu foto en docs/founder.jpg y reemplaza esta línea por: ![Ana Renata Zuta](docs/founder.jpg) -->
+<img src="docs/founder.jpg" alt="Ana Renata Zuta Luyo, founder de PractIA" width="220">
 
-**Ana Renata "ReMar" Zuta Luyo** — estudiante de Economía en Universidad del Pacífico (10.º ciclo, graduación dic. 2026), tercio superior. Analista de Planeamiento Financiero en Lima Expresa (OPEX, control presupuestal). Internship previo en Crece Finanzas Estratégicas (crédito privado, modelado financiero, riesgo SME). Preparando CFA Nivel I.
+**Ana Renata Zuta Luyo** · *Postulante a prácticas que arma el simulador que le hubiera gustado tener, con finanzas para escribir las rúbricas y agentes de IA para construirlo sola.*
+
+Estudiante de Economía en Universidad del Pacífico (10.º ciclo, graduación jul. 2027), tercio superior. Asistente de Investigación del Centro de Estudios sobre Energía, Minería y Sostenibilidad.
 
 **Por qué soy la persona indicada:** soy postulante activa a programas de prácticas (Interbank, Nexa Resources, Repsol), así que vivo el problema en primera persona. Y vengo de finanzas: pude escribir yo misma las rúbricas y revisar las cifras de los casos de banca (crédito PYME, pricing, portafolio), que es donde un simulador genérico falla.
 
