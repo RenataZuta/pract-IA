@@ -11,7 +11,7 @@ sección 9).
 - [x] `.gitignore` que incluya `.env` y audios.
 - [x] Demo funcionando: idealmente URL pública en Streamlit Cloud; mínimo,
       corre en laptop con `streamlit run app/main.py`. _(URL pública abierta en un navegador el 12-nov; falta probar el micrófono real y con 2 personas)_
-- [ ] Video de respaldo de 60-90 segundos con link en el README.
+- [x] Video de respaldo con link en el README. _(14-nov: dura 3 min, no 60-90 s; el enunciado del issue pide 60-90 s)_
 - [x] Diagrama de arquitectura en `docs/architecture/arquitectura.png`.
 - [x] 3 capturas del flujo principal en `docs/architecture/`. _(rehechas el 12-nov con la interfaz final)_
 - [x] 3 notas de entrevistas en `docs/research/entrevista-{01,02,03}.md`. _(falta fecha y canal de cada una)_

@@ -116,7 +116,7 @@ Con la entrevista final pasa lo mismo: no necesitas a otra persona, necesitas **
 
 - **URL pública:** https://practia-up.streamlit.app/ (la app se duerme tras un rato sin visitas; la primera carga puede tardar unos segundos).
 - **Probarlo en 2 minutos:** elige una empresa y un caso en la barra lateral → lee el caso y los anexos → graba tu respuesta (o sube un audio) → corrige la transcripción → *Evaluar respuesta* → revisa el puntaje por tipo de criterio, el comparativo con la referencia y descarga el PDF. Si el micrófono falla, usa «Usar la respuesta de referencia como ejemplo». El módulo **Entrevista 1-a-1** funciona igual: elige un tipo de pregunta, responde y evalúa. El plan gratuito de Groq permite una evaluación por minuto.
-- **Video de respaldo (60–90 s):** _pendiente_ <!-- cuando lo grabes: reemplaza "_pendiente_" por el link -->
+- **Video de respaldo (3 min, un caso completo de principio a fin en la app real):** [Video_Verificable.mp4 en Google Drive](https://drive.google.com/file/d/1qWnRrmVbgUjOFog9ARGZ8a5ZkssjWwrU/view?usp=sharing)
 - **Código:** este repo; el flujo principal está en `app/main.py` → `ai/transcribe.py` → `ai/evaluator.py`.
 - **Cómo correrlo en local:** ver [Cómo correrlo](#cómo-correrlo).
 
